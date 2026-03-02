@@ -12,7 +12,7 @@ function LogoImage({ heroMode }: { heroMode: boolean }) {
       src="/content/logos/Maatilayla.png"
       alt="Maatilayla"
       style={{
-        height: '38px',
+        height: '48px',
         width: 'auto',
         objectFit: 'contain',
         filter: heroMode ? 'brightness(0) invert(1)' : 'none',
@@ -23,7 +23,7 @@ function LogoImage({ heroMode }: { heroMode: boolean }) {
   ) : (
     <span style={{
       fontFamily: 'var(--font-logo)',
-      fontSize: '1.7rem',
+      fontSize: '2rem',
       color,
       lineHeight: 1,
       transition: 'color 0.3s ease',

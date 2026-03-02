@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette Maatilayla — ispirata ai barboncini fulvi */
   --color-primary: #C8614A;
   --color-primary-light: #E8845A;
   --color-primary-pale: #FAE0D0;
@@ -12,27 +11,17 @@
   --color-text: #1a1008;
   --color-text-muted: #6B5040;
 
-  /* Typography */
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Poppins', system-ui, sans-serif;
   --font-logo: 'Great Vibes', cursive;
 
-  /* Border radius */
   --radius-card: 1.5rem;
-  --radius-hero: 2rem;
+  --radius-hero: 1.875rem;
   --radius-btn: 3rem;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
   background-color: var(--color-warm-white);
@@ -41,107 +30,143 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── Apple Liquid Glass — 3 layers ─── */
+/* ═══════════════════════════════════════════
+   APPLE LIQUID GLASS — 3 layer system
+   ─────────────────────────────────────────
+   Layer 1 (base):     backdrop-filter neutro
+   Layer 2 (::before): specular highlight top
+   Layer 3 (border):   rim lighting
+   ═══════════════════════════════════════════ */
 .liquid-glass {
   position: relative;
   overflow: hidden;
-  /* Layer 1: frosted base — saturate basso per non tingere il vetro con lo sfondo */
-  background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(40px) saturate(130%) brightness(1.06);
-  -webkit-backdrop-filter: blur(40px) saturate(130%) brightness(1.06);
-  /* Layer 3: rim borders + depth shadow */
-  border: 1px solid rgba(255, 255, 255, 0.38);
+
+  /* Layer 1 — saturate: 100% = nessuna amplificazione colore sfondo */
+  background: rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(40px) saturate(100%) brightness(1.12);
+  -webkit-backdrop-filter: blur(40px) saturate(100%) brightness(1.12);
+
+  /* Layer 3 — rim lighting su tutti i bordi, più forte in alto */
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.75),   /* top rim — firma Apple */
-    inset 0 -0.5px 0 rgba(0, 0, 0, 0.06),         /* bottom rim sottile */
-    inset 1px 0 rgba(255, 255, 255, 0.15),         /* left rim */
-    inset -1px 0 rgba(255, 255, 255, 0.15),        /* right rim */
-    0 32px 80px rgba(0, 0, 0, 0.25),               /* outer depth */
-    0 6px 20px rgba(0, 0, 0, 0.12);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.80),  /* top rim — la firma Apple */
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.06),
+    inset  1px 0   rgba(255, 255, 255, 0.14),
+    inset -1px 0   rgba(255, 255, 255, 0.14),
+    0 24px 64px rgba(0, 0, 0, 0.28),
+    0  4px 16px rgba(0, 0, 0, 0.10);
 }
 
-/* Layer 2: specular highlight — luce che colpisce il vetro dall'alto */
+/* Layer 2 — specular highlight: gradiente luce dall'alto */
 .liquid-glass::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
+  inset: 0;
+  height: 48%;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.22) 0%,
-    rgba(255, 255, 255, 0.05) 60%,
-    rgba(255, 255, 255, 0.00) 100%
+    rgba(255, 255, 255, 0.20) 0%,
+    rgba(255, 255, 255, 0.04) 65%,
+    transparent 100%
   );
   border-radius: inherit;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Tutto il contenuto del card deve stare sopra il highlight */
-.liquid-glass > * {
-  position: relative;
-  z-index: 1;
-}
+.liquid-glass > * { position: relative; z-index: 1; }
 
-/* ─── Hero buttons ─── */
-.btn-hero-primary {
+
+/* ═══════════════════════════
+   HERO BUTTONS
+   ═══════════════════════════ */
+.btn-hero-primary,
+.btn-hero-outline {
   display: inline-block;
   padding: 0.65rem 1.7rem;
   border-radius: 3rem;
-  background: var(--color-primary);
-  color: #fff;
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  /* smooth per hover E active */
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+              background 0.18s ease, border-color 0.18s ease,
+              filter 0.18s ease;
+}
+
+/* ── Primario (filled) ── */
+.btn-hero-primary {
+  background: var(--color-primary);
+  color: #fff;
   box-shadow: 0 4px 18px rgba(200, 97, 74, 0.45);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-hero-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(200, 97, 74, 0.55);
 }
+/* Press: affonda nel vetro — ombra interna + scala */
+.btn-hero-primary:active {
+  transform: scale(0.96) translateY(1px);
+  box-shadow:
+    inset 0 3px 10px rgba(0, 0, 0, 0.30),
+    inset 0 1px  4px rgba(0, 0, 0, 0.15),
+    0 1px 4px rgba(200, 97, 74, 0.20);
+  filter: brightness(0.88);
+}
 
+/* ── Outline (ghost) ── */
 .btn-hero-outline {
-  display: inline-block;
-  padding: 0.65rem 1.7rem;
-  border-radius: 3rem;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   color: #fff;
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  transition: all 0.2s ease;
+  border: 1.5px solid rgba(255, 255, 255, 0.60);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
 }
 .btn-hero-outline:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.85);
   transform: translateY(-2px);
 }
+/* Press: entra nel vetro — il bordo si "sprofonda" */
+.btn-hero-outline:active {
+  transform: scale(0.96) translateY(1px);
+  background: rgba(0, 0, 0, 0.10);
+  border-color: rgba(255, 255, 255, 0.30);
+  box-shadow:
+    inset 0 3px 12px rgba(0, 0, 0, 0.28),
+    inset 0 1px  6px rgba(0, 0, 0, 0.15),
+    inset 0 0.5px 0  rgba(255, 255, 255, 0.12);
+  filter: brightness(0.90);
+}
 
-/* ─── Navbar pill ─── */
+
+/* ═══════════════════════════
+   NAVBAR PILL
+   ═══════════════════════════ */
 .nav-pill {
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .nav-pill.hero-mode {
   background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.30);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 24px rgba(0,0,0,0.08);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 4px 20px rgba(0,0,0,0.08);
 }
 .nav-pill.scrolled-mode {
-  background: rgba(253, 246, 238, 0.88);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(200, 160, 120, 0.22);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 32px rgba(60,30,10,0.10);
+  background: rgba(253, 246, 238, 0.90);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(200, 160, 120, 0.20);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.70), 0 8px 32px rgba(60,30,10,0.10);
+}
+
+/* Pulse dot badge navbar */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.35); opacity: 0.70; }
 }

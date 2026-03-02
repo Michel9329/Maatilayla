@@ -12,7 +12,7 @@ export default function HeroSection() {
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
     tl.fromTo(cardRef.current,
-      { opacity: 0, x: 60, scale: 0.97 },
+      { opacity: 0, x: 50, scale: 0.97 },
       { opacity: 1, x: 0, scale: 1, duration: 1, delay: 0.4 }
     )
     .fromTo(badgeRef.current,  { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.6')
@@ -25,10 +25,14 @@ export default function HeroSection() {
     <section
       style={{
         position: 'relative',
-        width: '100%',
-        /* Occupa tutto lo schermo dalla cima, navbar ci flotta sopra */
-        minHeight: '100vh',
+        /* Margini laterali + border-radius 30px su tutti i lati */
+        margin: '0 1.5rem',
+        borderRadius: '30px',
         overflow: 'hidden',
+        /* Proporzione 16:7 — simile al mockup originale */
+        aspectRatio: '16 / 7',
+        minHeight: '480px',
+        maxHeight: '85vh',
         background: 'linear-gradient(135deg, #C4956A 0%, #E8845A 40%, #C8A882 100%)',
       }}
     >
@@ -45,35 +49,34 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Overlay scuro leggero — destra più scura per contrasto card */}
+      {/* Overlay scuro leggero destra */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(100deg, rgba(10,5,0,0.05) 0%, rgba(10,5,0,0.30) 100%)',
+          background: 'linear-gradient(100deg, rgba(10,5,0,0.04) 0%, rgba(10,5,0,0.28) 100%)',
         }}
       />
 
-      {/* ─── Liquid Glass Card — posizionata con margini sicuri dalla navbar ─── */}
+      {/* ─── Liquid Glass Card ─── */}
       <div
         ref={cardRef}
         className="liquid-glass"
         style={{
           position: 'absolute',
-          right: '5%',
-          /* top 50% ma compensato verso il basso per la navbar (80px) */
-          top: 'calc(50% + 40px)',
+          right: '4%',
+          top: '50%',
           transform: 'translateY(-50%)',
-          width: 'min(400px, 40%)',
+          width: 'min(400px, 41%)',
           padding: '2rem 2.2rem',
-          borderRadius: '1.6rem',
+          borderRadius: '22px',
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
         }}
       >
-        {/* Badge ENCI·FCI */}
+        {/* Badge */}
         <span
           ref={badgeRef}
           style={{
@@ -103,11 +106,11 @@ export default function HeroSection() {
           ref={titleRef}
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.7rem, 2.8vw, 2.5rem)',
+            fontSize: 'clamp(1.65rem, 2.6vw, 2.4rem)',
             fontWeight: 600,
             lineHeight: 1.2,
             color: '#fff',
-            textShadow: '0 2px 12px rgba(0,0,0,0.2)',
+            textShadow: '0 2px 16px rgba(0,0,0,0.22)',
           }}
         >
           Nasce da noi,{' '}
@@ -119,10 +122,10 @@ export default function HeroSection() {
           ref={descRef}
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.78rem, 1vw, 0.88rem)',
+            fontSize: 'clamp(0.76rem, 1vw, 0.88rem)',
             fontWeight: 300,
             lineHeight: 1.75,
-            color: 'rgba(255,255,255,0.86)',
+            color: 'rgba(255,255,255,0.88)',
           }}
         >
           Ogni barboncino toy fulvo di Maatilayla viene allevato in casa,
