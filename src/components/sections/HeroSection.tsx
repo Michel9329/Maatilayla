@@ -34,161 +34,211 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative w-full overflow-hidden" style={{ borderRadius: '2rem', margin: '0 auto' }}>
-      {/* Background image */}
-      <div className="relative w-full" style={{ aspectRatio: '16/7', minHeight: '520px' }}>
-        <img
-          src="/content/images/hero-bg.jpg"
-          alt="Cucciolo barboncino toy fulvo Maatilayla"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          style={{ borderRadius: '2rem' }}
-        />
+    <section
+      style={{
+        position: 'relative',
+        width: '100%',
+        borderRadius: '2rem',
+        overflow: 'hidden',
+        /* Fallback gradient caldo (visibile finché non c'è l'immagine) */
+        background: 'linear-gradient(135deg, #C4956A 0%, #E8845A 35%, #D4A574 60%, #C8A882 100%)',
+        aspectRatio: '16 / 7',
+        minHeight: '520px',
+      }}
+    >
+      {/* Background image via CSS — nessun broken icon se mancante */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/content/images/hero-bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 30%',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
 
-        {/* Subtle gradient overlay — solo sulla destra per leggibilità */}
-        <div
-          className="absolute inset-0"
-          style={{
-            borderRadius: '2rem',
-            background: 'linear-gradient(105deg, transparent 35%, rgba(30, 15, 5, 0.18) 100%)',
-          }}
-        />
+      {/* Overlay gradiente — migliora leggibilità a destra */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(105deg, rgba(20,10,5,0.08) 0%, rgba(20,10,5,0.28) 100%)',
+        }}
+      />
 
-        {/* Liquid Glass Card — stile Apple Vision Pro */}
-        <div
-          ref={cardRef}
-          className="absolute right-[5%] top-1/2 -translate-y-1/2 flex flex-col gap-5"
+      {/* ─── Liquid Glass Card ─── */}
+      <div
+        ref={cardRef}
+        style={{
+          position: 'absolute',
+          right: '5%',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: 'min(420px, 42%)',
+          padding: '2rem 2.2rem',
+          borderRadius: '1.6rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.1rem',
+          /* Apple Vision Pro liquid glass */
+          background: 'rgba(255, 252, 248, 0.14)',
+          backdropFilter: 'blur(48px) saturate(200%) brightness(1.08)',
+          WebkitBackdropFilter: 'blur(48px) saturate(200%) brightness(1.08)',
+          border: '1px solid rgba(255, 255, 255, 0.38)',
+          boxShadow: [
+            '0 0 0 0.5px rgba(255,255,255,0.28) inset',
+            '0 1px 0 rgba(255,255,255,0.55) inset',
+            '0 -1px 0 rgba(0,0,0,0.04) inset',
+            '0 24px 64px rgba(20, 10, 0, 0.24)',
+            '0 4px 16px rgba(20, 10, 0, 0.10)',
+          ].join(', '),
+        }}
+      >
+        {/* Badge */}
+        <span
+          ref={badgeRef}
           style={{
-            width: 'min(420px, 42%)',
-            padding: '2rem 2.2rem',
-            borderRadius: '1.6rem',
-            /* Apple liquid glass */
-            background: 'rgba(255, 255, 255, 0.13)',
-            backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
-            WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
-            border: '1px solid rgba(255, 255, 255, 0.35)',
-            boxShadow: [
-              '0 0 0 0.5px rgba(255,255,255,0.25) inset',
-              '0 1px 0 rgba(255,255,255,0.55) inset',
-              '0 20px 60px rgba(20, 10, 0, 0.22)',
-              '0 4px 16px rgba(20, 10, 0, 0.10)',
-            ].join(', '),
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.7rem',
+            fontWeight: 600,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.9)',
           }}
         >
-          {/* Badge ENCI·FCI */}
-          <span
-            ref={badgeRef}
-            className="flex items-center gap-2 text-xs font-semibold tracking-widest uppercase"
-            style={{ color: 'rgba(255,255,255,0.88)', fontFamily: 'var(--font-body)', letterSpacing: '0.12em' }}
-          >
-            <span
-              style={{
-                display: 'inline-block',
-                width: 8,
-                height: 8,
-                borderRadius: '50%',
-                background: 'var(--color-primary-light)',
-                flexShrink: 0,
-              }}
-            />
-            Allevamento Amatoriale ENCI · FCI
-          </span>
+          <span style={{
+            display: 'inline-block',
+            width: 7,
+            height: 7,
+            borderRadius: '50%',
+            background: '#F2A882',
+            flexShrink: 0,
+          }} />
+          Allevamento Amatoriale ENCI · FCI
+        </span>
 
-          {/* Titolo */}
-          <h1
-            ref={titleRef}
+        {/* Titolo */}
+        <h1
+          ref={titleRef}
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(1.75rem, 3vw, 2.55rem)',
+            fontWeight: 600,
+            lineHeight: 1.2,
+            color: '#ffffff',
+            textShadow: '0 1px 8px rgba(0,0,0,0.15)',
+          }}
+        >
+          Nasce da noi,{' '}
+          <em style={{ fontStyle: 'italic', color: 'rgba(255,245,235,0.95)' }}>
+            cresce con te.
+          </em>
+        </h1>
+
+        {/* Testo */}
+        <p
+          ref={descRef}
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.78rem, 1.05vw, 0.9rem)',
+            fontWeight: 300,
+            lineHeight: 1.75,
+            color: 'rgba(255,255,255,0.84)',
+          }}
+        >
+          Ogni barboncino toy fulvo di Maatilayla viene allevato in casa,
+          a contatto con la famiglia, con protocolli scientifici di
+          stimolazione neurologica e test genetici sui riproduttori.
+          Perché un cucciolo sano e equilibrato non è fortuna — è scelta.
+        </p>
+
+        {/* CTA */}
+        <div ref={btnsRef} style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', paddingTop: '0.25rem' }}>
+          <Link
+            to="/chi-siamo"
             style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(1.7rem, 3vw, 2.5rem)',
-              fontWeight: 600,
-              lineHeight: 1.2,
+              display: 'inline-block',
+              padding: '0.65rem 1.7rem',
+              borderRadius: '3rem',
+              background: 'var(--color-primary)',
               color: '#fff',
-            }}
-          >
-            Nasce da noi,{' '}
-            <em style={{ fontStyle: 'italic', color: 'rgba(255,255,255,0.92)' }}>
-              cresce con te.
-            </em>
-          </h1>
-
-          {/* Descrizione */}
-          <p
-            ref={descRef}
-            style={{
               fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(0.82rem, 1.1vw, 0.95rem)',
-              fontWeight: 300,
-              lineHeight: 1.7,
-              color: 'rgba(255,255,255,0.82)',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              boxShadow: '0 4px 18px rgba(200,97,74,0.4)',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLElement
+              el.style.transform = 'translateY(-2px)'
+              el.style.boxShadow = '0 8px 24px rgba(200,97,74,0.5)'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLElement
+              el.style.transform = 'translateY(0)'
+              el.style.boxShadow = '0 4px 18px rgba(200,97,74,0.4)'
             }}
           >
-            Ogni barboncino toy fulvo di Maatilayla viene allevato in casa,
-            a contatto con la famiglia, con protocolli scientifici di
-            stimolazione neurologica e test genetici sui riproduttori.
-            Perché un cucciolo sano e equilibrato non è fortuna — è scelta.
-          </p>
+            Chi Siamo
+          </Link>
 
-          {/* CTA Buttons */}
-          <div ref={btnsRef} className="flex items-center gap-3 flex-wrap">
-            <Link
-              to="/chi-siamo"
-              style={{
-                display: 'inline-block',
-                padding: '0.7rem 1.8rem',
-                borderRadius: '3rem',
-                background: 'var(--color-primary)',
-                color: '#fff',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.82rem',
-                fontWeight: 600,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                transition: 'all 0.25s ease',
-                boxShadow: '0 4px 16px rgba(200,97,74,0.35)',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = 'var(--color-primary-light)'
-                ;(e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-1px)'
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = 'var(--color-primary)'
-                ;(e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)'
-              }}
-            >
-              Chi Siamo
-            </Link>
-
-            <Link
-              to="/contatti"
-              style={{
-                display: 'inline-block',
-                padding: '0.7rem 1.8rem',
-                borderRadius: '3rem',
-                background: 'transparent',
-                color: '#fff',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.82rem',
-                fontWeight: 600,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                border: '1.5px solid rgba(255,255,255,0.6)',
-                transition: 'all 0.25s ease',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.15)'
-                ;(e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.9)'
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'
-                ;(e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.6)'
-              }}
-            >
-              Contatti
-            </Link>
-          </div>
+          <Link
+            to="/contatti"
+            style={{
+              display: 'inline-block',
+              padding: '0.65rem 1.7rem',
+              borderRadius: '3rem',
+              background: 'transparent',
+              color: '#fff',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              border: '1.5px solid rgba(255,255,255,0.65)',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLElement
+              el.style.background = 'rgba(255,255,255,0.18)'
+              el.style.borderColor = 'rgba(255,255,255,0.95)'
+              el.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLElement
+              el.style.background = 'transparent'
+              el.style.borderColor = 'rgba(255,255,255,0.65)'
+              el.style.transform = 'translateY(0)'
+            }}
+          >
+            Contatti
+          </Link>
         </div>
       </div>
+
+      {/* Mobile: card in basso centrata */}
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-glass-card {
+            position: relative !important;
+            right: auto !important;
+            top: auto !important;
+            transform: none !important;
+            width: 90% !important;
+            margin: 0 auto;
+          }
+        }
+      `}</style>
     </section>
   )
 }

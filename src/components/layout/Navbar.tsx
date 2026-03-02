@@ -2,6 +2,31 @@ import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { gsap } from 'gsap'
 
+/* Logo: mostra immagine se disponibile, altrimenti testo corsivo */
+function LogoImage({ scrolled }: { scrolled: boolean }) {
+  const [imgOk, setImgOk] = useState(true)
+  const color = scrolled ? 'var(--color-text)' : '#fff'
+  return imgOk ? (
+    <img
+      src="/content/logos/maatilayla-logo.png"
+      alt="Maatilayla"
+      style={{ height: '38px', width: 'auto', objectFit: 'contain',
+        filter: scrolled ? 'none' : 'brightness(0) invert(1)' }}
+      onError={() => setImgOk(false)}
+    />
+  ) : (
+    <span style={{
+      fontFamily: 'var(--font-logo)',
+      fontSize: '1.7rem',
+      color,
+      lineHeight: 1,
+      transition: 'color 0.35s ease',
+    }}>
+      Maatilayla
+    </span>
+  )
+}
+
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/chi-siamo', label: 'Chi Siamo' },
@@ -63,26 +88,8 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <NavLink to="/" className="flex items-center gap-2" style={{ textDecoration: 'none' }}>
-          <img
-            src="/content/logos/maatilayla-logo.png"
-            alt="Maatilayla"
-            style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
-            onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-          />
-          {/* Fallback testo se logo non ancora caricato */}
-          <span
-            style={{
-              fontFamily: 'var(--font-logo)',
-              fontSize: '1.6rem',
-              color: scrolled ? 'var(--color-text)' : '#fff',
-              lineHeight: 1,
-              transition: 'color 0.35s ease',
-            }}
-            className="logo-fallback"
-          >
-            Maatilayla
-          </span>
+        <NavLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+          <LogoImage scrolled={scrolled} />
         </NavLink>
 
         {/* Links desktop */}
