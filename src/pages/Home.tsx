@@ -9,10 +9,8 @@ export default function Home() {
         <meta name="description" content="Allevamento amatoriale di barboncini toy fulvi riconosciuto ENCI-FCI. Cuccioli allevati in casa con protocolli scientifici. Nasce da noi, cresce con te." />
       </Helmet>
 
-      {/* Hero — padding top per navbar floating */}
-      <div style={{ padding: '0 1.5rem', paddingTop: '5.5rem' }}>
-        <HeroSection />
-      </div>
+      {/* Hero a tutta larghezza dal top — navbar floating ci flotta sopra */}
+      <HeroSection />
 
       {/* Prossime sezioni della homepage */}
     </>
