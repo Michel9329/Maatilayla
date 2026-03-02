@@ -52,7 +52,7 @@ export default function HeroSection() {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'url(/content/images/hero-bg.jpg)',
+          backgroundImage: 'url(/content/images/maatilayla-header-cucciolo-allevamento.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center 30%',
           backgroundRepeat: 'no-repeat',

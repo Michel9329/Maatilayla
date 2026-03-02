@@ -8,7 +8,7 @@ function LogoImage({ scrolled }: { scrolled: boolean }) {
   const color = scrolled ? 'var(--color-text)' : '#fff'
   return imgOk ? (
     <img
-      src="/content/logos/maatilayla-logo.png"
+      src="/content/logos/Maatilayla.png"
       alt="Maatilayla"
       style={{ height: '38px', width: 'auto', objectFit: 'contain',
         filter: scrolled ? 'none' : 'brightness(0) invert(1)' }}
