@@ -69,9 +69,10 @@ export default function HeroSection() {
         }}
       />
 
-      {/* ─── Liquid Glass Card ─── */}
+      {/* ─── Liquid Glass Card (Apple 3-layer) ─── */}
       <div
         ref={cardRef}
+        className="liquid-glass"
         style={{
           position: 'absolute',
           right: '5%',
@@ -83,18 +84,6 @@ export default function HeroSection() {
           display: 'flex',
           flexDirection: 'column',
           gap: '1.1rem',
-          /* Apple Vision Pro liquid glass */
-          background: 'rgba(255, 252, 248, 0.14)',
-          backdropFilter: 'blur(48px) saturate(200%) brightness(1.08)',
-          WebkitBackdropFilter: 'blur(48px) saturate(200%) brightness(1.08)',
-          border: '1px solid rgba(255, 255, 255, 0.38)',
-          boxShadow: [
-            '0 0 0 0.5px rgba(255,255,255,0.28) inset',
-            '0 1px 0 rgba(255,255,255,0.55) inset',
-            '0 -1px 0 rgba(0,0,0,0.04) inset',
-            '0 24px 64px rgba(20, 10, 0, 0.24)',
-            '0 4px 16px rgba(20, 10, 0, 0.10)',
-          ].join(', '),
         }}
       >
         {/* Badge */}

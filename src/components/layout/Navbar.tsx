@@ -1,17 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 
-/* Logo: mostra immagine se disponibile, altrimenti testo corsivo */
-function LogoImage({ scrolled }: { scrolled: boolean }) {
+/* Logo: immagine se disponibile, altrimenti testo corsivo */
+function LogoImage({ heroMode }: { heroMode: boolean }) {
   const [imgOk, setImgOk] = useState(true)
-  const color = scrolled ? 'var(--color-text)' : '#fff'
+  const color = heroMode ? '#ffffff' : 'var(--color-text)'
+
   return imgOk ? (
     <img
       src="/content/logos/Maatilayla.png"
       alt="Maatilayla"
-      style={{ height: '38px', width: 'auto', objectFit: 'contain',
-        filter: scrolled ? 'none' : 'brightness(0) invert(1)' }}
+      style={{
+        height: '38px',
+        width: 'auto',
+        objectFit: 'contain',
+        filter: heroMode ? 'brightness(0) invert(1)' : 'none',
+        transition: 'filter 0.3s ease',
+      }}
       onError={() => setImgOk(false)}
     />
   ) : (
@@ -20,7 +26,7 @@ function LogoImage({ scrolled }: { scrolled: boolean }) {
       fontSize: '1.7rem',
       color,
       lineHeight: 1,
-      transition: 'color 0.35s ease',
+      transition: 'color 0.3s ease',
     }}>
       Maatilayla
     </span>
@@ -40,60 +46,78 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
 
-  /* Scroll listener — aggiunge ombra/blur più marcato dopo lo scroll */
+  const isHome = location.pathname === '/'
+  /* heroMode = trasparente con testo bianco solo sulla home in cima */
+  const heroMode = isHome && !scrolled
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Entrata GSAP */
   useEffect(() => {
     gsap.fromTo(
       navRef.current,
-      { opacity: 0, y: -20 },
-      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 0.1 }
+      { opacity: 0, y: -24 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 0.15 }
     )
   }, [])
 
+  const linkColor = heroMode ? 'rgba(255,255,255,0.85)' : 'var(--color-text-muted)'
+  const linkActiveColor = heroMode ? '#ffffff' : 'var(--color-primary)'
+  const linkActiveBg = heroMode ? 'rgba(255,255,255,0.18)' : 'rgba(200,97,74,0.08)'
+
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center"
-      style={{ padding: '1rem 1.5rem 0' }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '0.9rem 1.5rem 0',
+        pointerEvents: 'none',
+      }}
     >
+      {/* ─── Pill navbar ─── */}
       <nav
         ref={navRef}
+        className={`nav-pill ${heroMode ? 'hero-mode' : 'scrolled-mode'}`}
         style={{
           width: '100%',
-          maxWidth: '900px',
-          padding: '0.6rem 1.5rem',
+          maxWidth: '920px',
+          padding: '0.55rem 0.75rem 0.55rem 1.2rem',
           borderRadius: '100px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          /* Liquid glass pill */
-          background: scrolled
-            ? 'rgba(253, 246, 238, 0.75)'
-            : 'rgba(255, 255, 255, 0.10)',
-          backdropFilter: 'blur(28px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-          border: scrolled
-            ? '1px solid rgba(200, 150, 100, 0.25)'
-            : '1px solid rgba(255, 255, 255, 0.28)',
-          boxShadow: scrolled
-            ? '0 8px 32px rgba(60,30,10,0.12), 0 1px 0 rgba(255,255,255,0.6) inset'
-            : '0 4px 24px rgba(20,10,0,0.10), 0 1px 0 rgba(255,255,255,0.4) inset',
-          transition: 'all 0.35s ease',
+          gap: '0.5rem',
+          pointerEvents: 'all',
         }}
       >
         {/* Logo */}
-        <NavLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-          <LogoImage scrolled={scrolled} />
+        <NavLink
+          to="/"
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}
+        >
+          <LogoImage heroMode={heroMode} />
         </NavLink>
 
-        {/* Links desktop */}
-        <ul className="hidden md:flex items-center gap-1">
+        {/* Links desktop — al centro */}
+        <ul style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.15rem',
+          listStyle: 'none',
+          margin: 0,
+          padding: 0,
+        }} className="hidden md:flex">
           {navLinks.map(({ to, label }) => (
             <li key={to}>
               <NavLink
@@ -101,20 +125,16 @@ export default function Navbar() {
                 end={to === '/'}
                 style={({ isActive }) => ({
                   display: 'inline-block',
-                  padding: '0.4rem 0.9rem',
+                  padding: '0.38rem 0.85rem',
                   borderRadius: '100px',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '0.82rem',
-                  fontWeight: 500,
-                  letterSpacing: '0.01em',
+                  fontSize: '0.8rem',
+                  fontWeight: isActive ? 600 : 400,
                   textDecoration: 'none',
                   transition: 'all 0.2s ease',
-                  color: isActive
-                    ? (scrolled ? 'var(--color-primary)' : '#fff')
-                    : (scrolled ? 'var(--color-text-muted)' : 'rgba(255,255,255,0.8)'),
-                  background: isActive
-                    ? (scrolled ? 'rgba(200,97,74,0.1)' : 'rgba(255,255,255,0.18)')
-                    : 'transparent',
+                  color: isActive ? linkActiveColor : linkColor,
+                  background: isActive ? linkActiveBg : 'transparent',
+                  whiteSpace: 'nowrap',
                 })}
               >
                 {label}
@@ -123,70 +143,94 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA button */}
-        <NavLink
-          to="/contatti"
-          className="hidden md:inline-block"
-          style={{
-            padding: '0.45rem 1.2rem',
-            borderRadius: '100px',
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.8rem',
-            fontWeight: 600,
-            textDecoration: 'none',
-            letterSpacing: '0.04em',
-            background: 'var(--color-primary)',
-            color: '#fff',
-            boxShadow: '0 2px 10px rgba(200,97,74,0.3)',
-            transition: 'all 0.2s ease',
-          }}
-        >
-          Cuccioli
-        </NavLink>
+        {/* CTA destra — con badge dot sopra */}
+        <div style={{ position: 'relative', flexShrink: 0 }} className="hidden md:block">
+          {/* Dot badge — "cuccioli disponibili" */}
+          <span style={{
+            position: 'absolute',
+            top: '-6px',
+            right: '10px',
+            width: 9,
+            height: 9,
+            borderRadius: '50%',
+            background: '#4CAF50',
+            border: `2px solid ${heroMode ? 'transparent' : 'rgba(253,246,238,0.9)'}`,
+            zIndex: 1,
+            animation: 'pulse-dot 2s ease-in-out infinite',
+          }} />
+          <NavLink
+            to="/contatti"
+            style={{
+              display: 'inline-block',
+              padding: '0.5rem 1.25rem',
+              borderRadius: '100px',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              letterSpacing: '0.03em',
+              textDecoration: 'none',
+              background: heroMode ? 'rgba(255,255,255,0.18)' : 'var(--color-primary)',
+              color: '#fff',
+              border: heroMode ? '1px solid rgba(255,255,255,0.4)' : 'none',
+              boxShadow: heroMode ? 'none' : '0 2px 12px rgba(200,97,74,0.35)',
+              transition: 'all 0.25s ease',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Richiedi Informazioni
+          </NavLink>
+        </div>
 
         {/* Hamburger mobile */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-1"
+          className="md:hidden"
           onClick={() => setMenuOpen(o => !o)}
           aria-label="Menu"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5px',
+            padding: '6px',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            pointerEvents: 'all',
+          }}
         >
           {[0, 1, 2].map(i => (
-            <span
-              key={i}
-              style={{
-                display: 'block',
-                width: 22,
-                height: 2,
-                borderRadius: 2,
-                background: scrolled ? 'var(--color-text)' : '#fff',
-                transition: 'all 0.3s ease',
-                transform: menuOpen
-                  ? i === 0 ? 'translateY(6px) rotate(45deg)'
-                  : i === 2 ? 'translateY(-6px) rotate(-45deg)'
-                  : 'scaleX(0)'
-                  : 'none',
-                opacity: menuOpen && i === 1 ? 0 : 1,
-              }}
-            />
+            <span key={i} style={{
+              display: 'block',
+              width: 22,
+              height: 2,
+              borderRadius: 2,
+              background: heroMode ? '#fff' : 'var(--color-text)',
+              transition: 'all 0.3s ease',
+              transform: menuOpen
+                ? i === 0 ? 'translateY(7px) rotate(45deg)'
+                : i === 2 ? 'translateY(-7px) rotate(-45deg)'
+                : 'scaleX(0)'
+                : 'none',
+              opacity: menuOpen && i === 1 ? 0 : 1,
+            }} />
           ))}
         </button>
       </nav>
 
-      {/* Mobile menu dropdown */}
+      {/* Mobile dropdown */}
       {menuOpen && (
         <div
           style={{
-            position: 'absolute',
-            top: 'calc(100% + 8px)',
-            left: '1.5rem',
-            right: '1.5rem',
+            width: '100%',
+            maxWidth: '920px',
+            marginTop: '0.5rem',
             borderRadius: '1.5rem',
-            padding: '1rem',
-            background: 'rgba(253, 246, 238, 0.92)',
+            padding: '0.75rem',
+            background: 'rgba(253, 246, 238, 0.95)',
             backdropFilter: 'blur(28px)',
             WebkitBackdropFilter: 'blur(28px)',
             border: '1px solid rgba(200,150,100,0.2)',
             boxShadow: '0 20px 40px rgba(60,30,10,0.15)',
+            pointerEvents: 'all',
           }}
         >
           {navLinks.map(({ to, label }) => (
@@ -197,7 +241,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               style={({ isActive }) => ({
                 display: 'block',
-                padding: '0.7rem 1rem',
+                padding: '0.65rem 1rem',
                 borderRadius: '0.8rem',
                 fontFamily: 'var(--font-body)',
                 fontSize: '0.9rem',
@@ -210,8 +254,36 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
+          <div style={{ padding: '0.5rem 1rem 0.25rem' }}>
+            <NavLink
+              to="/contatti"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: 'block',
+                padding: '0.65rem 1rem',
+                borderRadius: '100px',
+                textAlign: 'center',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+                background: 'var(--color-primary)',
+                color: '#fff',
+              }}
+            >
+              Richiedi Informazioni
+            </NavLink>
+          </div>
         </div>
       )}
+
+      {/* Pulse animation per il dot badge */}
+      <style>{`
+        @keyframes pulse-dot {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.3); opacity: 0.75; }
+        }
+      `}</style>
     </header>
   )
 }
