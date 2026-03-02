@@ -30,43 +30,51 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ═══════════════════════════════════════════
-   APPLE LIQUID GLASS — 3 layer system
-   ─────────────────────────────────────────
-   Layer 1 (base):     backdrop-filter neutro
-   Layer 2 (::before): specular highlight top
-   Layer 3 (border):   rim lighting
-   ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   APPLE MATERIALS — CSS approximation
+   Fonte: developer.apple.com/design/human-interface-guidelines/materials
+   ────────────────────────────────────────────────────────
+   Apple usa 3 layer:
+     1. blur base (backdrop-filter)
+     2. specular highlight (::before gradient)
+     3. rim lighting (box-shadow inset + border)
+
+   La chiave per sembrare Apple e non "dorato su forsitie":
+   • saturate(80%) — depotenzia i colori dello sfondo
+   • brightness(1.20) — superficie più brillante/chiara
+   • background opacity 0.22 — abbastanza bianco da sembrare vetro
+   • contrast(1.05) — nitidezza del frosted glass
+   ═══════════════════════════════════════════════════════ */
 .liquid-glass {
   position: relative;
   overflow: hidden;
 
-  /* Layer 1 — saturate: 100% = nessuna amplificazione colore sfondo */
-  background: rgba(255, 255, 255, 0.13);
-  backdrop-filter: blur(40px) saturate(100%) brightness(1.12);
-  -webkit-backdrop-filter: blur(40px) saturate(100%) brightness(1.12);
+  /* Layer 1 — frosted neutral glass */
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(36px) saturate(80%) brightness(1.20) contrast(1.05);
+  -webkit-backdrop-filter: blur(36px) saturate(80%) brightness(1.20) contrast(1.05);
 
-  /* Layer 3 — rim lighting su tutti i bordi, più forte in alto */
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  /* Layer 3 — rim lighting, più intenso in alto (Apple signature) */
+  border: 1px solid rgba(255, 255, 255, 0.50);
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.80),  /* top rim — la firma Apple */
-    inset 0 -0.5px 0 rgba(0, 0, 0, 0.06),
-    inset  1px 0   rgba(255, 255, 255, 0.14),
-    inset -1px 0   rgba(255, 255, 255, 0.14),
-    0 24px 64px rgba(0, 0, 0, 0.28),
-    0  4px 16px rgba(0, 0, 0, 0.10);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.90),   /* top rim brillante */
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.05),          /* bottom sottile */
+    inset  1px 0   rgba(255, 255, 255, 0.20),
+    inset -1px 0   rgba(255, 255, 255, 0.20),
+    0 20px 60px rgba(0, 0, 0, 0.20),
+    0  4px 14px rgba(0, 0, 0, 0.08);
 }
 
-/* Layer 2 — specular highlight: gradiente luce dall'alto */
+/* Layer 2 — specular highlight (luce dall'alto che illumina la superficie) */
 .liquid-glass::before {
   content: '';
   position: absolute;
-  inset: 0;
-  height: 48%;
+  top: 0; left: 0; right: 0;
+  height: 45%;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.20) 0%,
-    rgba(255, 255, 255, 0.04) 65%,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.08) 60%,
     transparent 100%
   );
   border-radius: inherit;

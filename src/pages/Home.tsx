@@ -8,11 +8,8 @@ export default function Home() {
         <title>Maatilayla — Allevamento Barboncini Toy Fulvi ENCI·FCI</title>
         <meta name="description" content="Allevamento amatoriale di barboncini toy fulvi riconosciuto ENCI-FCI. Cuccioli allevati in casa con protocolli scientifici. Nasce da noi, cresce con te." />
       </Helmet>
-
-      {/* Spazio per la navbar floating (76px) */}
-      <div style={{ paddingTop: '76px' }}>
-        <HeroSection />
-      </div>
+      {/* Hero con margin 20px da tutti i lati — navbar flotta dentro */}
+      <HeroSection />
     </>
   )
 }

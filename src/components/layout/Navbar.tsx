@@ -12,7 +12,7 @@ function LogoImage({ heroMode }: { heroMode: boolean }) {
       src="/content/logos/Maatilayla.png"
       alt="Maatilayla"
       style={{
-        height: '48px',
+        height: '58px',
         width: 'auto',
         objectFit: 'contain',
         filter: heroMode ? 'brightness(0) invert(1)' : 'none',
@@ -23,7 +23,7 @@ function LogoImage({ heroMode }: { heroMode: boolean }) {
   ) : (
     <span style={{
       fontFamily: 'var(--font-logo)',
-      fontSize: '2rem',
+      fontSize: '2.2rem',
       color,
       lineHeight: 1,
       transition: 'color 0.3s ease',
@@ -81,7 +81,8 @@ export default function Navbar() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '0.9rem 1.5rem 0',
+        /* 20px = stesso margine dell'hero → navbar appare dentro l'hero */
+        padding: '20px 20px 0',
         pointerEvents: 'none',
       }}
     >
@@ -91,8 +92,8 @@ export default function Navbar() {
         className={`nav-pill ${heroMode ? 'hero-mode' : 'scrolled-mode'}`}
         style={{
           width: '100%',
-          maxWidth: '920px',
-          padding: '0.55rem 0.75rem 0.55rem 1.2rem',
+          maxWidth: '100%',
+          padding: '0.5rem 0.8rem 0.5rem 1.2rem',
           borderRadius: '100px',
           display: 'flex',
           alignItems: 'center',
@@ -145,18 +146,18 @@ export default function Navbar() {
 
         {/* CTA destra — con badge dot sopra */}
         <div style={{ position: 'relative', flexShrink: 0 }} className="hidden md:block">
-          {/* Dot badge — "cuccioli disponibili" */}
+          {/* Dot badge — verde, allineato al bordo destro del bottone */}
           <span style={{
             position: 'absolute',
-            top: '-6px',
-            right: '10px',
-            width: 9,
-            height: 9,
+            top: '-5px',
+            right: '4px',
+            width: 10,
+            height: 10,
             borderRadius: '50%',
-            background: '#4CAF50',
-            border: `2px solid ${heroMode ? 'transparent' : 'rgba(253,246,238,0.9)'}`,
-            zIndex: 1,
-            animation: 'pulse-dot 2s ease-in-out infinite',
+            background: '#22C55E',
+            border: `2px solid ${heroMode ? 'rgba(255,255,255,0.3)' : 'rgba(253,246,238,0.95)'}`,
+            zIndex: 2,
+            animation: 'pulse-dot 2.4s ease-in-out infinite',
           }} />
           <NavLink
             to="/contatti"

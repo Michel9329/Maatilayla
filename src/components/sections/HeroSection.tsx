@@ -25,14 +25,13 @@ export default function HeroSection() {
     <section
       style={{
         position: 'relative',
-        /* Margini laterali + border-radius 30px su tutti i lati */
-        margin: '0 1.5rem',
+        /* 20px margin da tutti i lati del viewport — navbar ci flotta dentro */
+        margin: '20px',
         borderRadius: '30px',
         overflow: 'hidden',
-        /* Proporzione 16:7 — simile al mockup originale */
         aspectRatio: '16 / 7',
         minHeight: '480px',
-        maxHeight: '85vh',
+        maxHeight: '86vh',
         background: 'linear-gradient(135deg, #C4956A 0%, #E8845A 40%, #C8A882 100%)',
       }}
     >
