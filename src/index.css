@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette Maatilayla — ispirata ai barboncini fulvi */
+  --color-primary: #E8845A;       /* arancio fulvo caldo */
+  --color-primary-light: #F2A882; /* arancio pastello */
+  --color-primary-pale: #FAE0D0;  /* pesca chiarissimo */
+  --color-secondary: #C4956A;     /* caramello */
+  --color-accent: #D4B896;        /* beige sabbia */
+  --color-cream: #FDF6EE;         /* panna/crema */
+  --color-warm-white: #FFFAF5;    /* bianco caldo */
+  --color-text: #3D2B1F;          /* marrone scuro testo */
+  --color-text-muted: #8B6E5A;    /* testo secondario */
+
+  /* Typography */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Nunito', 'Nunito Sans', system-ui, sans-serif;
+
+  /* Border radius */
+  --radius-card: 1.5rem;
+  --radius-btn: 3rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-warm-white);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
