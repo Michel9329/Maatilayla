@@ -7,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger)
 const stats = [
   { end: 8, start: 0, suffix: '', label: 'Anni di esperienza', duration: 2.4 },
   { end: 10000, start: 0, suffix: 'm²', label: 'Di natura', duration: 2.8 },
-  { end: 100, start: 0, suffix: '%', label: 'Passione', duration: 2.4 },
   { end: 0, start: 16, suffix: '', label: 'Cani in gabbia', duration: 4.5 },
+  { end: 100, start: 0, suffix: '%', label: 'Passione', duration: 2.4 },
 ]
 
 export default function StatsSection() {
@@ -22,7 +22,6 @@ export default function StatsSection() {
 
     const ctx = gsap.context(() => {
       const items = itemRefs.current.filter(Boolean) as HTMLElement[]
-      const values = valueRefs.current.filter(Boolean) as HTMLElement[]
 
       // Entrata: fade-in + slide-up staggerato
       gsap.fromTo(
@@ -45,7 +44,7 @@ export default function StatsSection() {
 
       // CountUp / CountDown per ogni numero
       stats.forEach((stat, i) => {
-        const el = values[i]
+        const el = valueRefs.current[i]
         if (!el) return
 
         const obj = { val: stat.start }
@@ -74,7 +73,7 @@ export default function StatsSection() {
   return (
     <section className="stats-section" ref={sectionRef} aria-label="I nostri numeri">
       <ul className="stats-grid">
-        {stats.map(({ start, suffix, label, end }, i) => (
+        {stats.map(({ start, suffix, label }, i) => (
           <li
             key={label}
             className="stat-item"
@@ -88,7 +87,7 @@ export default function StatsSection() {
                 valueRefs.current[i] = el
               }}
             >
-              {end === 0 ? start : start.toLocaleString('it-IT')}
+              {start.toLocaleString('it-IT')}
               {suffix}
             </span>
             <span className="stat-label">{label}</span>
