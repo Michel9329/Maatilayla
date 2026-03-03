@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import HeroSection from '@/components/sections/HeroSection'
+import StatsSection from '@/components/sections/StatsSection'
 
 export default function Home() {
   return (
@@ -48,6 +49,7 @@ export default function Home() {
           { label: 'Contatti', to: '/contatti', variant: 'outline' },
         ]}
       />
+      <StatsSection />
     </>
   )
 }
