@@ -26,6 +26,7 @@ export default function ChiSiamo() {
       </Helmet>
       <HeroSection
         key="chi-siamo"
+        lightText
         image="/content/images/maatilayla-header-chi-siamo.webp"
         alt="Cuccioli neonati di barboncino toy fulvo su copertina maculata"
         badge="La Nostra Filosofia"
@@ -41,7 +42,7 @@ export default function ChiSiamo() {
           full: 'Una struttura immersa nel verde della natura, in piena sintonia con lo spirito libero dei nostri barboni. Ogni scelta è guidata da tre obiettivi: cuccioli sani grazie a controlli sanitari rigorosi, belli attraverso una selezione attenta, ed equilibrati con il programma Biosensor e tre mesi di socializzazione in famiglia.',
         }}
         cta={[
-          { label: 'La Struttura', to: '/chi-siamo#struttura', variant: 'primary' },
+          { label: 'Struttura', to: '/chi-siamo#struttura', variant: 'primary' },
           { label: 'Storia', to: '/chi-siamo#storia', variant: 'outline' },
         ]}
       />

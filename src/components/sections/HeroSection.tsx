@@ -17,6 +17,7 @@ interface HeroProps {
     variant: 'primary' | 'outline'
   }>
   compact?: boolean
+  lightText?: boolean
 }
 
 export default function HeroSection({
@@ -28,13 +29,17 @@ export default function HeroSection({
   description,
   cta,
   compact,
+  lightText,
 }: HeroProps) {
+  const colorText = lightText ? 'rgba(255,255,255,0.95)' : 'var(--color-text)'
+  const colorMuted = lightText ? 'rgba(255,255,255,0.72)' : 'var(--color-text-muted)'
+
   const descStyle = {
     fontFamily: 'var(--font-body)',
     fontSize: 'clamp(0.82rem, 1vw, 0.88rem)',
     fontWeight: 400 as const,
     lineHeight: 1.75,
-    color: 'var(--color-text)',
+    color: colorText,
     margin: 0,
   }
 
@@ -67,7 +72,7 @@ export default function HeroSection({
               fontWeight: 600,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: 'var(--color-text-muted)',
+              color: colorMuted,
               lineHeight: 1,
             }}
           >
@@ -92,7 +97,7 @@ export default function HeroSection({
             fontSize: compact ? 'clamp(1.5rem, 2.4vw, 2.2rem)' : 'clamp(1.65rem, 2.6vw, 2.4rem)',
             fontWeight: 600,
             lineHeight: 1.2,
-            color: 'var(--color-text)',
+            color: colorText,
           }}
         >
           {title}
@@ -106,7 +111,7 @@ export default function HeroSection({
               fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)',
               fontWeight: 400,
               lineHeight: 1.6,
-              color: 'var(--color-text-muted)',
+              color: colorMuted,
               margin: 0,
             }}
           >
