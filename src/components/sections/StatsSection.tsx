@@ -7,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger)
 const stats = [
   { end: 8, start: 0, suffix: '', label: 'Anni di esperienza' },
   { end: 1, start: 0, suffix: '', label: 'Ettaro di natura' },
-  { end: 100, start: 0, suffix: '%', label: 'Pedigree ufficiale' },
-  { end: 0, start: 3, suffix: '', label: 'Cani in gabbia' },
+  { end: 100, start: 0, suffix: '%', label: 'Passione' },
+  { end: 0, start: 16, suffix: '', label: 'Cani in gabbia' },
 ]
 
 export default function StatsSection() {

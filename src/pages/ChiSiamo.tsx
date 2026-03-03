@@ -19,14 +19,14 @@ export default function ChiSiamo() {
         <meta property="og:url" content="https://allevamentobarboncinimaatilayla.it/chi-siamo" />
         <meta
           property="og:image"
-          content="https://allevamentobarboncinimaatilayla.it/content/images/maatilayla-header-cucciolo-allevamento.webp"
+          content="https://allevamentobarboncinimaatilayla.it/content/images/maatilayla-header-chi-siamo.webp"
         />
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="Maatilayla" />
       </Helmet>
       <HeroSection
         key="chi-siamo"
-        image="/content/images/maatilayla-header-cucciolo-allevamento-05.webp"
+        image="/content/images/maatilayla-header-chi-siamo.webp"
         alt="Cuccioli neonati di barboncino toy fulvo su copertina maculata"
         badge="La Nostra Filosofia"
         title={
