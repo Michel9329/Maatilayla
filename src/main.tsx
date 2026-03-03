@@ -3,7 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
+import { initLenis } from '@/lib/lenis'
 import App from './App.tsx'
+
+// Smooth scroll globale (ignorato se prefers-reduced-motion)
+initLenis()
 import { GA_TRACKING_ID } from './hooks/useAnalytics'
 
 // Carica Google Analytics se configurato
