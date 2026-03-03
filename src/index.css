@@ -112,18 +112,16 @@ body {
    STATS SECTION — 4 contatori sotto l'hero
    ═══════════════════════════ */
 .stats-section {
-  padding: 3.5rem 2rem;
+  padding: 3.5rem clamp(2rem, 6vw, 7rem);
 }
 
 .stats-grid {
   list-style: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
-  gap: clamp(2.5rem, 7vw, 6rem);
-  flex-wrap: wrap;
-  max-width: 860px;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .stat-item {
@@ -158,10 +156,10 @@ body {
     padding: 2.5rem 1.5rem;
   }
   .stats-grid {
-    gap: 2rem 3.5rem;
-  }
-  .stat-item {
-    flex: 0 0 calc(50% - 1.75rem);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1rem;
+    justify-items: center;
   }
 }
 

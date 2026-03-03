@@ -5,10 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const stats = [
-  { end: 8, suffix: '', label: 'Anni di esperienza' },
-  { end: 1, suffix: '', label: 'Ettaro di natura' },
-  { end: 100, suffix: '%', label: 'Pedigree ufficiale' },
-  { end: 0, suffix: '', label: 'Cuccioli in gabbia' },
+  { end: 8, start: 0, suffix: '', label: 'Anni di esperienza' },
+  { end: 1, start: 0, suffix: '', label: 'Ettaro di natura' },
+  { end: 100, start: 0, suffix: '%', label: 'Pedigree ufficiale' },
+  { end: 0, start: 3, suffix: '', label: 'Cani in gabbia' },
 ]
 
 export default function StatsSection() {
@@ -24,15 +24,15 @@ export default function StatsSection() {
       const items = itemRefs.current.filter(Boolean) as HTMLElement[]
       const values = valueRefs.current.filter(Boolean) as HTMLElement[]
 
-      // Entrata: fade-in + slide-up scalato
+      // Entrata: fade-in + slide-up staggerato
       gsap.fromTo(
         items,
         { opacity: 0, y: 28 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.65,
-          stagger: 0.1,
+          duration: 0.7,
+          stagger: 0.12,
           ease: 'power3.out',
           clearProps: 'transform',
           scrollTrigger: {
@@ -43,40 +43,20 @@ export default function StatsSection() {
         },
       )
 
-      // CountUp per ogni numero
+      // CountUp / CountDown per ogni numero
       stats.forEach((stat, i) => {
         const el = values[i]
         if (!el) return
 
-        // 0 gabbie: scala dal grande al numero — più drammatico
-        if (stat.end === 0) {
-          gsap.fromTo(
-            el,
-            { scale: 1.5, opacity: 0 },
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 0.55,
-              ease: 'back.out(1.4)',
-              delay: 0.3,
-              clearProps: 'transform',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 82%',
-                once: true,
-              },
-            },
-          )
-          return
-        }
-
-        const obj = { val: 0 }
+        const obj = { val: stat.start }
+        // "0 cani in gabbia": countdown 3→0, ease power2.in (accelera verso lo 0)
+        const isCountdown = stat.end < stat.start
         gsap.to(obj, {
           val: stat.end,
-          duration: 1.6,
-          ease: 'power2.out',
+          duration: 2.4,
+          ease: isCountdown ? 'power2.in' : 'power2.out',
           snap: { val: 1 },
-          delay: i * 0.1,
+          delay: i * 0.12,
           onUpdate() {
             el.textContent = Math.round(obj.val) + stat.suffix
           },
@@ -95,7 +75,7 @@ export default function StatsSection() {
   return (
     <section className="stats-section" ref={sectionRef} aria-label="I nostri numeri">
       <ul className="stats-grid">
-        {stats.map(({ end, suffix, label }, i) => (
+        {stats.map(({ start, suffix, label }, i) => (
           <li
             key={label}
             className="stat-item"
@@ -109,7 +89,7 @@ export default function StatsSection() {
                 valueRefs.current[i] = el
               }}
             >
-              {end}
+              {start}
               {suffix}
             </span>
             <span className="stat-label">{label}</span>
