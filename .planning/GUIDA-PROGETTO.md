@@ -124,7 +124,9 @@ Nel nostro progetto usiamo un **mix**: Tailwind per layout rapido + CSS custom i
 ### GSAP (le animazioni)
 **Cos'è:** Libreria per animazioni professionali. Usata da Apple, Nike, Google.
 
-**Nel nostro progetto:** L'animazione d'ingresso della hero card (appare dal basso con fade-in). La navbar che appare dall'alto. Il pulsante "pulse dot" verde.
+**Nel nostro progetto:** La navbar che appare dall'alto. Il drawer mobile. Il pulsante "pulse dot" verde.
+
+**Nota:** L'hero section usava GSAP inizialmente, ma è stato sostituito con **CSS @keyframes** per risolvere un conflitto tra GSAP `transform` e CSS `translate` (GSAP 3.14 gestisce le proprietà CSS individuali in modo diverso). Le CSS animations sono più affidabili per componenti che si montano/smontano con React Router.
 
 ### React Router (la navigazione)
 **Cos'è:** Gestisce gli URL. Quando clicchi "Chi Siamo", non ricarica la pagina — cambia solo il contenuto visualizzato.
@@ -153,19 +155,37 @@ La barra di navigazione "floating pill" ispirata ad Apple.
 - Animazione ingresso con GSAP
 
 ### 2. Hero Section (`src/components/sections/HeroSection.tsx`)
-La sezione grande con l'immagine del cucciolo e la card vetro.
+Componente riusabile per la sezione hero di ogni pagina. Riceve props per personalizzare contenuto e aspetto.
+
+**Props disponibili:**
+- `image` — URL immagine di sfondo (diversa per pagina)
+- `alt` — Testo alternativo per accessibilità
+- `title` — Titolo (supporta JSX per stili inline)
+- `subtitle` — Sottotitolo opzionale
+- `badge` — Badge superiore (es. "Allevamento Amatoriale ENCI · FCI")
+- `description` — Testo breve (mobile) + completo (desktop)
+- `cta` — Array di bottoni Call To Action
+- `compact` — Variante compatta per pagine interne
 
 **Come funziona:**
-- **Sfondo**: immagine WebP del cucciolo, copre tutto lo spazio
+- **Sfondo**: immagine WebP, copre tutto lo spazio
 - **Overlay**: gradiente scuro sopra l'immagine per leggibilità
 - **Glass card**: effetto "liquid glass" Apple — sfocatura + bordi luminosi + ombra
 - **Responsive**: la card è in basso centrata su mobile, a destra su desktop
 - **Testi**: versione corta su mobile, completa su desktop (toggle CSS)
+- **Animazione**: CSS `@keyframes` con stagger sui figli (no GSAP — risolve conflitto transform/translate)
+
+**Pagine configurate:**
+- **Home**: hero completo (badge + titolo + descrizione + 2 CTA)
+- **Chi Siamo**: hero completo con immagine cuccioli neonati + CTA "La Struttura" e "Storia"
+- **Blog, Galleria, FAQ, Contatti**: hero con titolo + sottotitolo
 
 **Il bug widescreen risolto:** Su monitor ultrawide (49"), il CSS `aspect-ratio: 16/8` combinato con `max-height: 90vh` faceva restringere la larghezza del hero. Risolto sostituendo con `height: clamp(560px, 50vw, 90vh)` che mantiene la stessa proporzione senza effetti collaterali.
 
 ### 3. Layout (`src/components/layout/Layout.tsx`)
 Il "wrapper" che contiene Navbar + contenuto pagina + Footer. Ogni pagina viene renderizzata dentro `<main>`. Include il link "Salta al contenuto" per accessibilità.
+
+**Protezione contenuti:** Blocca tasto destro (menu contestuale), Ctrl+C (copia), Ctrl+U (view source), Ctrl+S (salva), Ctrl+P (stampa). Il CSS aggiunge `user-select: none` su tutto il body e `user-drag: none` sulle immagini. I form restano selezionabili.
 
 ### 4. CSS (`src/index.css`)
 Il file di stile principale. Contiene:
@@ -176,10 +196,17 @@ Il file di stile principale. Contiene:
 - **Navbar pill**: due modalità (hero trasparente, scrolled opaca)
 - **Accessibilità**: focus-visible per keyboard, prefers-reduced-motion
 
-### 5. Pagine (`src/pages/`)
+### 5. App (`src/App.tsx`)
+Il componente radice che gestisce il routing. Include:
+- **ScrollToTop**: scrolla in cima ad ogni cambio pagina
+- **Lazy loading**: tutte le pagine tranne Home sono caricate su richiesta
+- **Analytics**: traccia page view su Google Analytics
+
+### 6. Pagine (`src/pages/`)
 6 pagine con react-helmet-async per SEO:
 - Ogni pagina ha `<title>`, `<meta description>`, e **Open Graph tags** per condivisione social
 - Home è caricata subito, le altre sono **lazy loaded** (scaricate solo quando servono)
+- Ogni pagina usa HeroSection con props personalizzati
 
 ---
 
@@ -261,8 +288,10 @@ Dice a qualsiasi editor (VS Code, Sublime, ecc.) di usare le stesse impostazioni
 | robots.txt | ✅ | Plugin o file manuale |
 | sitemap.xml | ✅ | Yoast SEO → Sitemap |
 | .htaccess SPA routing | ✅ | Automatico in WP |
-| Structured data (schema) | Da fare | Yoast SEO → Schema |
-| Google Search Console | Da fare | Plugin + verifica |
+| Structured data (schema) | Phase 6 | Yoast SEO → Schema |
+| Google Search Console | Phase 6 | Plugin + verifica |
+| Core Web Vitals | Phase 6 | N/A (nuovo standard) |
+| Protezione contenuti | ✅ | Plugin anti-copy |
 
 ---
 
