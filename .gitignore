@@ -28,3 +28,6 @@ dist-ssr
 .env.*
 !.env.example
 Thumbs.db
+
+# Scripts with sensitive data
+monitor-github-token.ps1

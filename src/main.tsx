@@ -13,14 +13,13 @@ if (GA_TRACKING_ID && typeof window !== 'undefined') {
   script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`
   document.head.appendChild(script)
 
-  ;(window as any).dataLayer = (window as any).dataLayer || []
-  function gtag(..._args: any[]) {
-    ;(window as any).dataLayer.push(arguments)
+  window.dataLayer = window.dataLayer || []
+  window.gtag = function (...args: unknown[]) {
+    window.dataLayer.push(args)
   }
-  ;(window as any).gtag = gtag
-  gtag('js', new Date())
-  gtag('config', GA_TRACKING_ID)
-  if (import.meta.env.DEV) console.log('✅ Google Analytics inizializzato:', GA_TRACKING_ID)
+  window.gtag('js', new Date())
+  window.gtag('config', GA_TRACKING_ID)
+  if (import.meta.env.DEV) console.log('Google Analytics inizializzato:', GA_TRACKING_ID)
 }
 
 createRoot(document.getElementById('root')!).render(

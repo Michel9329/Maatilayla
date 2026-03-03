@@ -23,14 +23,16 @@ function LogoImage({ heroMode }: { heroMode: boolean }) {
       onError={() => setImgOk(false)}
     />
   ) : (
-    <span style={{
-      fontFamily: 'var(--font-logo)',
-      fontSize: '2.2rem',
-      color,
-      lineHeight: 1,
-      display: 'block',
-      transition: 'color 0.3s ease',
-    }}>
+    <span
+      style={{
+        fontFamily: 'var(--font-logo)',
+        fontSize: '2.2rem',
+        color,
+        lineHeight: 1,
+        display: 'block',
+        transition: 'color 0.3s ease',
+      }}
+    >
       Maatilayla
     </span>
   )
@@ -57,9 +59,6 @@ export default function Navbar() {
   /* heroMode = trasparente con testo bianco solo sulla home in cima */
   const heroMode = isHome && !scrolled && !menuOpen
 
-  /* Chiudi drawer quando si naviga */
-  useEffect(() => { setMenuOpen(false) }, [location.pathname])
-
   /* Scroll listener */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -74,7 +73,7 @@ export default function Navbar() {
     gsap.fromTo(
       navRef.current,
       { opacity: 0, y: -24 },
-      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 0.15 }
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 0.15 },
     )
   }, [])
 
@@ -86,15 +85,18 @@ export default function Navbar() {
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
       if (!prefersReduced) {
-        gsap.fromTo(drawerRef.current,
+        gsap.fromTo(
+          drawerRef.current,
           { opacity: 0, y: -20 },
-          { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
+          { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' },
         )
       }
     } else {
       document.body.style.overflow = ''
     }
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [menuOpen, isMobile])
 
   const linkColor = heroMode ? 'rgba(255,255,255,0.95)' : 'var(--color-text-muted)'
@@ -133,14 +135,16 @@ export default function Navbar() {
         {/* ─── Desktop: links + CTA ─── */}
         {!isMobile && (
           <>
-            <ul style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.15rem',
-              listStyle: 'none',
-              margin: 0,
-              padding: 0,
-            }}>
+            <ul
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.15rem',
+                listStyle: 'none',
+                margin: 0,
+                padding: 0,
+              }}
+            >
               {navLinks.map(({ to, label }) => (
                 <li key={to}>
                   <NavLink
@@ -169,18 +173,20 @@ export default function Navbar() {
 
             {/* CTA destra — con badge dot */}
             <div style={{ position: 'relative', flexShrink: 0 }}>
-              <span style={{
-                position: 'absolute',
-                top: '-5px',
-                right: '4px',
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                background: '#22C55E',
-                border: `2px solid ${heroMode ? 'rgba(255,255,255,0.3)' : 'rgba(253,246,238,0.95)'}`,
-                zIndex: 2,
-                animation: 'pulse-dot 2.4s ease-in-out infinite',
-              }} />
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '-5px',
+                  right: '4px',
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  background: '#22C55E',
+                  border: `2px solid ${heroMode ? 'rgba(255,255,255,0.3)' : 'rgba(253,246,238,0.95)'}`,
+                  zIndex: 2,
+                  animation: 'pulse-dot 2.4s ease-in-out infinite',
+                }}
+              />
               <NavLink
                 to="/contatti"
                 style={{
