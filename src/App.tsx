@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Layout from '@/components/layout/Layout'
 import Home from '@/pages/Home'
 import ChiSiamo from '@/pages/ChiSiamo'
@@ -6,8 +7,19 @@ import Blog from '@/pages/Blog'
 import Galleria from '@/pages/Galleria'
 import Faq from '@/pages/Faq'
 import Contatti from '@/pages/Contatti'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 function App() {
+  const location = useLocation()
+  const { trackPageView, isAnalyticsEnabled } = useAnalytics()
+
+  // Traccia il page view quando la rotta cambia
+  useEffect(() => {
+    if (isAnalyticsEnabled || import.meta.env.VITE_ANALYTICS_DEBUG) {
+      trackPageView(location.pathname)
+    }
+  }, [location.pathname, isAnalyticsEnabled, trackPageView])
+
   return (
     <Routes>
       <Route element={<Layout />}>

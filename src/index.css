@@ -49,18 +49,19 @@ body {
   position: relative;
   overflow: hidden;
 
-  /* Layer 1 — frosted neutral glass */
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(36px) saturate(80%) brightness(1.20) contrast(1.05);
-  -webkit-backdrop-filter: blur(36px) saturate(80%) brightness(1.20) contrast(1.05);
+  /* Stessa formula del navbar hero-mode: bassa opacità + saturate standard
+     Così lo sfondo è visibile attraverso il vetro (effetto glass reale, non pannello) */
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(28px) saturate(140%) brightness(1.08);
+  -webkit-backdrop-filter: blur(28px) saturate(140%) brightness(1.08);
 
-  /* Layer 3 — rim lighting, più intenso in alto (Apple signature) */
-  border: 1px solid rgba(255, 255, 255, 0.50);
+  /* Rim lighting — più pronunciato della navbar perché card più grande */
+  border: 1px solid rgba(255, 255, 255, 0.45);
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.90),   /* top rim brillante */
-    inset 0 -0.5px 0 rgba(0, 0, 0, 0.05),          /* bottom sottile */
-    inset  1px 0   rgba(255, 255, 255, 0.20),
-    inset -1px 0   rgba(255, 255, 255, 0.20),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.05),
+    inset  1px 0   rgba(255, 255, 255, 0.25),
+    inset -1px 0   rgba(255, 255, 255, 0.25),
     0 20px 60px rgba(0, 0, 0, 0.20),
     0  4px 14px rgba(0, 0, 0, 0.08);
 }
@@ -83,6 +84,164 @@ body {
 }
 
 .liquid-glass > * { position: relative; z-index: 1; }
+
+/* ═══════════════════════════
+   HERO SECTION — fluid responsive (CSS, no JS breakpoints)
+   ═══════════════════════════ */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: #e8ddd5;
+  /* Mobile-first */
+  margin: 0;
+  border-radius: 0;
+  min-height: 480px;
+  height: 70svh;
+  max-height: 620px;
+}
+@media (min-width: 768px) {
+  .hero-section {
+    margin: 12px;
+    /* Compensate scrollbar asymmetry: right visual gap = 12px */
+    margin-right: calc(12px - 100vw + 100%);
+    border-radius: 20px;
+    height: 60svh;
+    min-height: 420px;
+    max-height: 580px;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-section {
+    margin: 20px;
+    margin-right: calc(20px - 100vw + 100%);
+    border-radius: 30px;
+    height: auto;
+    max-height: 90vh;
+    min-height: 560px;
+    aspect-ratio: 16 / 8;
+  }
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left 15% top 15%;
+}
+@media (min-width: 1024px) {
+  .hero-bg { background-position: center 30%; }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,5,0,0.02) 0%, rgba(10,5,0,0.25) 55%, rgba(10,5,0,0.40) 100%);
+}
+@media (min-width: 1024px) {
+  .hero-overlay {
+    background: linear-gradient(100deg, rgba(10,5,0,0.04) 0%, rgba(10,5,0,0.28) 100%);
+  }
+}
+
+/* Card — mobile-first: lighter glass, bottom-anchored, centered */
+.hero-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 18px;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  left: 4%;
+  right: 4%;
+  bottom: 24px;
+  padding: 1.1rem 1.2rem;
+
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px) saturate(120%) brightness(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(120%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.80),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.04),
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0  2px 8px rgba(0, 0, 0, 0.06);
+}
+@media (min-width: 1024px) {
+  .hero-card {
+    border-radius: 22px;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.85rem;
+    left: auto;
+    right: 4%;
+    bottom: auto;
+    top: 55%;
+    transform: translateY(-50%);
+    width: 46%;
+    max-width: 800px;
+    padding: 1.8rem;
+
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(28px) saturate(140%) brightness(1.08);
+    -webkit-backdrop-filter: blur(28px) saturate(140%) brightness(1.08);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -0.5px 0 rgba(0, 0, 0, 0.05),
+      inset  1px 0   rgba(255, 255, 255, 0.25),
+      inset -1px 0   rgba(255, 255, 255, 0.25),
+      0 20px 60px rgba(0, 0, 0, 0.20),
+      0  4px 14px rgba(0, 0, 0, 0.08);
+  }
+}
+@media (min-width: 1440px) {
+  .hero-card {
+    width: 42%;
+    padding: 2.2rem;
+  }
+}
+
+/* Specular highlight */
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.06) 60%, transparent 100%);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+@media (min-width: 1024px) {
+  .hero-card::before {
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 60%, transparent 100%);
+  }
+}
+.hero-card > * { position: relative; z-index: 1; }
+
+/* CTA row */
+.hero-cta {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  padding-top: 0.2rem;
+  justify-content: center;
+}
+@media (min-width: 1024px) {
+  .hero-cta { justify-content: flex-start; }
+}
+
+/* Text: short on mobile, full on desktop */
+.hero-desc-short { display: block; }
+.hero-desc-full  { display: none; }
+@media (min-width: 1024px) {
+  .hero-desc-short { display: none; }
+  .hero-desc-full  { display: block; }
+}
 
 
 /* ═══════════════════════════
@@ -127,28 +286,28 @@ body {
   filter: brightness(0.88);
 }
 
-/* ── Outline (ghost) ── */
+/* ── Outline (ghost) — testo scuro su glass chiaro ── */
 .btn-hero-outline {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  border: 1.5px solid rgba(255, 255, 255, 0.60);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-text);
+  border: 1.5px solid rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
 }
 .btn-hero-outline:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(0, 0, 0, 0.38);
   transform: translateY(-2px);
 }
 /* Press: entra nel vetro — il bordo si "sprofonda" */
 .btn-hero-outline:active {
   transform: scale(0.96) translateY(1px);
-  background: rgba(0, 0, 0, 0.10);
-  border-color: rgba(255, 255, 255, 0.30);
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.20);
   box-shadow:
-    inset 0 3px 12px rgba(0, 0, 0, 0.28),
-    inset 0 1px  6px rgba(0, 0, 0, 0.15),
-    inset 0 0.5px 0  rgba(255, 255, 255, 0.12);
-  filter: brightness(0.90);
+    inset 0 3px 12px rgba(0, 0, 0, 0.18),
+    inset 0 1px  6px rgba(0, 0, 0, 0.10),
+    inset 0 0.5px 0  rgba(255, 255, 255, 0.30);
+  filter: brightness(0.92);
 }
 
 
@@ -156,7 +315,11 @@ body {
    NAVBAR PILL
    ═══════════════════════════ */
 .nav-pill {
+  padding: 0.85rem 1.6rem;
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+@media (max-width: 1023px) {
+  .nav-pill { padding: 0.7rem 1rem; }
 }
 .nav-pill.hero-mode {
   background: rgba(255, 255, 255, 0.10);
@@ -171,6 +334,31 @@ body {
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid rgba(200, 160, 120, 0.20);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.70), 0 8px 32px rgba(60,30,10,0.10);
+}
+
+/* ═══════════════════════════
+   FOCUS-VISIBLE (keyboard a11y)
+   ═══════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Rimuovi outline su click mouse ma mantieni per keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ═══════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Pulse dot badge navbar */
