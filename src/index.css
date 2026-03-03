@@ -598,6 +598,14 @@ body {
   margin: 0;
   line-height: 1.6;
 }
+.footer-brand-br {
+  display: block; /* break forzato su tablet e desktop */
+}
+@media (max-width: 767px) {
+  .footer-brand-br {
+    display: none; /* nessun break forzato su smartphone */
+  }
+}
 
 /* Body 2 colonne */
 .footer-body {

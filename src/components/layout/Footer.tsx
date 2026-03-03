@@ -70,7 +70,7 @@ export default function Footer() {
             </p>
             <p className="footer-brand-seo">
               Allevamento amatoriale riconosciuto ENCI e FCI con affisso Maatilayla
-              <wbr /> per la selezione del Barbone Toy Fulvo.
+              <br className="footer-brand-br" /> per la selezione del Barbone Toy Fulvo.
             </p>
           </div>
 
