@@ -75,10 +75,46 @@ public/content/ → Images, logos
 - Prefer editing existing files over creating new ones
 - Use `clamp()` for fluid typography
 - Use CSS custom properties from `@theme` — never hardcode colors
-- SEO: every page must have `<Helmet>` with Italian title + meta description
+- SEO: every page must have `<Helmet>` with Italian title + meta description + Open Graph tags
 - Accessibility: all interactive elements must have visible focus styles
+
+### Open Graph (every page)
+```tsx
+<Helmet>
+  <title>Pagina — Maatilayla</title>
+  <meta name="description" content="..." />
+  <meta property="og:title" content="Pagina — Maatilayla" />
+  <meta property="og:description" content="..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://allevamentobarboncinimaatilayla.it/pagina" />
+  <meta property="og:image" content="https://allevamentobarboncinimaatilayla.it/content/images/..." />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:site_name" content="Maatilayla" />
+</Helmet>
+```
+
+### GSAP + CSS positioning
+- Use CSS `translate` property (not `transform: translateY()`) for element positioning
+- GSAP's `y`/`scale` properties set inline `transform` — this conflicts with CSS `transform`
+- After GSAP animation, use `clearProps: 'transform'` to return control to CSS
+```tsx
+const tl = gsap.timeline({
+  defaults: { ease: 'power3.out' },
+  onComplete: () => refs.forEach(r => r.current && gsap.set(r.current, { clearProps: 'transform' })),
+})
+```
+
+## Browser Support
+- Chrome/Edge: 90+
+- Safari: 14+
+- Firefox: 88+
+- Mobile: iOS 14+, Android 10+
+- Required features: `backdrop-filter`, `clamp()`, `aspect-ratio`, CSS `translate`
 
 ## Commands
 - `npm run dev` — development server
 - `npm run build` — production build (must pass clean)
+- `npm run preview` — preview production build
+- `npm run lint` / `npm run lint:fix` — ESLint check/fix
+- `npm run format` / `npm run format:check` — Prettier format/check
 - `npm run kanban` — Vibe Kanban board

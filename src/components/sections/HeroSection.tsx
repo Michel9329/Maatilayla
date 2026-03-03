@@ -1,29 +1,34 @@
-import { useEffect, useRef } from 'react'
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { gsap } from 'gsap'
 
-export default function HeroSection() {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const badgeRef = useRef<HTMLSpanElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const descRef = useRef<HTMLDivElement>(null)
-  const btnsRef = useRef<HTMLDivElement>(null)
+interface HeroProps {
+  image: string
+  alt: string
+  title: ReactNode
+  subtitle?: string
+  badge?: string
+  description?: {
+    short: string
+    full: string
+  }
+  cta?: Array<{
+    label: string
+    to: string
+    variant: 'primary' | 'outline'
+  }>
+  compact?: boolean
+}
 
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl.fromTo(
-      cardRef.current,
-      { opacity: 0, y: 30, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: 1, delay: 0.4 },
-    )
-      .fromTo(badgeRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.6')
-      .fromTo(titleRef.current, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
-      .fromTo(descRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.3')
-      .fromTo(btnsRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
-  }, [])
-
+export default function HeroSection({
+  image,
+  alt,
+  title,
+  subtitle,
+  badge,
+  description,
+  cta,
+  compact,
+}: HeroProps) {
   const descStyle = {
     fontFamily: 'var(--font-body)',
     fontSize: 'clamp(0.82rem, 1vw, 0.88rem)',
@@ -33,88 +38,108 @@ export default function HeroSection() {
     margin: 0,
   }
 
+  const sectionClass = compact ? 'hero-section hero-section--compact' : 'hero-section'
+
   return (
-    <section className="hero-section" aria-label="Sezione principale">
+    <section className={sectionClass} aria-label="Sezione principale">
       {/* Background image */}
       <div
         className="hero-bg"
-        aria-hidden="true"
-        style={{
-          backgroundImage: 'url(/content/images/maatilayla-header-cucciolo-allevamento.webp)',
-        }}
+        role="img"
+        aria-label={alt}
+        style={{ backgroundImage: `url(${image})` }}
       />
 
       {/* Dark overlay */}
       <div className="hero-overlay" aria-hidden="true" />
 
-      {/* Glass Card */}
-      <div ref={cardRef} className="hero-card">
+      {/* Glass Card — animazione via CSS @keyframes */}
+      <div className="hero-card">
         {/* Badge */}
-        <span
-          ref={badgeRef}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.45rem',
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.65rem',
-            fontWeight: 600,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: 'var(--color-text-muted)',
-            lineHeight: 1,
-          }}
-        >
+        {badge && (
           <span
             style={{
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              background: 'var(--color-primary)',
-              flexShrink: 0,
-              animation: 'pulse-dot 2.4s ease-in-out infinite',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.65rem',
+              fontWeight: 600,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'var(--color-text-muted)',
+              lineHeight: 1,
             }}
-          />
-          Allevamento Amatoriale ENCI · FCI
-        </span>
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: 'var(--color-primary)',
+                flexShrink: 0,
+                animation: 'pulse-dot 2.4s ease-in-out infinite',
+              }}
+            />
+            {badge}
+          </span>
+        )}
 
         {/* Title */}
         <h1
-          ref={titleRef}
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.65rem, 2.6vw, 2.4rem)',
+            fontSize: compact ? 'clamp(1.5rem, 2.4vw, 2.2rem)' : 'clamp(1.65rem, 2.6vw, 2.4rem)',
             fontWeight: 600,
             lineHeight: 1.2,
             color: 'var(--color-text)',
           }}
         >
-          Nasce da noi,{' '}
-          <em style={{ fontStyle: 'italic', color: 'var(--color-primary)' }}>cresce con te.</em>
+          {title}
         </h1>
 
+        {/* Subtitle */}
+        {subtitle && (
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)',
+              fontWeight: 400,
+              lineHeight: 1.6,
+              color: 'var(--color-text-muted)',
+              margin: 0,
+            }}
+          >
+            {subtitle}
+          </p>
+        )}
+
         {/* Description — CSS toggles short/full */}
-        <div ref={descRef}>
-          <p className="hero-desc-short" style={descStyle}>
-            Ogni barboncino toy fulvo di Maatilayla viene allevato in casa, con test genetici e
-            stimolazione neurologica. Un cucciolo sano non è fortuna&nbsp;— è scelta.
-          </p>
-          <p className="hero-desc-full" style={descStyle}>
-            Ogni barboncino toy fulvo di Maatilayla viene allevato in casa, a contatto con la
-            famiglia, con protocolli scientifici di stimolazione neurologica e test genetici sui
-            riproduttori. Perché un cucciolo sano e equilibrato non è fortuna&nbsp;— è scelta.
-          </p>
-        </div>
+        {description && (
+          <div>
+            <p className="hero-desc-short" style={descStyle}>
+              {description.short}
+            </p>
+            <p className="hero-desc-full" style={descStyle}>
+              {description.full}
+            </p>
+          </div>
+        )}
 
         {/* CTA */}
-        <div ref={btnsRef} className="hero-cta">
-          <Link to="/chi-siamo" className="btn-hero-primary">
-            Chi Siamo
-          </Link>
-          <Link to="/contatti" className="btn-hero-outline">
-            Contatti
-          </Link>
-        </div>
+        {cta && cta.length > 0 && (
+          <div className="hero-cta">
+            {cta.map((btn) => (
+              <Link
+                key={btn.to}
+                to={btn.to}
+                className={btn.variant === 'primary' ? 'btn-hero-primary' : 'btn-hero-outline'}
+              >
+                {btn.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

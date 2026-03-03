@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { Menu, X } from 'lucide-react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
@@ -52,12 +52,10 @@ export default function Navbar() {
   const drawerRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
   const isMobile = useMediaQuery('(max-width: 1023px)')
 
-  const isHome = location.pathname === '/'
-  /* heroMode = trasparente con testo bianco solo sulla home in cima */
-  const heroMode = isHome && !scrolled && !menuOpen
+  /* heroMode = trasparente con testo bianco in cima (tutte le pagine hanno hero) */
+  const heroMode = !scrolled && !menuOpen
 
   /* Chiudi drawer su back/forward browser + tasto Escape */
   useEffect(() => {

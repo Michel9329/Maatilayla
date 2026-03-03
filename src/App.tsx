@@ -4,12 +4,21 @@ import Layout from '@/components/layout/Layout'
 import Home from '@/pages/Home'
 import { useAnalytics } from '@/hooks/useAnalytics'
 
-// Lazy load pagine interne (Home caricata subito per performance)
+// Lazy load pagine interne
 const ChiSiamo = lazy(() => import('@/pages/ChiSiamo'))
 const Blog = lazy(() => import('@/pages/Blog'))
 const Galleria = lazy(() => import('@/pages/Galleria'))
 const Faq = lazy(() => import('@/pages/Faq'))
 const Contatti = lazy(() => import('@/pages/Contatti'))
+
+/* Scrolla in cima ad ogni cambio pagina */
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
 
 function App() {
   const location = useLocation()
@@ -23,6 +32,7 @@ function App() {
 
   return (
     <Suspense>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

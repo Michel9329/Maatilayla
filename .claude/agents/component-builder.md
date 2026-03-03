@@ -50,13 +50,23 @@ Use the `.liquid-glass` CSS class for Apple-style glassmorphism cards (backdrop-
 ## Animation Pattern
 ```tsx
 const sectionRef = useRef<HTMLElement>(null)
+const elRefs = [ref1, ref2, ref3] // all animated refs
 
 useEffect(() => {
-  const ctx = gsap.context(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl.fromTo('.element', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7 })
-      .fromTo('.child', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.4')
-  }, sectionRef)
-  return () => ctx.revert()
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (prefersReduced) return
+  const tl = gsap.timeline({
+    defaults: { ease: 'power3.out' },
+    // Clear inline transform after animation — lets CSS media queries control positioning
+    onComplete: () => elRefs.forEach(r => r.current && gsap.set(r.current, { clearProps: 'transform' })),
+  })
+  tl.fromTo(ref1.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7 })
+    .fromTo(ref2.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.4')
 }, [])
 ```
+
+### IMPORTANT: CSS translate vs GSAP transform
+- For CSS positioning (centering, offsets), use the `translate` property: `translate: 0 -50%`
+- Never use `transform: translateY()` for CSS positioning — GSAP overwrites `transform` inline
+- GSAP's `y`, `scale`, `rotation` props all write to `transform`
+- After animation, `clearProps: 'transform'` removes the inline override so CSS takes over
