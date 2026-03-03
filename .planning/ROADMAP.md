@@ -70,6 +70,14 @@
 - [x] Footer completo (brand, naviga, legale, contatti, bottom bar)
 - [x] Footer: loghi ENCI/FCI con link ufficiali, accessibilità WCAG AA
 - [x] Footer: sticky al fondo viewport (flex layout su #root)
+- [x] Footer: newsletter stub full-width (funzionale in Phase 3)
+- [x] Footer: language switcher stub IT/EN/FR/ES (funzionale in Phase 8)
+- [x] Footer: sitemap spostata in bottom bar (ENCI · FCI · Albo Allevatori · Sitemap)
+- [x] Footer: WCAG AA contrasto su sfondo #EDE5D8 (em italic #9b3e28, 5.4:1)
+- [x] Footer: allineamento destra uniforme (padding-right 2rem su tutte le sezioni)
+- [x] Footer: icone contatti centrate verticalmente (align-items: center)
+- [x] Scrollbar compensation globale (overflow-y: scroll su html — margini sempre simmetrici)
+- [x] Responsive footer completo (mobile/tablet/desktop verificato)
 - [ ] Test cross-device finale (Phase 2 + Phase 3 insieme)
 
 ### Phase 3 — Homepage Sezioni + Newsletter
@@ -129,8 +137,8 @@
 - [ ] Test accessibilità contrasto WCAG su entrambi i temi
 - [ ] Test cross-device (mobile toggle, OS sync)
 
-### Phase 6 — Deploy
-**Goal:** Sito live su Siteground
+### Phase 6 — Deploy & Compliance GDPR
+**Goal:** Sito live su Siteground, conforme GDPR con iubenda
 
 - [ ] Build ottimizzata (immagini WebP, font self-hosted GDPR)
 - [ ] Ottimizzazione logo ENCI (430KB → max 60KB WebP/PNG compressa)
@@ -138,6 +146,12 @@
 - [ ] SSL + DNS configurati
 - [ ] Test cross-browser + mobile (Chrome, Safari, Firefox, Edge)
 - [ ] Verifica .htaccess su Apache Siteground
+- [ ] **iubenda — Privacy Policy** (generata e integrata, link nel footer)
+- [ ] **iubenda — Cookie Policy** (generata e integrata, link nel footer)
+- [ ] **iubenda — Termini e Condizioni** (generati e integrati, link nel footer)
+- [ ] **iubenda — Cookie Solution** (banner consenso GDPR al primo accesso, consent database)
+- [ ] **iubenda — Preferenze Cookie** (pulsante gestione preferenze nel footer)
+- [ ] Footer: link legali aggiornati con URL iubenda reali (sostituire #privacy, #cookie, #preferenze, #termini)
 
 ### Phase 7 — SEO & Ottimizzazione
 **Goal:** Massimizzare visibilità e performance

@@ -14,8 +14,7 @@ const legalLinks = [
   { href: '#privacy', label: 'Privacy Policy' },
   { href: '#cookie', label: 'Cookie Policy' },
   { href: '#preferenze', label: 'Preferenze Cookie' },
-  { href: '/sitemap.xml', label: 'Sitemap', external: true },
-  { href: '#termini', label: 'Termini di Servizio' },
+  { href: '#termini', label: 'Termini e Condizioni' },
 ]
 
 const MAPS_URL = 'https://maps.google.com/?q=Strada+Vicinale+Pianamola+6+01030+Bassano+Romano+VT'
@@ -98,13 +97,9 @@ export default function Footer() {
             </p>
             <nav aria-labelledby="footer-legal-label">
               <ul className="footer-link-list">
-                {legalLinks.map(({ href, label, external }) => (
+                {legalLinks.map(({ href, label }) => (
                   <li key={href}>
-                    <a
-                      href={href}
-                      className="footer-link"
-                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    >
+                    <a href={href} className="footer-link">
                       {label}
                     </a>
                   </li>
@@ -168,7 +163,7 @@ export default function Footer() {
                   className="footer-contact-link"
                   aria-label="Strada Vicinale Pianamola 6, 01030 Bassano Romano VT — apri in Google Maps"
                 >
-                  <MapPin size={14} strokeWidth={1.8} style={{ flexShrink: 0, marginTop: 2 }} />
+                  <MapPin size={14} strokeWidth={1.8} style={{ flexShrink: 0 }} />
                   <span>Strada Vicinale Pianamola 6, 01030 Bassano Romano (VT)</span>
                 </a>
               </li>
@@ -205,17 +200,21 @@ export default function Footer() {
             </ul>
           </div>
 
-          <p className="footer-note">
-            La sede dell&apos;allevamento è anche il posto in cui viviamo. Al fine di tutelare la
-            nostra privacy, non potremo ricevere chi non avrà preventivamente fissato un
-            appuntamento.
-          </p>
+          <div className="footer-notes-wrapper">
+            <div className="footer-notes">
+              <p className="footer-note">
+                La sede dell&apos;allevamento è anche il posto in cui viviamo. Al fine di tutelare
+                la nostra privacy, non potremo ricevere chi non avrà preventivamente fissato un
+                appuntamento.
+              </p>
 
-          <p className="footer-copyright-note">
-            Tutti i contenuti, le immagini e i testi presenti su questo sito sono di proprietà
-            esclusiva di Maatilayla. Ne è vietata qualsiasi riproduzione o utilizzo non autorizzato,
-            anche parziale, ai sensi della normativa sul diritto d&apos;autore.
-          </p>
+              <p className="footer-copyright-note">
+                Tutti i contenuti, le immagini e i testi presenti su questo sito sono di proprietà
+                esclusiva di Maatilayla. Ne è vietata qualsiasi riproduzione o utilizzo non
+                autorizzato, anche parziale, ai sensi della normativa sul diritto d&apos;autore.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -257,7 +256,15 @@ export default function Footer() {
           >
             FCI
           </a>
-          · Albo Allevatori
+          · Albo Allevatori ·{' '}
+          <a
+            href="/sitemap.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-bottom-link"
+          >
+            Sitemap
+          </a>
         </span>
         <span className="footer-bottom-dev">
           Sviluppato da{' '}
