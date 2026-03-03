@@ -208,6 +208,49 @@ Il componente radice che gestisce il routing. Include:
 - Home è caricata subito, le altre sono **lazy loaded** (scaricate solo quando servono)
 - Ogni pagina usa HeroSection con props personalizzati
 
+### 7. Footer (`src/components/layout/Footer.tsx`)
+Il footer a piena larghezza (con margini isola come l'hero su tablet/desktop). Sfondo `#EDE5D8` (beige sabbia caldo).
+
+**Struttura:**
+- **Brand bar**: logo Maatilayla a sinistra + loghi ENCI/FCI (cliccabili, aprono i siti ufficiali) a destra
+- **Corpo 2 colonne**:
+  - Sinistra: tagline "Nasce da noi, cresce con te." + testo SEO → Naviga (6 link) → Legale (5 link) → Lingua (stub, Phase 8)
+  - Destra: Contatti (indirizzo Maps, 2 telefoni, email) + note privacy + nota copyright
+- **Newsletter** (stub, Phase 3): riga full-width tra corpo e bottom bar, input pill + bottone "Iscriviti"
+- **Bottom bar**: © copyright | ENCI · FCI · Albo Allevatori | SHARKCODE
+
+**Accessibilità:**
+- `<nav aria-labelledby>` attorno a Naviga e Legale
+- `aria-label` su tutti i link funzionali (tel, email, Maps)
+- Alt text descrittivo su tutti gli `<img>`
+- Colore *cresce con te.* = `#9b3e28` (5.4:1 su sfondo footer → WCAG AA ✅)
+- Focus ring esplicito sui link immagine ENCI/FCI
+
+**Sticky footer:** `#root { display: flex; flex-direction: column; min-height: 100dvh; }` + `#main-content { flex: 1 }` — il footer resta sempre al fondo del viewport anche su pagine corte.
+
+### 8. Feature Pianificate (stub presenti, funzionalità in fasi future)
+
+#### Newsletter (Phase 3)
+- Form inline nel footer: input email pill-style + bottone "Iscriviti" affiancati
+- Sezione dedicata nella homepage con testo e consenso GDPR
+- Provider da scegliere: Mailchimp / Brevo / ConvertKit (tutti gratuiti per basse liste)
+- Implementazione: react-hook-form + Zod + API provider + double opt-in gestito lato provider
+- Stub attuale: visibile nel footer ma `disabled` (no funzionalità)
+
+#### Dark / Light Mode (Phase 5)
+- Toggle in Navbar (icona sole/luna con Framer Motion)
+- Strategia: classe `.dark` su `<html>` + override CSS variables
+- Palette dark calda: sfondo `#1C1610`, surface `#252018`, testo `#F5EDE0`
+- Persistenza: `localStorage` (sovrascrive preferenza OS `prefers-color-scheme`)
+- Stub attuale: toggle visibile in Navbar ma non funzionante
+
+#### Internazionalizzazione IT · EN · FR · ES (Phase 8)
+- Libreria: `react-i18next` con lazy loading namespace
+- URL: `/en/`, `/fr/`, `/es/` — italiano default senza prefisso
+- Language switcher in Navbar + Footer (sotto "Legale")
+- SEO: `hreflang` tag su ogni pagina per ogni lingua
+- Stub attuale: switcher IT/EN/FR/ES visibile nel footer, solo IT attivo
+
 ---
 
 ## L'AI — Agents, Skills e Configurazione

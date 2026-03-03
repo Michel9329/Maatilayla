@@ -67,52 +67,142 @@
 - [x] CSS @keyframes al posto di GSAP per hero (risolto conflitto translate/transform)
 - [x] Navbar hero-mode trasparente su tutte le pagine
 - [x] ScrollToTop su cambio pagina
-- [ ] Footer completo (info, links, social, copyright)
-- [ ] Test cross-device finale
+- [x] Footer completo (brand, naviga, legale, contatti, bottom bar)
+- [x] Footer: loghi ENCI/FCI con link ufficiali, accessibilità WCAG AA
+- [x] Footer: sticky al fondo viewport (flex layout su #root)
+- [ ] Test cross-device finale (Phase 2 + Phase 3 insieme)
 
-### Phase 3 — Homepage Sezioni
-**Goal:** Tutte le sezioni della homepage completate
+### Phase 3 — Homepage Sezioni + Newsletter
+**Goal:** Tutte le sezioni della homepage completate, newsletter integrata
 
-- [ ] Sezione "Perché Maatilayla" (features/valori)
-- [ ] Sezione cuccioli disponibili (cards)
-- [ ] Galleria preview (Swiper)
-- [ ] Testimonials
-- [ ] CTA finale
+- [ ] Lenis smooth scroll (scroll fluido su tutto il sito)
+- [ ] Sezione "Perché Maatilayla" (features/valori con icone)
+- [ ] Sezione cuccioli disponibili (cards con foto, sesso, disponibilità)
+- [ ] Galleria preview (Swiper carosello, link a pagina Galleria)
+- [ ] Testimonials (citazioni con nome e foto)
+- [ ] CTA finale (sezione richiamo contatti)
+- [ ] **Newsletter — scelta provider** (Mailchimp vs Brevo vs ConvertKit: valutare piano gratuito, API disponibile, GDPR ready)
+- [ ] **Newsletter — sezione homepage** (titolo, sottotitolo, campo email, CTA)
+- [ ] **Newsletter — form** (react-hook-form + Zod, validazione email)
+- [ ] **Newsletter — integrazione API provider** (subscribe endpoint, gestione double opt-in lato provider)
+- [ ] **Newsletter — stati UI** (idle → loading → success / error)
+- [ ] **Newsletter — GDPR** (checkbox consenso con link Privacy Policy, testo obbligatorio)
+- [ ] **Newsletter — footer** (versione compatta inline nel footer, sopra la bottom bar)
 
 ### Phase 4 — Pagine Interne
 **Goal:** Tutte le pagine del menu completate
 
-- [ ] Chi Siamo
-- [ ] Blog (lista articoli + singolo)
-- [ ] Galleria (lightbox YARL)
-- [ ] F.A.Q. (accordion)
-- [ ] Contatti (form EmailJS)
+- [ ] Chi Siamo (storia, valori, foto allevamento)
+- [ ] Blog (lista articoli + pagina singolo articolo)
+- [ ] Galleria (lightbox YARL, griglia masonry)
+- [ ] F.A.Q. (accordion animato)
+- [ ] Contatti (form EmailJS: nome, email, messaggio, consenso GDPR)
 
-### Phase 5 — Deploy
+### Phase 5 — Dark / Light Mode
+**Goal:** Tema scuro completo, toggle persistente, tutto il sito coperto
+
+**Decisioni architetturali:**
+- Strategia: classe `.dark` su `<html>` + override CSS variables (no Tailwind dark:)
+- Rilevamento automatico: `prefers-color-scheme: dark` come default iniziale
+- Persistenza: `localStorage` (scelta utente sovrascrive OS preference)
+- Token: palette dark definita in `@media (prefers-color-scheme: dark)` e `.dark {}`
+
+**Palette dark (da definire):**
+- Background: warm dark (es. #1C1610) — non nero puro, mantiene calore
+- Surface: #252018 (cards, footer)
+- Text: #F5EDE0 (testo principale)
+- Text muted: #A89070
+- Primary: #E07B60 (leggermente più chiaro per contrasto su dark)
+- Bordi: rgba(255,255,255,0.1)
+
+**Task:**
+- [ ] Definire palette dark e aggiungere token in `src/index.css`
+- [ ] Toggle button in Navbar (icona sole/luna, animazione Framer Motion)
+- [ ] Hook `useTheme` (legge/scrive localStorage, applica classe a `<html>`)
+- [ ] Dark mode: Navbar (glass scuro, logo leggibile)
+- [ ] Dark mode: Hero section (overlay, glass card)
+- [ ] Dark mode: Footer (sfondo, bordi, testi)
+- [ ] Dark mode: tutte le sezioni Homepage (Phase 3)
+- [ ] Dark mode: tutte le Pagine Interne (Phase 4)
+- [ ] Dark mode: form contatti e newsletter
+- [ ] Dark mode: Swiper, lightbox YARL
+- [ ] Test accessibilità contrasto WCAG su entrambi i temi
+- [ ] Test cross-device (mobile toggle, OS sync)
+
+### Phase 6 — Deploy
 **Goal:** Sito live su Siteground
 
 - [ ] Build ottimizzata (immagini WebP, font self-hosted GDPR)
+- [ ] Ottimizzazione logo ENCI (430KB → max 60KB WebP/PNG compressa)
 - [ ] Deploy su Siteground (FTP/SFTP dist/ → public_html/)
 - [ ] SSL + DNS configurati
-- [ ] Test cross-browser + mobile
+- [ ] Test cross-browser + mobile (Chrome, Safari, Firefox, Edge)
+- [ ] Verifica .htaccess su Apache Siteground
 
-### Phase 6 — SEO & Ottimizzazione
+### Phase 7 — SEO & Ottimizzazione
 **Goal:** Massimizzare visibilità e performance
 
 - [ ] Lighthouse audit (target 90+ su tutte le categorie)
-- [ ] Structured data (LocalBusiness, FAQ schema)
-- [ ] Google Search Console + Analytics GA4
+- [ ] Structured data JSON-LD (LocalBusiness, DogBreeder, FAQ, BreadcrumbList)
+- [ ] Google Search Console configurato + sitemap inviata
+- [ ] Google Analytics GA4 configurato (con consenso cookie)
 - [ ] Ottimizzazione Core Web Vitals (LCP, CLS, INP)
-- [ ] Meta description e titoli ottimizzati per keyword
-- [ ] Sitemap.xml dinamica
-- [ ] Schema markup per allevamento (Organization, Product)
+- [ ] Meta description e titoli ottimizzati per keyword principali
+- [ ] Sitemap.xml dinamica (include tutte le pagine e lingue)
+- [ ] Schema markup Organization + breed-specific
 - [ ] Test OG tags (Facebook, WhatsApp, Telegram preview)
+- [ ] Robots.txt ottimizzato per crawler
 
-### Phase 7 — Blog CMS (post-lancio)
-**Goal:** Blog aggiornabile senza toccare codice
+### Phase 8 — Internazionalizzazione (IT · EN · FR · ES)
+**Goal:** Sito accessibile in 4 lingue, SEO multilingua, switcher in UI
 
-- [ ] Valutazione headless CMS (Contentful vs Sanity vs Decap)
-- [ ] Integrazione CMS con pagina Blog
-- [ ] Pannello admin per scrivere/modificare articoli
-- [ ] Immagini articoli gestite dal CMS
-- [ ] RSS feed
+**Decisioni architetturali:**
+- Libreria: `react-i18next` (standard de facto, lazy loading namespace)
+- URL strategy: prefisso path `/en/`, `/fr/`, `/es/` — italiano default senza prefisso
+- Rilevamento automatico: `i18next-browser-languagedetector` (navigator.language → redirect)
+- Routing: `<LanguageWrapper>` layout route che imposta lingua da URL param
+
+**Struttura file:**
+```
+src/i18n/
+  index.ts          ← setup i18next
+  locales/
+    it.json         ← italiano (master)
+    en.json
+    fr.json
+    es.json
+```
+
+**Task:**
+- [ ] Installazione: `react-i18next`, `i18next`, `i18next-browser-languagedetector`
+- [ ] Setup `src/i18n/index.ts` con lazy loading namespace
+- [ ] Routing multilingua con React Router v7 (prefisso /en, /fr, /es)
+- [ ] Language switcher in Navbar (bandiere o codice ISO: IT | EN | FR | ES)
+- [ ] Language switcher in Footer (bottom bar)
+- [ ] Traduzione: Navbar (tutti i link e CTA)
+- [ ] Traduzione: Footer (tutti i testi, note legali, copyright)
+- [ ] Traduzione: Homepage (hero, sezioni, newsletter, CTA)
+- [ ] Traduzione: Chi Siamo
+- [ ] Traduzione: Blog (titoli, UI; articoli in IT + EN a priorità)
+- [ ] Traduzione: Galleria (didascalie)
+- [ ] Traduzione: F.A.Q. (domande e risposte — tutte le 4 lingue)
+- [ ] Traduzione: Contatti (form, testi, placeholder)
+- [ ] SEO: `<link rel="alternate" hreflang="...">` su ogni pagina per ogni lingua
+- [ ] SEO: Open Graph locale per ogni lingua (og:locale:alternate)
+- [ ] Sitemap.xml: voci per ogni pagina × 4 lingue con hreflang
+- [ ] Test: cambio lingua preserva pagina corrente
+- [ ] Test: lingua OS → redirect automatico corretto
+
+### Phase 9 — Blog CMS (post-lancio)
+**Goal:** Blog aggiornabile senza toccare codice, gestione multilingua
+
+- [ ] Valutazione headless CMS (Contentful vs Sanity vs Decap CMS)
+  - Decap (ex Netlify CMS): open source, git-based, self-hosted → ideale per Siteground
+  - Contentful: free tier 25k record, API-first, ottimo per multilingua
+  - Sanity: real-time, ottimo developer experience, free tier generoso
+- [ ] Integrazione CMS con pagina Blog (fetch articoli via API o filesystem)
+- [ ] Pannello admin per scrivere/modificare articoli (senza deploy)
+- [ ] Gestione immagini articoli via CMS
+- [ ] Articoli in più lingue (linked translations)
+- [ ] RSS feed (IT + EN)
+- [ ] Preview articoli in bozza
