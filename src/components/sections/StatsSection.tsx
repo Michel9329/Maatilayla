@@ -5,10 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const stats = [
-  { end: 8, start: 0, suffix: '', label: 'Anni di esperienza' },
-  { end: 1, start: 0, suffix: '', label: 'Ettaro di natura' },
-  { end: 100, start: 0, suffix: '%', label: 'Passione' },
-  { end: 0, start: 16, suffix: '', label: 'Cani in gabbia' },
+  { end: 8, start: 0, suffix: '', label: 'Anni di esperienza', duration: 2.4 },
+  { end: 10000, start: 0, suffix: 'm²', label: 'Di natura', duration: 2.8 },
+  { end: 100, start: 0, suffix: '%', label: 'Passione', duration: 2.4 },
+  { end: 0, start: 16, suffix: '', label: 'Cani in gabbia', duration: 4.5 },
 ]
 
 export default function StatsSection() {
@@ -49,16 +49,15 @@ export default function StatsSection() {
         if (!el) return
 
         const obj = { val: stat.start }
-        // "0 cani in gabbia": countdown 3→0, ease power2.in (accelera verso lo 0)
         const isCountdown = stat.end < stat.start
         gsap.to(obj, {
           val: stat.end,
-          duration: 2.4,
+          duration: stat.duration,
           ease: isCountdown ? 'power2.in' : 'power2.out',
           snap: { val: 1 },
           delay: i * 0.12,
           onUpdate() {
-            el.textContent = Math.round(obj.val) + stat.suffix
+            el.textContent = Math.round(obj.val).toLocaleString('it-IT') + stat.suffix
           },
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -75,7 +74,7 @@ export default function StatsSection() {
   return (
     <section className="stats-section" ref={sectionRef} aria-label="I nostri numeri">
       <ul className="stats-grid">
-        {stats.map(({ start, suffix, label }, i) => (
+        {stats.map(({ start, suffix, label, end }, i) => (
           <li
             key={label}
             className="stat-item"
@@ -89,7 +88,7 @@ export default function StatsSection() {
                 valueRefs.current[i] = el
               }}
             >
-              {start}
+              {end === 0 ? start : start.toLocaleString('it-IT')}
               {suffix}
             </span>
             <span className="stat-label">{label}</span>
