@@ -59,6 +59,21 @@ export default function Navbar() {
   /* heroMode = trasparente con testo bianco solo sulla home in cima */
   const heroMode = isHome && !scrolled && !menuOpen
 
+  /* Chiudi drawer su back/forward browser + tasto Escape */
+  useEffect(() => {
+    if (!menuOpen) return
+    const onPopState = () => setMenuOpen(false)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('popstate', onPopState)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('popstate', onPopState)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [menuOpen])
+
   /* Scroll listener */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -181,7 +196,7 @@ export default function Navbar() {
                   width: 10,
                   height: 10,
                   borderRadius: '50%',
-                  background: '#22C55E',
+                  background: 'var(--color-online)',
                   border: `2px solid ${heroMode ? 'rgba(255,255,255,0.3)' : 'rgba(253,246,238,0.95)'}`,
                   zIndex: 2,
                   animation: 'pulse-dot 2.4s ease-in-out infinite',

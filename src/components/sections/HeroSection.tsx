@@ -13,14 +13,15 @@ export default function HeroSection() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) return
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl.fromTo(cardRef.current,
+    tl.fromTo(
+      cardRef.current,
       { opacity: 0, y: 30, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: 1, delay: 0.4 }
+      { opacity: 1, y: 0, scale: 1, duration: 1, delay: 0.4 },
     )
-    .fromTo(badgeRef.current,  { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.6')
-    .fromTo(titleRef.current,  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
-    .fromTo(descRef.current,   { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.3')
-    .fromTo(btnsRef.current,   { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
+      .fromTo(badgeRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.6')
+      .fromTo(titleRef.current, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+      .fromTo(descRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.3')
+      .fromTo(btnsRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
   }, [])
 
   const descStyle = {
@@ -33,12 +34,14 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="hero-section">
+    <section className="hero-section" aria-label="Sezione principale">
       {/* Background image */}
       <div
         className="hero-bg"
         aria-hidden="true"
-        style={{ backgroundImage: 'url(/content/images/maatilayla-header-cucciolo-allevamento.webp)' }}
+        style={{
+          backgroundImage: 'url(/content/images/maatilayla-header-cucciolo-allevamento.webp)',
+        }}
       />
 
       {/* Dark overlay */}
@@ -62,13 +65,16 @@ export default function HeroSection() {
             lineHeight: 1,
           }}
         >
-          <span style={{
-            width: 8, height: 8,
-            borderRadius: '50%',
-            background: 'var(--color-primary)',
-            flexShrink: 0,
-            animation: 'pulse-dot 2.4s ease-in-out infinite',
-          }} />
+          <span
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: 'var(--color-primary)',
+              flexShrink: 0,
+              animation: 'pulse-dot 2.4s ease-in-out infinite',
+            }}
+          />
           Allevamento Amatoriale ENCI · FCI
         </span>
 
@@ -83,27 +89,31 @@ export default function HeroSection() {
             color: 'var(--color-text)',
           }}
         >
-          Nasce da noi, <em style={{ fontStyle: 'italic', color: 'var(--color-primary)' }}>cresce con te.</em>
+          Nasce da noi,{' '}
+          <em style={{ fontStyle: 'italic', color: 'var(--color-primary)' }}>cresce con te.</em>
         </h1>
 
         {/* Description — CSS toggles short/full */}
         <div ref={descRef}>
           <p className="hero-desc-short" style={descStyle}>
-            Ogni barboncino toy fulvo di Maatilayla viene allevato in casa, con test genetici
-            e stimolazione neurologica. Un cucciolo sano non è fortuna&nbsp;— è scelta.
+            Ogni barboncino toy fulvo di Maatilayla viene allevato in casa, con test genetici e
+            stimolazione neurologica. Un cucciolo sano non è fortuna&nbsp;— è scelta.
           </p>
           <p className="hero-desc-full" style={descStyle}>
-            Ogni barboncino toy fulvo di Maatilayla viene allevato in casa,
-            a contatto con la famiglia, con protocolli scientifici di
-            stimolazione neurologica e test genetici sui riproduttori.
-            Perché un cucciolo sano e equilibrato non è fortuna&nbsp;— è scelta.
+            Ogni barboncino toy fulvo di Maatilayla viene allevato in casa, a contatto con la
+            famiglia, con protocolli scientifici di stimolazione neurologica e test genetici sui
+            riproduttori. Perché un cucciolo sano e equilibrato non è fortuna&nbsp;— è scelta.
           </p>
         </div>
 
         {/* CTA */}
         <div ref={btnsRef} className="hero-cta">
-          <Link to="/chi-siamo" className="btn-hero-primary">Chi Siamo</Link>
-          <Link to="/contatti" className="btn-hero-outline">Contatti</Link>
+          <Link to="/chi-siamo" className="btn-hero-primary">
+            Chi Siamo
+          </Link>
+          <Link to="/contatti" className="btn-hero-outline">
+            Contatti
+          </Link>
         </div>
       </div>
     </section>

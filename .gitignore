@@ -31,3 +31,4 @@ Thumbs.db
 
 # Scripts with sensitive data
 monitor-github-token.ps1
+.claude/settings.local.json
