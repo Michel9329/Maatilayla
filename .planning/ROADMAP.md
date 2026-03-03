@@ -88,13 +88,31 @@
 - [ ] F.A.Q. (accordion)
 - [ ] Contatti (form EmailJS)
 
-### Phase 5 — Deploy & SEO
+### Phase 5 — Deploy
 **Goal:** Sito live su Siteground
 
 - [ ] Build ottimizzata (immagini WebP, font self-hosted GDPR)
 - [ ] Deploy su Siteground (FTP/SFTP dist/ → public_html/)
 - [ ] SSL + DNS configurati
-- [ ] Test Lighthouse (target 90+ su tutte le categorie)
 - [ ] Test cross-browser + mobile
+
+### Phase 6 — SEO & Ottimizzazione
+**Goal:** Massimizzare visibilità e performance
+
+- [ ] Lighthouse audit (target 90+ su tutte le categorie)
 - [ ] Structured data (LocalBusiness, FAQ schema)
 - [ ] Google Search Console + Analytics GA4
+- [ ] Ottimizzazione Core Web Vitals (LCP, CLS, INP)
+- [ ] Meta description e titoli ottimizzati per keyword
+- [ ] Sitemap.xml dinamica
+- [ ] Schema markup per allevamento (Organization, Product)
+- [ ] Test OG tags (Facebook, WhatsApp, Telegram preview)
+
+### Phase 7 — Blog CMS (post-lancio)
+**Goal:** Blog aggiornabile senza toccare codice
+
+- [ ] Valutazione headless CMS (Contentful vs Sanity vs Decap)
+- [ ] Integrazione CMS con pagina Blog
+- [ ] Pannello admin per scrivere/modificare articoli
+- [ ] Immagini articoli gestite dal CMS
+- [ ] RSS feed
