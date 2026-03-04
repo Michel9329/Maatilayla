@@ -110,8 +110,8 @@ export default function AllevamentoSection() {
       <div className="allev-block" ref={block1Ref}>
         <div className="allev-img" ref={img1Ref}>
           <img
-            src="/content/images/maatilayla-cucciolo-barboncino-toy-rosso-prato.webp"
-            alt="Cucciolo di barboncino toy rosso nel prato dell'allevamento Maatilayla"
+            src="/content/images/maatilayla-barboncino-toy-famiglia-crescita.webp"
+            alt="Barboncino toy dell'allevamento Maatilayla in un prato fiorito"
             loading="lazy"
             decoding="async"
           />
@@ -186,8 +186,8 @@ export default function AllevamentoSection() {
       <div className="allev-block allev-block--flip" ref={block2Ref}>
         <div className="allev-img" ref={img2Ref}>
           <img
-            src="/content/images/maatilayla-cucciolo-barboncino-toy-corre-prato.webp"
-            alt="Cucciolo di barboncino toy che corre nel prato dell'allevamento Maatilayla"
+            src="/content/images/maatilayla-barboncino-toy-ritratto-verticale.webp"
+            alt="Barboncino toy dell'allevamento Maatilayla pronto per la sua nuova famiglia"
             loading="lazy"
             decoding="async"
           />

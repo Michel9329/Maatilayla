@@ -48,6 +48,35 @@ body {
   flex: 1;
 }
 
+/* ── Accessibilità ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
 /* ═══════════════════════════════════════════════════════
    APPLE MATERIALS — CSS approximation
    Fonte: developer.apple.com/design/human-interface-guidelines/materials
@@ -779,7 +808,6 @@ body {
   color: var(--color-text-muted);
   line-height: 1.55;
   margin: 0;
-  opacity: 0.75;
 }
 
 /* Lingua switcher (stub Phase 8) */
@@ -1721,7 +1749,7 @@ a img {
 /* ── Foto (dentro la card) ── */
 .allev-img {
   flex: 0 0 48%;
-  min-height: 420px;
+  aspect-ratio: 16 / 9;
   position: relative;
   overflow: hidden;
 }
@@ -1730,8 +1758,13 @@ a img {
   width: 100%;
   height: 120%;
   object-fit: cover;
+  object-position: center 30%;
   display: block;
   translate: 0 -10%;
+}
+
+.allev-block--flip .allev-img img {
+  object-position: center 40%;
 }
 
 /* ── Contenuto testo ── */
@@ -1985,7 +2018,7 @@ a img {
 @media (min-width: 768px) and (max-width: 1023px) {
   .allev-img {
     flex: 0 0 44%;
-    min-height: 380px;
+    aspect-ratio: 16 / 9;
   }
 }
 
@@ -2147,8 +2180,10 @@ a img {
   overflow-x: auto;
   scroll-snap-type: x proximity;
   padding-right: clamp(1rem, 3vw, 2rem);
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  margin-top: -1.5rem;
+  margin-bottom: -1.5rem;
   cursor: grab;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -2291,23 +2326,46 @@ a img {
 
 /* ── Progress bar ── */
 .bp-progress {
-  height: 4px;
-  background: rgba(26, 16, 8, 0.1);
-  margin: 1.5rem auto 0;
-  border-radius: 2px;
-  overflow: hidden;
+  height: 24px;
+  margin: 2rem auto 0;
   max-width: 320px;
   width: 50%;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.bp-progress::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: rgba(26, 16, 8, 0.1);
+  border-radius: 3px;
 }
 
 .bp-progress-fill {
-  height: 100%;
-  width: 100%;
-  background: var(--color-primary);
-  border-radius: 2px;
-  transform: scaleX(0.12);
-  transform-origin: left;
+  height: 24px;
+  position: relative;
   will-change: transform;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+}
+.bp-progress-fill::before {
+  content: '';
+  width: 100%;
+  height: 5px;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: height 0.15s;
+}
+.bp-progress-fill:hover::before {
+  height: 7px;
+}
+.bp-progress-fill:active {
+  cursor: grabbing;
 }
 
 /* ── Entrance via transition ── */
@@ -2809,8 +2867,8 @@ a img {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-right: 1rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
@@ -2882,10 +2940,23 @@ a img {
   width: 100%;
   height: 116%;
   object-fit: cover;
+  object-position: 25% center;
   display: block;
   will-change: transform;
-  mask-image: linear-gradient(to right, black 0%, black 82%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black 0%, black 82%, transparent 100%);
+  mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black 92%,
+    rgba(0, 0, 0, 0.4) 97%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black 92%,
+    rgba(0, 0, 0, 0.4) 97%,
+    transparent 100%
+  );
 }
 
 .cine-content {
@@ -3015,7 +3086,7 @@ a img {
   .cine-img-wrap {
     flex: none;
     width: 100%;
-    height: 55vw;
+    height: 42vw;
     overflow: hidden;
   }
 
@@ -3024,7 +3095,7 @@ a img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 40%;
+    object-position: 25% center;
     mask-image: none;
     -webkit-mask-image: none;
   }
@@ -3040,7 +3111,7 @@ a img {
 
   .cine-title {
     max-width: none;
-    font-size: clamp(1.45rem, 5.5vw, 1.85rem);
+    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
   }
 
   .cine-word {
@@ -3408,8 +3479,8 @@ a img {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-right: 1rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
@@ -3695,7 +3766,6 @@ a img {
   right: clamp(1rem, 3vw, 2rem);
   font-size: 0.72rem;
   color: var(--color-text-muted);
-  opacity: 0.5;
 }
 
 /* ── Entrance animation ── */
@@ -3742,6 +3812,13 @@ a img {
   }
   .nl-consent {
     text-align: left;
+  }
+  .nl-privacy {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
   }
 }
 
@@ -3892,6 +3969,30 @@ a img {
 }
 
 @media (max-width: 767px) {
+  .fq-section {
+    min-height: 520px;
+    padding: 3rem 1.25rem;
+    align-items: flex-end;
+  }
+  .fq-bg {
+    object-position: 70% center;
+  }
+  .fq-section::before {
+    mask-image:
+      radial-gradient(ellipse 60% 50% at 65% 30%, transparent 0%, transparent 25%, black 85%),
+      linear-gradient(to top, black 0%, black 50%, transparent 75%);
+    -webkit-mask-image:
+      radial-gradient(ellipse 60% 50% at 65% 30%, transparent 0%, transparent 25%, black 85%),
+      linear-gradient(to top, black 0%, black 50%, transparent 75%);
+  }
+  .fq-section::after {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.2) 45%,
+      transparent 70%
+    );
+  }
   .fq-content {
     align-items: center;
     text-align: center;
@@ -4049,6 +4150,17 @@ a img {
 .ct-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.ct-btn--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  margin-top: 1rem;
+}
+.ct-btn--outline:hover {
+  background: var(--color-primary);
+  color: #fff;
 }
 
 .ct-spinner {

@@ -105,8 +105,8 @@ export default function ParallaxCtaSection() {
       <div className="cine-img-wrap">
         <img
           ref={imgRef}
-          src="/content/images/maatilayla-cuccioli-barboncino-toy-cta.webp"
-          alt="Cuccioli di barboncino toy fulvo che dormono, allevamento Maatilayla"
+          src="/content/images/maatilayla-cuccioli-barboncino-toy-impegno.webp"
+          alt="Cuccioli di barboncino toy dell'allevamento Maatilayla insieme"
           loading="lazy"
           decoding="async"
           className="cine-img"
