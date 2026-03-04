@@ -3,6 +3,7 @@ import HeroSection from '@/components/sections/HeroSection'
 import StatsSection from '@/components/sections/StatsSection'
 import BentoSection from '@/components/sections/BentoSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
+import AllevamentoSection from '@/components/sections/AllevamentoSection'
 
 export default function Home() {
   return (
@@ -54,6 +55,7 @@ export default function Home() {
       <StatsSection />
       <BentoSection />
       <TestimonialsSection />
+      <AllevamentoSection />
     </>
   )
 }

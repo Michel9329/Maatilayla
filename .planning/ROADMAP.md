@@ -3,6 +3,7 @@
 ## Milestone v1.0 — Sito Completo
 
 ### Phase 0 — Setup & Health Check ✅
+
 **Goal:** Progetto funzionante, configurazioni, AI agents, skills, GitHub, code health
 
 - [x] Progetto React + Vite + TypeScript inizializzato
@@ -39,6 +40,7 @@
 - [x] Permessi settings.json completi (format, preview, audit)
 
 ### Phase 1 — Scraping Contenuti Sito Attuale ✅
+
 **Goal:** Estrarre tutti i testi dal sito WordPress per riutilizzarli
 
 - [x] Homepage — testi hero, sezioni, CTA
@@ -50,6 +52,7 @@
 - [x] Contenuti salvati in `content/testi-sito-attuale/` (7 pagine + 15 blog + index)
 
 ### Phase 2 — Header, Hero Section & Footer 🔄
+
 **Goal:** Componenti riusabili per header (navbar), hero section e footer
 
 - [x] Navbar floating pill (logo, links, CTA, glass effect)
@@ -81,6 +84,7 @@
 - [ ] Test cross-device finale (Phase 2 + Phase 3 insieme)
 
 ### Phase 3 — Homepage Sezioni + Newsletter
+
 **Goal:** Tutte le sezioni della homepage completate, newsletter integrata
 
 - [x] Lenis smooth scroll (integrato con GSAP ticker, `src/lib/lenis.ts`)
@@ -101,7 +105,16 @@
   - [x] GSAP entrance: righe da lati opposti (expo.out), card stagger opacity
   - [x] Transizione entrata → marquee impercettibile (onUpdate progress 0.45)
   - [x] Avatar colorati variati, stelle inline con nome, responsive (260px mobile)
-- [ ] Sezione "Perché Maatilayla" (features/valori con icone)
+- [x] AllevamentoSection — Card Elevate layout (2 blocchi foto+testo alternati in card) con:
+  - [x] Blocco 1: "Il nostro approccio" — filosofia allevamento, socializzazione, Biosensor
+  - [x] Blocco 2: "Da Maatilayla a casa tua" — iter cucciolo, test genetici, garanzie
+  - [x] 7 feature pills con icone Lucide (vaccini, eco, prcd-PRA, patella lux, microchip, pedigree, kit)
+  - [x] GSAP: card entry (opacity+y+scale), testo stagger, callout slide-in, pills fade-in
+  - [x] Parallax leggero sulle foto (yPercent -8→8, scrub 0.6)
+  - [x] Shimmer continuo sul bordo callout Biosensor (linear gradient, 6.5s)
+  - [x] Float continuo sulle pills + pulse icone (CSS @keyframes, sfalsati a onda)
+  - [x] Responsive: mobile stack verticale, tablet 44%, desktop 48%, widescreen padding 3rem
+- [ ] Sezione anteprima Blog (cards articoli + link /blog)
 - [ ] Sezione cuccioli disponibili (cards con foto, sesso, disponibilità)
 - [ ] Galleria preview (Swiper carosello, link a pagina Galleria)
 - [ ] CTA finale (sezione richiamo contatti)
@@ -114,6 +127,7 @@
 - [ ] **Newsletter — footer** (versione compatta inline nel footer, sopra la bottom bar)
 
 ### Phase 4 — Pagine Interne
+
 **Goal:** Tutte le pagine del menu completate
 
 - [ ] Chi Siamo (storia, valori, foto allevamento)
@@ -123,15 +137,18 @@
 - [ ] Contatti (form EmailJS: nome, email, messaggio, consenso GDPR)
 
 ### Phase 5 — Dark / Light Mode
+
 **Goal:** Tema scuro completo, toggle persistente, tutto il sito coperto
 
 **Decisioni architetturali:**
+
 - Strategia: classe `.dark` su `<html>` + override CSS variables (no Tailwind dark:)
 - Rilevamento automatico: `prefers-color-scheme: dark` come default iniziale
 - Persistenza: `localStorage` (scelta utente sovrascrive OS preference)
 - Token: palette dark definita in `@media (prefers-color-scheme: dark)` e `.dark {}`
 
 **Palette dark (da definire):**
+
 - Background: warm dark (es. #1C1610) — non nero puro, mantiene calore
 - Surface: #252018 (cards, footer)
 - Text: #F5EDE0 (testo principale)
@@ -140,6 +157,7 @@
 - Bordi: rgba(255,255,255,0.1)
 
 **Task:**
+
 - [ ] Definire palette dark e aggiungere token in `src/index.css`
 - [ ] Toggle button in Navbar (icona sole/luna, animazione Framer Motion)
 - [ ] Hook `useTheme` (legge/scrive localStorage, applica classe a `<html>`)
@@ -154,6 +172,7 @@
 - [ ] Test cross-device (mobile toggle, OS sync)
 
 ### Phase 6 — Deploy & Compliance GDPR
+
 **Goal:** Sito live su Siteground, conforme GDPR con iubenda
 
 - [ ] Build ottimizzata (immagini WebP, font self-hosted GDPR)
@@ -170,6 +189,7 @@
 - [ ] Footer: link legali aggiornati con URL iubenda reali (sostituire #privacy, #cookie, #preferenze, #termini)
 
 ### Phase 7 — SEO & Ottimizzazione
+
 **Goal:** Massimizzare visibilità e performance
 
 - [ ] Lighthouse audit (target 90+ su tutte le categorie)
@@ -184,15 +204,18 @@
 - [ ] Robots.txt ottimizzato per crawler
 
 ### Phase 8 — Internazionalizzazione (IT · EN · FR · ES)
+
 **Goal:** Sito accessibile in 4 lingue, SEO multilingua, switcher in UI
 
 **Decisioni architetturali:**
+
 - Libreria: `react-i18next` (standard de facto, lazy loading namespace)
 - URL strategy: prefisso path `/en/`, `/fr/`, `/es/` — italiano default senza prefisso
 - Rilevamento automatico: `i18next-browser-languagedetector` (navigator.language → redirect)
 - Routing: `<LanguageWrapper>` layout route che imposta lingua da URL param
 
 **Struttura file:**
+
 ```
 src/i18n/
   index.ts          ← setup i18next
@@ -204,6 +227,7 @@ src/i18n/
 ```
 
 **Task:**
+
 - [ ] Installazione: `react-i18next`, `i18next`, `i18next-browser-languagedetector`
 - [ ] Setup `src/i18n/index.ts` con lazy loading namespace
 - [ ] Routing multilingua con React Router v7 (prefisso /en, /fr, /es)
@@ -224,6 +248,7 @@ src/i18n/
 - [ ] Test: lingua OS → redirect automatico corretto
 
 ### Phase 9 — Blog CMS (post-lancio)
+
 **Goal:** Blog aggiornabile senza toccare codice, gestione multilingua
 
 - [ ] Valutazione headless CMS (Contentful vs Sanity vs Decap CMS)

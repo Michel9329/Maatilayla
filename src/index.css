@@ -1602,19 +1602,333 @@ a img {
 }
 
 .tm-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
   color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
   white-space: nowrap;
 }
 
-.tm-more:hover {
-  text-decoration: underline;
+.tm-more-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.tm-more:hover .tm-more-arrow {
+  transform: translateX(3px);
 }
 
 @media (max-width: 767px) {
   .tm-card {
     width: 260px;
     padding: 1.2rem 1.3rem;
+  }
+}
+
+/* ═══════════════════════════════════════
+   ALLEVAMENTO SECTION
+   Editorial centrato — flusso verticale con foto breakout
+═══════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════
+   ALLEVAMENTO SECTION — Card Elevate Layout
+   ══════════════════════════════════════════════════ */
+.allev-section {
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem) clamp(2.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.25rem);
+}
+
+/* ── Card block (foto + testo) ── */
+.allev-block {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  background: var(--color-cream);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid rgba(26, 16, 8, 0.06);
+}
+
+.allev-block--flip {
+  flex-direction: row-reverse;
+}
+
+/* ── Foto (dentro la card) ── */
+.allev-img {
+  flex: 0 0 48%;
+  min-height: 420px;
+  position: relative;
+  overflow: hidden;
+}
+
+.allev-img img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  display: block;
+  translate: 0 -10%;
+}
+
+/* ── Contenuto testo ── */
+.allev-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  justify-content: center;
+}
+
+/* ── Badge ── */
+.allev-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+
+.allev-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* ── Titolo ── */
+.allev-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.allev-accent {
+  font-style: italic;
+  color: var(--color-primary);
+}
+
+/* ── Corpo testo ── */
+.allev-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.84rem, 0.95vw, 0.9rem);
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.allev-body--em {
+  color: var(--color-text);
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ── Biosensor callout ── */
+.allev-callout {
+  position: relative;
+  border-left: 2px solid var(--color-primary);
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+/* Shimmer che scorre lungo il bordo sinistro */
+.allev-callout::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-primary-light) 40%,
+    #fff 50%,
+    var(--color-primary-light) 60%,
+    transparent 100%
+  );
+  background-size: 100% 300%;
+  animation: allev-shimmer 6.5s linear infinite;
+}
+
+@keyframes allev-shimmer {
+  0% {
+    background-position: 0% 150%;
+  }
+  100% {
+    background-position: 0% -150%;
+  }
+}
+
+.allev-callout-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.allev-callout-text {
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 0.9vw, 0.87rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ── Feature list (cuccioli) ── */
+.allev-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.allev-feat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.8rem;
+  background: var(--color-warm-white);
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(26, 16, 8, 0.06);
+  animation: allev-pill-float 3.2s ease-in-out infinite;
+}
+
+.allev-feat:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.allev-feat:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.allev-feat:nth-child(4) {
+  animation-delay: 1.2s;
+}
+.allev-feat:nth-child(5) {
+  animation-delay: 1.6s;
+}
+.allev-feat:nth-child(6) {
+  animation-delay: 2s;
+}
+.allev-feat:nth-child(7) {
+  animation-delay: 2.4s;
+}
+
+.allev-feat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  animation: allev-icon-pulse 2.8s ease-in-out infinite;
+}
+
+.allev-feat:nth-child(2) .allev-feat-icon {
+  animation-delay: 0.4s;
+}
+.allev-feat:nth-child(3) .allev-feat-icon {
+  animation-delay: 0.8s;
+}
+.allev-feat:nth-child(4) .allev-feat-icon {
+  animation-delay: 1.2s;
+}
+.allev-feat:nth-child(5) .allev-feat-icon {
+  animation-delay: 1.6s;
+}
+.allev-feat:nth-child(6) .allev-feat-icon {
+  animation-delay: 2s;
+}
+.allev-feat:nth-child(7) .allev-feat-icon {
+  animation-delay: 2.4s;
+}
+
+@keyframes allev-pill-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -2px;
+  }
+}
+
+@keyframes allev-icon-pulse {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.15;
+  }
+}
+
+.allev-feat-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ── Widescreen ── */
+@media (min-width: 1440px) {
+  .allev-section {
+    padding: 4rem 3rem 4rem;
+  }
+}
+
+/* ── Tablet ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .allev-img {
+    flex: 0 0 44%;
+    min-height: 380px;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .allev-section {
+    padding: 2.5rem 1rem 2.5rem;
+    gap: 1rem;
+  }
+  .allev-block,
+  .allev-block--flip {
+    flex-direction: column;
+  }
+  .allev-img {
+    flex: none;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+  .allev-content {
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+  .allev-feat {
+    padding: 0.4rem 0.7rem;
+  }
+  .allev-feat-label {
+    font-size: 0.72rem;
   }
 }

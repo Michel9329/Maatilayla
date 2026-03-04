@@ -11,19 +11,19 @@ Scritta per chi viene da WordPress/Elementor e vuole capire il progetto.
 
 **Ora (React SPA):** Il sito è una Single Page Application. Il browser scarica TUTTO il codice una volta sola, poi naviga tra le pagine istantaneamente senza ricaricare. È come un'app mobile nel browser.
 
-| Concetto WordPress | Equivalente React |
-|---|---|
-| Tema + child theme | `src/index.css` + Tailwind CSS |
-| Header.php | `src/components/layout/Navbar.tsx` |
-| Footer.php | `src/components/layout/Footer.tsx` |
-| Template pagina | `src/pages/Home.tsx`, `ChiSiamo.tsx`, ecc. |
-| Plugin SEO (Yoast) | `react-helmet-async` (meta tag per pagina) |
-| Plugin form (CF7) | React Hook Form + Zod + EmailJS |
-| Media Library | `public/content/images/` e `public/content/logos/` |
-| .htaccess | Stesso file, ma per SPA routing |
-| functions.php | `src/hooks/` (funzioni riutilizzabili) |
-| wp-config.php | `.env.local` (variabili segrete) |
-| Plugin = funzionalità | `npm install pacchetto` (librerie) |
+| Concetto WordPress    | Equivalente React                                  |
+| --------------------- | -------------------------------------------------- |
+| Tema + child theme    | `src/index.css` + Tailwind CSS                     |
+| Header.php            | `src/components/layout/Navbar.tsx`                 |
+| Footer.php            | `src/components/layout/Footer.tsx`                 |
+| Template pagina       | `src/pages/Home.tsx`, `ChiSiamo.tsx`, ecc.         |
+| Plugin SEO (Yoast)    | `react-helmet-async` (meta tag per pagina)         |
+| Plugin form (CF7)     | React Hook Form + Zod + EmailJS                    |
+| Media Library         | `public/content/images/` e `public/content/logos/` |
+| .htaccess             | Stesso file, ma per SPA routing                    |
+| functions.php         | `src/hooks/` (funzioni riutilizzabili)             |
+| wp-config.php         | `.env.local` (variabili segrete)                   |
+| Plugin = funzionalità | `npm install pacchetto` (librerie)                 |
 
 ---
 
@@ -74,9 +74,11 @@ Maatilayla/
 ## Le Tecnologie Spiegate
 
 ### React (il framework)
+
 **Cos'è:** Una libreria per costruire interfacce utente. Invece di HTML statico, scrivi "componenti" — pezzi riutilizzabili di interfaccia.
 
 **Esempio semplice:**
+
 ```tsx
 // Un componente è una funzione che ritorna HTML
 function Bottone({ testo }) {
@@ -84,16 +86,18 @@ function Bottone({ testo }) {
 }
 
 // Lo usi così in un'altra pagina:
-<Bottone testo="Contattaci" />
+;<Bottone testo="Contattaci" />
 ```
 
 **Perché è meglio di WordPress per questo progetto:**
+
 - Navigazione istantanea (no ricaricamento pagina)
 - Animazioni fluide (GSAP)
 - Controllo totale sul design (no vincoli tema)
 - Performance superiore (bundle ottimizzato)
 
 ### TypeScript (il linguaggio)
+
 **Cos'è:** JavaScript con "tipi". Ti avvisa PRIMA se fai errori.
 
 **Esempio:** Se scrivi `nome = 42` ma il componente si aspetta un testo, TypeScript ti dice "errore" prima ancora che apri il browser. In WordPress/PHP, lo scoprivi solo quando il sito crashava.
@@ -101,14 +105,17 @@ function Bottone({ testo }) {
 I file `.tsx` = TypeScript + JSX (HTML dentro JavaScript). I file `.ts` = solo TypeScript.
 
 ### Vite (il build tool)
+
 **Cos'è:** L'equivalente del "compilatore". Prende tutti i tuoi file `.tsx`, `.css`, immagini, e li impacchetta in file ottimizzati per il browser.
 
 **Comandi:**
+
 - `npm run dev` → Avvia un server locale per sviluppo (modifica il codice e vedi i cambiamenti in tempo reale)
 - `npm run build` → Crea la versione finale per il server (la cartella `dist/`)
 - `npm run preview` → Preview della build finale
 
 ### Tailwind CSS (lo stile)
+
 **Cos'è:** Un framework CSS utility-first. Invece di scrivere classi CSS personalizzate, usi classi predefinite direttamente nell'HTML.
 
 **Equivalenza Elementor:**
@@ -122,6 +129,7 @@ I file `.tsx` = TypeScript + JSX (HTML dentro JavaScript). I file `.ts` = solo T
 Nel nostro progetto usiamo un **mix**: Tailwind per layout rapido + CSS custom in `src/index.css` per effetti complessi (glass, animazioni).
 
 ### GSAP (le animazioni)
+
 **Cos'è:** Libreria per animazioni professionali. Usata da Apple, Nike, Google.
 
 **Nel nostro progetto:** La navbar che appare dall'alto. Il drawer mobile. Il pulsante "pulse dot" verde.
@@ -129,6 +137,7 @@ Nel nostro progetto usiamo un **mix**: Tailwind per layout rapido + CSS custom i
 **Nota:** L'hero section usava GSAP inizialmente, ma è stato sostituito con **CSS @keyframes** per risolvere un conflitto tra GSAP `transform` e CSS `translate` (GSAP 3.14 gestisce le proprietà CSS individuali in modo diverso). Le CSS animations sono più affidabili per componenti che si montano/smontano con React Router.
 
 ### React Router (la navigazione)
+
 **Cos'è:** Gestisce gli URL. Quando clicchi "Chi Siamo", non ricarica la pagina — cambia solo il contenuto visualizzato.
 
 **In WordPress:** Ogni pagina = un URL diverso = richiesta al server.
@@ -139,9 +148,11 @@ Nel nostro progetto usiamo un **mix**: Tailwind per layout rapido + CSS custom i
 ## Cosa Ho Costruito — Spiegato Pezzo per Pezzo
 
 ### 1. Navbar (`src/components/layout/Navbar.tsx`)
+
 La barra di navigazione "floating pill" ispirata ad Apple.
 
 **Come funziona:**
+
 - Su **desktop** (>1024px): pillola con logo + 6 link + pulsante CTA "Richiedi Informazioni"
 - Su **tablet** (768-1023px): stessa struttura ma più compatta
 - Su **smartphone** (<768px): logo + hamburger menu → apre un drawer fullscreen
@@ -149,15 +160,18 @@ La barra di navigazione "floating pill" ispirata ad Apple.
 **Effetto glass:** La navbar è semitrasparente con sfocatura (`backdrop-filter: blur`). Quando sei sulla hero (hero-mode), è trasparente con testo bianco. Quando scorri, diventa crema opaca.
 
 **Funzionalità:**
+
 - Scroll listener: cambia stile quando scorri giù
 - Escape key: chiude il drawer
 - Browser back/forward: chiude il drawer
 - Animazione ingresso con GSAP
 
 ### 2. Hero Section (`src/components/sections/HeroSection.tsx`)
+
 Componente riusabile per la sezione hero di ogni pagina. Riceve props per personalizzare contenuto e aspetto.
 
 **Props disponibili:**
+
 - `image` — URL immagine di sfondo (diversa per pagina)
 - `alt` — Testo alternativo per accessibilità
 - `title` — Titolo (supporta JSX per stili inline)
@@ -168,6 +182,7 @@ Componente riusabile per la sezione hero di ogni pagina. Riceve props per person
 - `compact` — Variante compatta per pagine interne
 
 **Come funziona:**
+
 - **Sfondo**: immagine WebP, copre tutto lo spazio
 - **Overlay**: gradiente scuro sopra l'immagine per leggibilità
 - **Glass card**: effetto "liquid glass" Apple — sfocatura + bordi luminosi + ombra
@@ -176,6 +191,7 @@ Componente riusabile per la sezione hero di ogni pagina. Riceve props per person
 - **Animazione**: CSS `@keyframes` con stagger sui figli (no GSAP — risolve conflitto transform/translate)
 
 **Pagine configurate:**
+
 - **Home**: hero completo (badge + titolo + descrizione + 2 CTA)
 - **Chi Siamo**: hero completo con immagine cuccioli neonati + CTA "La Struttura" e "Storia"
 - **Blog, Galleria, FAQ, Contatti**: hero con titolo + sottotitolo
@@ -183,12 +199,15 @@ Componente riusabile per la sezione hero di ogni pagina. Riceve props per person
 **Il bug widescreen risolto:** Su monitor ultrawide (49"), il CSS `aspect-ratio: 16/8` combinato con `max-height: 90vh` faceva restringere la larghezza del hero. Risolto sostituendo con `height: clamp(560px, 50vw, 90vh)` che mantiene la stessa proporzione senza effetti collaterali.
 
 ### 3. Layout (`src/components/layout/Layout.tsx`)
+
 Il "wrapper" che contiene Navbar + contenuto pagina + Footer. Ogni pagina viene renderizzata dentro `<main>`. Include il link "Salta al contenuto" per accessibilità.
 
 **Protezione contenuti:** Blocca tasto destro (menu contestuale), Ctrl+C (copia), Ctrl+U (view source), Ctrl+S (salva), Ctrl+P (stampa). Il CSS aggiunge `user-select: none` su tutto il body e `user-drag: none` sulle immagini. I form restano selezionabili.
 
 ### 4. CSS (`src/index.css`)
+
 Il file di stile principale. Contiene:
+
 - **@theme**: variabili CSS (colori, font, raggi bordo) — come il "Design System" in Elementor
 - **Liquid glass**: effetto vetro sfocato riutilizzabile
 - **Hero responsive**: 3 breakpoints (768px, 1024px, 1440px) con media queries CSS pure
@@ -197,21 +216,27 @@ Il file di stile principale. Contiene:
 - **Accessibilità**: focus-visible per keyboard, prefers-reduced-motion
 
 ### 5. App (`src/App.tsx`)
+
 Il componente radice che gestisce il routing. Include:
+
 - **ScrollToTop**: scrolla in cima ad ogni cambio pagina
 - **Lazy loading**: tutte le pagine tranne Home sono caricate su richiesta
 - **Analytics**: traccia page view su Google Analytics
 
 ### 6. Pagine (`src/pages/`)
+
 6 pagine con react-helmet-async per SEO:
+
 - Ogni pagina ha `<title>`, `<meta description>`, e **Open Graph tags** per condivisione social
 - Home è caricata subito, le altre sono **lazy loaded** (scaricate solo quando servono)
 - Ogni pagina usa HeroSection con props personalizzati
 
 ### 7. Footer (`src/components/layout/Footer.tsx`)
+
 Il footer a piena larghezza (con margini isola come l'hero su tablet/desktop). Sfondo `#EDE5D8` (beige sabbia caldo).
 
 **Struttura:**
+
 - **Brand bar**: logo Maatilayla a sinistra + loghi ENCI/FCI (cliccabili, aprono i siti ufficiali) a destra
 - **Corpo 2 colonne**:
   - Sinistra: tagline "Nasce da noi, cresce con te." + testo SEO → Naviga (6 link) → Legale (5 link) → Lingua (stub, Phase 8)
@@ -220,15 +245,17 @@ Il footer a piena larghezza (con margini isola come l'hero su tablet/desktop). S
 - **Bottom bar**: © copyright | ENCI · FCI · Albo Allevatori | SHARKCODE
 
 **Accessibilità:**
+
 - `<nav aria-labelledby>` attorno a Naviga e Legale
 - `aria-label` su tutti i link funzionali (tel, email, Maps)
 - Alt text descrittivo su tutti gli `<img>`
-- Colore *cresce con te.* = `#9b3e28` (5.4:1 su sfondo footer → WCAG AA ✅)
+- Colore _cresce con te._ = `#9b3e28` (5.4:1 su sfondo footer → WCAG AA ✅)
 - Focus ring esplicito sui link immagine ENCI/FCI
 
 **Sticky footer:** `#root { display: flex; flex-direction: column; min-height: 100dvh; }` + `#main-content { flex: 1 }` — il footer resta sempre al fondo del viewport anche su pagine corte.
 
 ### 8. StatsSection (`src/components/sections/StatsSection.tsx`)
+
 Sezione contatori animati sopra la BentoSection. Tre statistiche: anni di esperienza (countdown da 16 a 0), superficie allevamento (10.000 m²), cani attivi (countUp da 0 a 100 con "% Passione").
 
 **Animazioni:** Contatori via `requestAnimationFrame` con duration calibrata per ognuno, attivati da IntersectionObserver una sola volta. Prefers-reduced-motion: mostra valori finali statici.
@@ -236,22 +263,27 @@ Sezione contatori animati sopra la BentoSection. Tre statistiche: anni di esperi
 ---
 
 ### 9. BentoSection (`src/components/sections/BentoSection.tsx`)
+
 Griglia bento 2×2 con quattro card: hero testo, photo slider, caratteristiche, CTA.
 
 **Layout CSS grid:**
+
 - Desktop: `grid-template-columns: 1fr 1fr`, `grid-template-rows: 310px 260px`
 - Mobile: stack verticale, altezze auto
 
 **Card 1 — Hero testo:**
+
 - Badge "Il Barbone Toy" + titolo + 2 paragrafi sul barboncino toy
 - GSAP stagger in ingresso: badge → h2 → p1 → p2 (y 24px, power3.out, delay 0.44s)
 
 **Card 2 — Photo slider:**
+
 - Swiper EffectFade + Autoplay (3500ms) + Pagination cliccabile + loop
 - 6 foto reali in `public/content/images/` (nome semantico, alt text in italiano)
 - CSS: `position: absolute; inset: 0; object-fit: cover` + `transform: translateZ(0)` per stabilità GPU
 
 **Card 3 — Caratteristiche:**
+
 - 6 caratteristiche: Intelligenza, Devozione, Socialità, Versatilità, Equilibrio, Ipoallergenico
 - Swiper senza effetto + Autoplay (4200ms) + pauseOnMouseEnter + frecce navigazione manuale
 - Sfondo `#D8DFC6` (olive pastello)
@@ -259,16 +291,19 @@ Griglia bento 2×2 con quattro card: hero testo, photo slider, caratteristiche, 
 - Testo nascosto su `onSlideChangeTransitionStart`, rivelato su `onSlideChangeTransitionEnd`
 
 **Card 4 — CTA:**
+
 - Sfondo scuro (--color-text)
 - Titolo + testo compatto + ghost pill button "Leggi di più →" → `/il-barbone`
 - `.btn-bento-cta-ghost`: border rgba(255,255,255,0.25), hover gap animation su freccia
 
 **Hover tilt 3D:**
+
 - React `onMouseMove`/`onMouseLeave` handlers con `gsap.to` + `overwrite: 'auto'`
 - ±4° rotazione, `perspective: 900px` su parent `.bento-grid` (CSS)
 - Return: 1.2s duration con `expo.out` (ritorno morbido, no scatto)
 
 **ScrollTrigger per-card:**
+
 - Top cards (hero + photos): trigger sulla sezione (`start: 'top 82%'`)
 - Bottom cards (caratteristiche + CTA): trigger individuale su ogni card (`start: 'top 90%'`)
 - Le bottom cards si animano solo quando entrano nel viewport, non quando appaiono le top cards
@@ -276,13 +311,16 @@ Griglia bento 2×2 con quattro card: hero testo, photo slider, caratteristiche, 
 ---
 
 ### 10. TestimonialsSection (`src/components/sections/TestimonialsSection.tsx`)
+
 Sezione recensioni con due righe marquee infinite a direzioni opposte.
 
 **Contenuto:**
+
 - 10 recensioni reali da Google (5 per riga), troncate a 150 caratteri + link "leggi di più"
 - Avatar con iniziale colorata (10 colori diversi), nome + 5 stelle inline
 
 **Marquee CSS (non GSAP):**
+
 - CSS `@keyframes` sul compositor thread — zero scatti (GSAP `repeat: -1` causava jump su main thread)
 - `--scroll-dist` misurato via `getBoundingClientRect()` in `requestAnimationFrame`
 - Riga 1 (normale): `[items, items]` — scrolla a sinistra
@@ -290,19 +328,51 @@ Sezione recensioni con due righe marquee infinite a direzioni opposte.
 - Hover: `animation-play-state: paused` sul wrapper
 
 **Animazioni entrata GSAP:**
+
 - Badge + titolo: fade-up con stagger (ScrollTrigger once)
 - Righe: slide da lato coerente con direzione marquee (riga 1 da destra, riga 2 da sinistra)
 - `expo.out`, durata 1.8s/2.0s, card stagger opacity graduale
 - Transizione entrata → marquee: `onUpdate` avvia CSS animation a progress 0.45 (quando il 93% del movimento è già completato con expo.out)
 
 **Responsive:**
+
 - Card: 320px desktop → 260px mobile (767px)
 - Padding e spacing fluidi con `clamp()`
 - Animazione 40s su entrambi i breakpoint
 
 ---
 
+### 11. AllevamentoSection (`src/components/sections/AllevamentoSection.tsx`)
+
+Sezione homepage con due blocchi foto+testo alternati dentro card elevate (sfondo cream, bordi arrotondati).
+
+**Blocco 1 — "Il nostro approccio":**
+
+- Badge "Il nostro approccio" + titolo "Cresciuti in famiglia, con dedizione e competenza"
+- 3 paragrafi: socializzazione, manipolazione/rumori, multi-specie
+- Callout Biosensor con bordo sinistro primary + shimmer continuo (gradient linear, 6.5s loop)
+
+**Blocco 2 — "Da Maatilayla a casa tua":**
+
+- Badge "Pronti per te" + titolo "Da Maatilayla a casa tua, un cucciolo pronto per te"
+- 3 paragrafi: 3 mesi con mamma, vaccinazioni/ecocardiogramma, microchip/pedigree
+- Frase finale in italico sull'indole
+- 7 feature pills con icone Lucide: vaccinato, ecocardiogramma, test prcd-PRA, test patella lux, microchip, pedigree ENCI, Puppy Starter Kit
+
+**Animazioni GSAP:**
+
+- Card entry: `opacity 0→1, y 36→0, scale 0.97→1` con `power3.out`, ScrollTrigger per-card
+- Testo: `opacity 0→1, y 20→0` con stagger 0.09s, delay 0.35s
+- Callout Biosensor: slide-in da sinistra (`x -30→0`), ScrollTrigger individuale
+- Pills: fade-in stagger GSAP + float continuo CSS (translate 0 -2px, 3.2s) + pulse icona (scale 1→1.15, 2.8s)
+- Parallax foto: `yPercent -8→8`, scrub 0.6 (immagine 120% altezza container)
+
+**Responsive:** Mobile stack verticale (foto sopra, testo sotto), tablet 44% foto, desktop 48% foto. Padding allineato con BentoSection.
+
+---
+
 ### 12. Pagina Il Barbone (`src/pages/IlBarbone.tsx`)
+
 Stub per `/il-barbone` — pagina dedicata alla razza (da sviluppare in Phase 4 estesa).
 Attualmente: HeroSection + SEO Helmet (titolo, description, OG tags).
 Raggiungibile dal pulsante "Leggi di più" nella BentoSection CTA card.
@@ -310,9 +380,11 @@ Raggiungibile dal pulsante "Leggi di più" nella BentoSection CTA card.
 ---
 
 ### 13. Lenis Smooth Scroll (`src/lib/lenis.ts`)
+
 Smooth scroll globale integrato con GSAP ticker.
 
 **Come funziona:**
+
 - `initLenis()` chiamata in `src/main.tsx` prima del render
 - Lenis alimentato da `gsap.ticker.add((time) => lenis.raf(time * 1000))` — tick unificato
 - `lenis.on('scroll', ScrollTrigger.update)` — ScrollTrigger sincronizzato con Lenis
@@ -324,6 +396,7 @@ Smooth scroll globale integrato con GSAP ticker.
 ### 14. Feature Pianificate (stub presenti, funzionalità in fasi future)
 
 #### Newsletter (Phase 3)
+
 - Form inline nel footer: input email pill-style + bottone "Iscriviti" affiancati
 - Sezione dedicata nella homepage con testo e consenso GDPR
 - Provider da scegliere: Mailchimp / Brevo / ConvertKit (tutti gratuiti per basse liste)
@@ -331,6 +404,7 @@ Smooth scroll globale integrato con GSAP ticker.
 - Stub attuale: visibile nel footer ma `disabled` (no funzionalità)
 
 #### Dark / Light Mode (Phase 5)
+
 - Toggle in Navbar (icona sole/luna con Framer Motion)
 - Strategia: classe `.dark` su `<html>` + override CSS variables
 - Palette dark calda: sfondo `#1C1610`, surface `#252018`, testo `#F5EDE0`
@@ -338,6 +412,7 @@ Smooth scroll globale integrato con GSAP ticker.
 - Stub attuale: toggle visibile in Navbar ma non funzionante
 
 #### Internazionalizzazione IT · EN · FR · ES (Phase 8)
+
 - Libreria: `react-i18next` con lazy loading namespace
 - URL: `/en/`, `/fr/`, `/es/` — italiano default senza prefisso
 - Language switcher in Navbar + Footer (sotto "Legale")
@@ -349,29 +424,35 @@ Smooth scroll globale integrato con GSAP ticker.
 ## L'AI — Agents, Skills e Configurazione
 
 ### Cos'è Claude Code?
+
 Lo strumento che stai usando ora. È un assistente AI che può leggere, scrivere e modificare codice direttamente nel tuo progetto. Può anche eseguire comandi nel terminale (build, lint, ecc.).
 
 ### Agents (`.claude/agents/`)
+
 Sono "prompt specializzati" — istruzioni predefinite per compiti specifici:
 
-| Agent | Cosa fa |
-|---|---|
-| **component-builder** | Crea componenti React seguendo il design system |
-| **content-writer** | Scrive testi in italiano con tono corretto per il sito |
-| **seo-reviewer** | Controlla SEO: meta tag, performance, structured data |
-| **a11y-auditor** | Controlla accessibilità: contrasto, keyboard, screen reader |
-| **deploy** | Guida al deploy su Siteground con checklist |
+| Agent                 | Cosa fa                                                     |
+| --------------------- | ----------------------------------------------------------- |
+| **component-builder** | Crea componenti React seguendo il design system             |
+| **content-writer**    | Scrive testi in italiano con tono corretto per il sito      |
+| **seo-reviewer**      | Controlla SEO: meta tag, performance, structured data       |
+| **a11y-auditor**      | Controlla accessibilità: contrasto, keyboard, screen reader |
+| **deploy**            | Guida al deploy su Siteground con checklist                 |
 
 **Come usarli:** Quando chiedi a Claude di fare qualcosa, lui può invocare questi agent per avere istruzioni specializzate. Non devi fare nulla di manuale.
 
 ### MCP Servers (`.mcp.json`)
+
 **MCP = Model Context Protocol.** Sono "connettori" che danno a Claude capacità extra.
 
 Attualmente configurato:
+
 - **Context7** (Upstash): gestisce contesto lungo tra conversazioni
 
 ### CLAUDE.md
+
 Il file più importante per l'AI. Contiene TUTTE le regole del progetto:
+
 - Colori esatti da usare
 - Font e dimensioni
 - Come strutturare i componenti
@@ -382,9 +463,11 @@ Il file più importante per l'AI. Contiene TUTTE le regole del progetto:
 Quando Claude legge questo file, "sa" come deve lavorare nel tuo progetto. È come dare un brief dettagliato a un designer.
 
 ### Vibe Kanban (`.planning/config.json`)
+
 Tool di project management per AI. Traccia fasi, task, dipendenze. Si avvia con `npm run kanban`.
 
 ### Permessi (`.claude/settings.json`)
+
 Lista whitelist dei comandi che Claude può eseguire senza chiederti permesso (build, dev, lint, install). Per sicurezza, comandi pericolosi richiedono sempre la tua approvazione.
 
 ---
@@ -392,7 +475,9 @@ Lista whitelist dei comandi che Claude può eseguire senza chiederti permesso (b
 ## Tooling per Sviluppatori
 
 ### Pre-commit hooks (Husky + lint-staged)
+
 **Cosa fanno:** Ogni volta che fai un `git commit`, automaticamente:
+
 1. ESLint controlla errori nel codice
 2. Prettier formatta il codice in modo uniforme
 3. Se ci sono errori, il commit viene bloccato
@@ -400,15 +485,19 @@ Lista whitelist dei comandi che Claude può eseguire senza chiederti permesso (b
 È come avere un "correttore di bozze" automatico.
 
 ### ESLint (controllo errori)
+
 Analizza il codice e segnala problemi: variabili non usate, errori di tipo, pattern pericolosi. Configurato con regole strict per TypeScript e React hooks.
 
 ### Prettier (formattazione)
+
 Formatta il codice in modo consistente: indentazione, virgole, apici. Non devi preoccuparti di formattare — lo fa lui.
 
 ### .editorconfig
+
 Dice a qualsiasi editor (VS Code, Sublime, ecc.) di usare le stesse impostazioni: spazi (non tab), 2 spazi per livello, fine riga Unix.
 
 ### .vscode/ (configurazione editor)
+
 - **extensions.json**: suggerisce le estensioni utili (Prettier, ESLint, Tailwind)
 - **settings.json**: format-on-save attivo, ESLint auto-fix al salvataggio
 
@@ -416,25 +505,27 @@ Dice a qualsiasi editor (VS Code, Sublime, ecc.) di usare le stesse impostazioni
 
 ## SEO — Cosa Abbiamo Fatto
 
-| Elemento | Stato | Equivalente WordPress |
-|---|---|---|
-| `<title>` per pagina | ✅ | Yoast SEO → Titolo |
-| `<meta description>` | ✅ | Yoast SEO → Descrizione |
-| Open Graph tags | ✅ | Yoast SEO → Social |
-| robots.txt | ✅ | Plugin o file manuale |
-| sitemap.xml | ✅ | Yoast SEO → Sitemap |
-| .htaccess SPA routing | ✅ | Automatico in WP |
-| Structured data (schema) | Phase 6 | Yoast SEO → Schema |
-| Google Search Console | Phase 6 | Plugin + verifica |
-| Core Web Vitals | Phase 6 | N/A (nuovo standard) |
-| Protezione contenuti | ✅ | Plugin anti-copy |
+| Elemento                 | Stato   | Equivalente WordPress   |
+| ------------------------ | ------- | ----------------------- |
+| `<title>` per pagina     | ✅      | Yoast SEO → Titolo      |
+| `<meta description>`     | ✅      | Yoast SEO → Descrizione |
+| Open Graph tags          | ✅      | Yoast SEO → Social      |
+| robots.txt               | ✅      | Plugin o file manuale   |
+| sitemap.xml              | ✅      | Yoast SEO → Sitemap     |
+| .htaccess SPA routing    | ✅      | Automatico in WP        |
+| Structured data (schema) | Phase 6 | Yoast SEO → Schema      |
+| Google Search Console    | Phase 6 | Plugin + verifica       |
+| Core Web Vitals          | Phase 6 | N/A (nuovo standard)    |
+| Protezione contenuti     | ✅      | Plugin anti-copy        |
 
 ---
 
 ## Performance — Cosa Abbiamo Fatto
 
 ### Code Splitting
+
 Il codice JavaScript è diviso in "pezzi":
+
 - **vendor** (47 KB): React, Router — scaricato una volta, poi in cache
 - **gsap** (70 KB): animazioni — separato perché pesante
 - **app** (213 KB): il tuo codice
@@ -443,10 +534,12 @@ Il codice JavaScript è diviso in "pezzi":
 In WordPress tutto il JS dei plugin veniva caricato su ogni pagina. Qui carichi solo quello che serve.
 
 ### Immagini
+
 - Formato **WebP** (più leggero di JPG/PNG)
 - Favicon scaricata dal sito originale WordPress
 
 ### Font
+
 - **Preconnect**: il browser inizia a scaricare i font prima ancora di sapere che servono
 - **display=swap**: mostra testo subito con font di sistema, poi sostituisce quando il font custom è pronto
 
@@ -480,21 +573,21 @@ git push             # Invia su GitHub
 
 ## Glossario Veloce
 
-| Termine | Significato |
-|---|---|
-| **Componente** | Pezzo riutilizzabile di UI (come un widget Elementor) |
-| **Props** | Parametri passati a un componente (come le impostazioni di un widget) |
-| **Hook** | Funzione speciale React (`useState`, `useEffect`, `useRef`) |
-| **State** | Dati che cambiano nel tempo (es: menu aperto/chiuso) |
-| **Effect** | Codice che si esegue dopo il render (es: animazione d'ingresso) |
-| **Ref** | Riferimento diretto a un elemento HTML (per GSAP) |
-| **Media query** | Regola CSS che cambia stile in base alla larghezza schermo |
-| **Breakpoint** | Soglia di larghezza dove cambia il layout (768px, 1024px) |
-| **Lazy loading** | Carica contenuto solo quando serve |
-| **Bundle** | Il file JS finale impacchettato da Vite |
-| **Chunk** | Un pezzo del bundle (vendor, gsap, pagine) |
-| **Build** | Il processo che trasforma il codice sorgente in file ottimizzati |
-| **SPA** | Single Page Application — un solo caricamento, navigazione interna |
-| **SSR** | Server Side Rendering — non lo usiamo, siamo full SPA |
-| **TypeScript** | JavaScript con controllo tipi (meno bug) |
-| **JSX/TSX** | Sintassi che permette di scrivere HTML dentro JavaScript |
+| Termine          | Significato                                                           |
+| ---------------- | --------------------------------------------------------------------- |
+| **Componente**   | Pezzo riutilizzabile di UI (come un widget Elementor)                 |
+| **Props**        | Parametri passati a un componente (come le impostazioni di un widget) |
+| **Hook**         | Funzione speciale React (`useState`, `useEffect`, `useRef`)           |
+| **State**        | Dati che cambiano nel tempo (es: menu aperto/chiuso)                  |
+| **Effect**       | Codice che si esegue dopo il render (es: animazione d'ingresso)       |
+| **Ref**          | Riferimento diretto a un elemento HTML (per GSAP)                     |
+| **Media query**  | Regola CSS che cambia stile in base alla larghezza schermo            |
+| **Breakpoint**   | Soglia di larghezza dove cambia il layout (768px, 1024px)             |
+| **Lazy loading** | Carica contenuto solo quando serve                                    |
+| **Bundle**       | Il file JS finale impacchettato da Vite                               |
+| **Chunk**        | Un pezzo del bundle (vendor, gsap, pagine)                            |
+| **Build**        | Il processo che trasforma il codice sorgente in file ottimizzati      |
+| **SPA**          | Single Page Application — un solo caricamento, navigazione interna    |
+| **SSR**          | Server Side Rendering — non lo usiamo, siamo full SPA                 |
+| **TypeScript**   | JavaScript con controllo tipi (meno bug)                              |
+| **JSX/TSX**      | Sintassi che permette di scrivere HTML dentro JavaScript              |
