@@ -83,11 +83,27 @@
 ### Phase 3 — Homepage Sezioni + Newsletter
 **Goal:** Tutte le sezioni della homepage completate, newsletter integrata
 
-- [ ] Lenis smooth scroll (scroll fluido su tutto il sito)
+- [x] Lenis smooth scroll (integrato con GSAP ticker, `src/lib/lenis.ts`)
+- [x] StatsSection — contatori animati (3 stat: anni di attività, ettari, cani attivi)
+- [x] BentoSection — griglia 2×2 con:
+  - [x] Hero card testo (badge + titolo + 2 paragrafi con stagger GSAP)
+  - [x] Photo slider (6 foto reali, Swiper EffectFade + Autoplay, cover positioning)
+  - [x] Slider caratteristiche (6 caratteristiche, nav arrows, clip-path text reveal)
+  - [x] CTA card (titolo + testo adattato + ghost pill button → /il-barbone)
+  - [x] Hover tilt 3D su tutte le card (React handlers + gsap.to, ±4°, overwrite auto, expo.out return)
+  - [x] Entrance animations ScrollTrigger (per-card trigger: top cards su sezione, bottom cards individuali)
+- [x] Pagina stub `/il-barbone` (IlBarbone.tsx con HeroSection + SEO Helmet)
+- [x] TestimonialsSection — marquee due righe direzioni opposte con:
+  - [x] 10 recensioni reali Google (5 per riga, troncate a 150 chars + "leggi di più")
+  - [x] CSS @keyframes marquee (compositor thread, zero scatti)
+  - [x] Riga reverse: keyframe dedicato + 3 copie items + pre-offset seamless
+  - [x] Pause on hover (animation-play-state)
+  - [x] GSAP entrance: righe da lati opposti (expo.out), card stagger opacity
+  - [x] Transizione entrata → marquee impercettibile (onUpdate progress 0.45)
+  - [x] Avatar colorati variati, stelle inline con nome, responsive (260px mobile)
 - [ ] Sezione "Perché Maatilayla" (features/valori con icone)
 - [ ] Sezione cuccioli disponibili (cards con foto, sesso, disponibilità)
 - [ ] Galleria preview (Swiper carosello, link a pagina Galleria)
-- [ ] Testimonials (citazioni con nome e foto)
 - [ ] CTA finale (sezione richiamo contatti)
 - [ ] **Newsletter — scelta provider** (Mailchimp vs Brevo vs ConvertKit: valutare piano gratuito, API disponibile, GDPR ready)
 - [ ] **Newsletter — sezione homepage** (titolo, sottotitolo, campo email, CTA)

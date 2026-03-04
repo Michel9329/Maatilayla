@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import HeroSection from '@/components/sections/HeroSection'
 import StatsSection from '@/components/sections/StatsSection'
 import BentoSection from '@/components/sections/BentoSection'
+import TestimonialsSection from '@/components/sections/TestimonialsSection'
 
 export default function Home() {
   return (
@@ -52,6 +53,7 @@ export default function Home() {
       />
       <StatsSection />
       <BentoSection />
+      <TestimonialsSection />
     </>
   )
 }

@@ -228,7 +228,100 @@ Il footer a piena larghezza (con margini isola come l'hero su tablet/desktop). S
 
 **Sticky footer:** `#root { display: flex; flex-direction: column; min-height: 100dvh; }` + `#main-content { flex: 1 }` — il footer resta sempre al fondo del viewport anche su pagine corte.
 
-### 8. Feature Pianificate (stub presenti, funzionalità in fasi future)
+### 8. StatsSection (`src/components/sections/StatsSection.tsx`)
+Sezione contatori animati sopra la BentoSection. Tre statistiche: anni di esperienza (countdown da 16 a 0), superficie allevamento (10.000 m²), cani attivi (countUp da 0 a 100 con "% Passione").
+
+**Animazioni:** Contatori via `requestAnimationFrame` con duration calibrata per ognuno, attivati da IntersectionObserver una sola volta. Prefers-reduced-motion: mostra valori finali statici.
+
+---
+
+### 9. BentoSection (`src/components/sections/BentoSection.tsx`)
+Griglia bento 2×2 con quattro card: hero testo, photo slider, caratteristiche, CTA.
+
+**Layout CSS grid:**
+- Desktop: `grid-template-columns: 1fr 1fr`, `grid-template-rows: 310px 260px`
+- Mobile: stack verticale, altezze auto
+
+**Card 1 — Hero testo:**
+- Badge "Il Barbone Toy" + titolo + 2 paragrafi sul barboncino toy
+- GSAP stagger in ingresso: badge → h2 → p1 → p2 (y 24px, power3.out, delay 0.44s)
+
+**Card 2 — Photo slider:**
+- Swiper EffectFade + Autoplay (3500ms) + Pagination cliccabile + loop
+- 6 foto reali in `public/content/images/` (nome semantico, alt text in italiano)
+- CSS: `position: absolute; inset: 0; object-fit: cover` + `transform: translateZ(0)` per stabilità GPU
+
+**Card 3 — Caratteristiche:**
+- 6 caratteristiche: Intelligenza, Devozione, Socialità, Versatilità, Equilibrio, Ipoallergenico
+- Swiper senza effetto + Autoplay (4200ms) + pauseOnMouseEnter + frecce navigazione manuale
+- Sfondo `#D8DFC6` (olive pastello)
+- Clip-path text reveal: nascosto su mount, `inset(0 100% 0 0)` → `inset(0 0% 0 0)` in 0.65s
+- Testo nascosto su `onSlideChangeTransitionStart`, rivelato su `onSlideChangeTransitionEnd`
+
+**Card 4 — CTA:**
+- Sfondo scuro (--color-text)
+- Titolo + testo compatto + ghost pill button "Leggi di più →" → `/il-barbone`
+- `.btn-bento-cta-ghost`: border rgba(255,255,255,0.25), hover gap animation su freccia
+
+**Hover tilt 3D:**
+- React `onMouseMove`/`onMouseLeave` handlers con `gsap.to` + `overwrite: 'auto'`
+- ±4° rotazione, `perspective: 900px` su parent `.bento-grid` (CSS)
+- Return: 1.2s duration con `expo.out` (ritorno morbido, no scatto)
+
+**ScrollTrigger per-card:**
+- Top cards (hero + photos): trigger sulla sezione (`start: 'top 82%'`)
+- Bottom cards (caratteristiche + CTA): trigger individuale su ogni card (`start: 'top 90%'`)
+- Le bottom cards si animano solo quando entrano nel viewport, non quando appaiono le top cards
+
+---
+
+### 10. TestimonialsSection (`src/components/sections/TestimonialsSection.tsx`)
+Sezione recensioni con due righe marquee infinite a direzioni opposte.
+
+**Contenuto:**
+- 10 recensioni reali da Google (5 per riga), troncate a 150 caratteri + link "leggi di più"
+- Avatar con iniziale colorata (10 colori diversi), nome + 5 stelle inline
+
+**Marquee CSS (non GSAP):**
+- CSS `@keyframes` sul compositor thread — zero scatti (GSAP `repeat: -1` causava jump su main thread)
+- `--scroll-dist` misurato via `getBoundingClientRect()` in `requestAnimationFrame`
+- Riga 1 (normale): `[items, items]` — scrolla a sinistra
+- Riga 2 (reverse): `[items, items, items]` — keyframe dedicato `tm-marquee-reverse` + pre-offset a `translateX(-scrollDist)` per avvio seamless. 3 copie necessarie per coprire viewport su schermi larghi
+- Hover: `animation-play-state: paused` sul wrapper
+
+**Animazioni entrata GSAP:**
+- Badge + titolo: fade-up con stagger (ScrollTrigger once)
+- Righe: slide da lato coerente con direzione marquee (riga 1 da destra, riga 2 da sinistra)
+- `expo.out`, durata 1.8s/2.0s, card stagger opacity graduale
+- Transizione entrata → marquee: `onUpdate` avvia CSS animation a progress 0.45 (quando il 93% del movimento è già completato con expo.out)
+
+**Responsive:**
+- Card: 320px desktop → 260px mobile (767px)
+- Padding e spacing fluidi con `clamp()`
+- Animazione 40s su entrambi i breakpoint
+
+---
+
+### 12. Pagina Il Barbone (`src/pages/IlBarbone.tsx`)
+Stub per `/il-barbone` — pagina dedicata alla razza (da sviluppare in Phase 4 estesa).
+Attualmente: HeroSection + SEO Helmet (titolo, description, OG tags).
+Raggiungibile dal pulsante "Leggi di più" nella BentoSection CTA card.
+
+---
+
+### 13. Lenis Smooth Scroll (`src/lib/lenis.ts`)
+Smooth scroll globale integrato con GSAP ticker.
+
+**Come funziona:**
+- `initLenis()` chiamata in `src/main.tsx` prima del render
+- Lenis alimentato da `gsap.ticker.add((time) => lenis.raf(time * 1000))` — tick unificato
+- `lenis.on('scroll', ScrollTrigger.update)` — ScrollTrigger sincronizzato con Lenis
+- `gsap.ticker.lagSmoothing(0)` — no jump nel refresh di ScrollTrigger
+- Skip automatico se `prefers-reduced-motion: reduce`
+
+---
+
+### 14. Feature Pianificate (stub presenti, funzionalità in fasi future)
 
 #### Newsletter (Phase 3)
 - Form inline nel footer: input email pill-style + bottone "Iscriviti" affiancati

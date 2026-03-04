@@ -93,6 +93,33 @@ export default function BentoSection() {
   const charCardRef = useRef<HTMLDivElement>(null)
   const charSwiperRef = useRef<SwiperType | null>(null)
 
+  // ── Hover tilt 3D — React handlers, gsap.to con overwrite ──
+  // perspective: 900px è sul parent .bento-grid (CSS)
+  const handleTiltMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const card = e.currentTarget
+    const { left, top, width, height } = card.getBoundingClientRect()
+    const dx = (e.clientX - (left + width / 2)) / (width / 2)
+    const dy = (e.clientY - (top + height / 2)) / (height / 2)
+    gsap.to(card, {
+      rotateX: -dy * 4,
+      rotateY: dx * 4,
+      duration: 0.4,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    })
+  }
+
+  const handleTiltLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 1.2,
+      ease: 'expo.out',
+      overwrite: 'auto',
+    })
+  }
+
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) return
@@ -106,11 +133,10 @@ export default function BentoSection() {
     const ctx = gsap.context(() => {
       const cards = cardRefs.current.filter(Boolean) as HTMLElement[]
 
-      // Entrata cards: fade + slide-up staggerato
-      // Senza clearProps: 'transform' — le cards non usano CSS transform,
-      // e il clearProps cancellerebbe il transformPerspective del tilt 3D
+      // Top cards (hero + photos): entrata quando la sezione entra
+      const topCards = cards.slice(0, 2)
       gsap.fromTo(
-        cards,
+        topCards,
         { opacity: 0, y: 36, scale: 0.97 },
         {
           opacity: 1,
@@ -127,8 +153,29 @@ export default function BentoSection() {
         },
       )
 
+      // Bottom cards (caratteristiche + CTA): entrata individuale quando ciascuna card entra nel viewport
+      const bottomCards = cards.slice(2)
+      bottomCards.forEach((card, i) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 36, scale: 0.97 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.75,
+            delay: i * 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%',
+              once: true,
+            },
+          },
+        )
+      })
+
       // Children stagger nella hero card: badge → h2 → p1 → p2
-      // Replica il feeling di fade-up-card hero: y 24px, ease power3.out
       const heroChildren = heroChildRefs.current.filter(Boolean) as HTMLElement[]
       gsap.fromTo(
         heroChildren,
@@ -149,12 +196,12 @@ export default function BentoSection() {
         },
       )
 
-      // Reveal testo chars slide al primo ingresso nel viewport
+      // Reveal testo chars slide quando la card caratteristiche entra nel viewport
       if (charCardRef.current) {
         const charCard = charCardRef.current
         ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: 'top 82%',
+          trigger: charCard,
+          start: 'top 90%',
           once: true,
           onEnter: () => {
             const activeSlide = charCard.querySelector('.swiper-slide-active')
@@ -164,43 +211,8 @@ export default function BentoSection() {
       }
     }, sectionRef)
 
-    // ── Hover tilt 3D — QuickTo per performance ──
-    // transformPerspective: 900 — prospettiva per l'elemento stesso (perspective() nel transform)
-    // NON dentro gsap.context perché deve sopravvivere al revert() del ctx
-    const tiltCleanups: (() => void)[] = []
-
-    const cards = cardRefs.current.filter(Boolean) as HTMLElement[]
-    cards.forEach((card) => {
-      gsap.set(card, { transformPerspective: 900 })
-
-      const rotX = gsap.quickTo(card, 'rotateX', { duration: 0.3, ease: 'power2.out' })
-      const rotY = gsap.quickTo(card, 'rotateY', { duration: 0.3, ease: 'power2.out' })
-
-      const onMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect()
-        const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)
-        const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)
-        rotX(-dy * 7)
-        rotY(dx * 7)
-      }
-
-      const onLeave = () => {
-        rotX(0)
-        rotY(0)
-      }
-
-      card.addEventListener('mousemove', onMove)
-      card.addEventListener('mouseleave', onLeave)
-      tiltCleanups.push(() => {
-        card.removeEventListener('mousemove', onMove)
-        card.removeEventListener('mouseleave', onLeave)
-        gsap.set(card, { clearProps: 'rotateX,rotateY,transformPerspective' })
-      })
-    })
-
     return () => {
       ctx.revert()
-      tiltCleanups.forEach((fn) => fn())
     }
   }, [])
 
@@ -213,6 +225,8 @@ export default function BentoSection() {
           ref={(el) => {
             cardRefs.current[0] = el
           }}
+          onMouseMove={handleTiltMove}
+          onMouseLeave={handleTiltLeave}
         >
           <span
             className="bento-badge"
@@ -228,10 +242,7 @@ export default function BentoSection() {
               heroChildRefs.current[1] = el
             }}
           >
-            Una razza{' '}
-            <em style={{ fontStyle: 'italic', color: 'var(--color-primary)' }}>
-              fuori dall'ordinario
-            </em>
+            Una razza <em className="bento-hero-accent">fuori dall'ordinario</em>
           </h2>
           <p
             className="bento-hero-text"
@@ -261,6 +272,8 @@ export default function BentoSection() {
           ref={(el) => {
             cardRefs.current[1] = el
           }}
+          onMouseMove={handleTiltMove}
+          onMouseLeave={handleTiltLeave}
         >
           <Swiper
             modules={[Autoplay, Pagination, EffectFade]}
@@ -295,6 +308,8 @@ export default function BentoSection() {
             cardRefs.current[2] = el
             charCardRef.current = el
           }}
+          onMouseMove={handleTiltMove}
+          onMouseLeave={handleTiltLeave}
         >
           {/* Header: badge + frecce navigazione */}
           <div className="bento-chars-header">
@@ -354,12 +369,17 @@ export default function BentoSection() {
           ref={(el) => {
             cardRefs.current[3] = el
           }}
+          onMouseMove={handleTiltMove}
+          onMouseLeave={handleTiltLeave}
         >
           <div className="bento-cta-inner">
-            <h3 className="bento-cta-title">C'è un motivo se ti ha scelto.</h3>
+            <h3 className="bento-cta-title">
+              C'è un motivo se <em className="bento-cta-highlight">ti ha scelto.</em>
+            </h3>
             <p className="bento-cta-text">
               Non la solita scheda razza. Il barbone che ti segue ovunque, che sa già cosa stai per
               dire — e che, una volta entrato nella tua vita, non vorresti più lasciar andare.
+              Scopri cosa lo rende unico tra tutte le razze da compagnia.
             </p>
             <Link to="/il-barbone" className="btn-bento-cta-ghost">
               Leggi di più <ArrowRight size={13} strokeWidth={2.2} />
