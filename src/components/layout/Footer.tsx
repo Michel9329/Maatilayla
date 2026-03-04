@@ -1,5 +1,9 @@
+import { useRef, useState, useCallback, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Mail } from 'lucide-react'
+import { MapPin, Phone, Mail, Loader2 } from 'lucide-react'
+import { useRecaptcha } from '@/hooks/useRecaptcha'
+
+const RATE_LIMIT_MS = 30_000
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -19,8 +23,83 @@ const legalLinks = [
 
 const MAPS_URL = 'https://maps.google.com/?q=Strada+Vicinale+Pianamola+6+01030+Bassano+Romano+VT'
 
+type NlStatus = 'idle' | 'loading' | 'success' | 'error'
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export default function Footer() {
   const year = new Date().getFullYear()
+  const [honeypot, setHoneypot] = useState('')
+  const lastSubmitRef = useRef(0)
+  const { getToken, enabled: recaptchaEnabled } = useRecaptcha()
+  const [nlEmail, setNlEmail] = useState('')
+  const [nlStatus, setNlStatus] = useState<NlStatus>('idle')
+
+  const handleNewsletter = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault()
+      if (!EMAIL_RE.test(nlEmail)) return
+
+      // Honeypot
+      if (honeypot) return
+
+      // Rate limiting
+      const now = Date.now()
+      if (now - lastSubmitRef.current < RATE_LIMIT_MS) return
+      lastSubmitRef.current = now
+
+      setNlStatus('loading')
+
+      const apiKey = import.meta.env.VITE_BREVO_API_KEY
+      const listId = Number(import.meta.env.VITE_BREVO_LIST_ID)
+
+      if (!apiKey || !listId) {
+        setNlStatus('error')
+        return
+      }
+
+      // reCAPTCHA v3 gate
+      if (recaptchaEnabled) {
+        const token = await getToken('newsletter_footer')
+        if (!token) {
+          setNlStatus('error')
+          return
+        }
+      }
+
+      try {
+        const res = await fetch('https://api.brevo.com/v3/contacts', {
+          method: 'POST',
+          headers: {
+            'api-key': apiKey,
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            email: nlEmail,
+            listIds: [listId],
+            updateEnabled: true,
+          }),
+        })
+
+        if (!res.ok) {
+          const body = await res.json().catch(() => null)
+          if (body?.code === 'duplicate_parameter') {
+            setNlStatus('success')
+            setNlEmail('')
+            return
+          }
+          throw new Error()
+        }
+
+        setNlStatus('success')
+        setNlEmail('')
+      } catch {
+        setNlStatus('error')
+      }
+    },
+    [nlEmail, honeypot, getToken, recaptchaEnabled],
+  )
 
   return (
     <footer className="footer">
@@ -218,21 +297,50 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Newsletter — stub visivo, funzionale in Phase 3 ── */}
+      {/* ── Newsletter ── */}
       <div className="footer-newsletter">
         <p className="footer-newsletter-label">Rimani aggiornato</p>
-        <div className="footer-newsletter-form">
+        <form className="footer-newsletter-form" onSubmit={handleNewsletter}>
+          {/* Honeypot anti-bot */}
+          <input
+            type="text"
+            name="fax"
+            autoComplete="off"
+            tabIndex={-1}
+            aria-hidden="true"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+          />
           <input
             type="email"
             placeholder="La tua email"
             className="footer-newsletter-input"
             aria-label="Indirizzo email per la newsletter"
-            disabled
+            value={nlEmail}
+            onChange={(e) => {
+              setNlEmail(e.target.value)
+              if (nlStatus !== 'idle' && nlStatus !== 'loading') setNlStatus('idle')
+            }}
+            disabled={nlStatus === 'loading'}
           />
-          <button type="button" className="footer-newsletter-btn" disabled>
-            Iscriviti
+          <button
+            type="submit"
+            className="footer-newsletter-btn"
+            disabled={nlStatus === 'loading' || !EMAIL_RE.test(nlEmail)}
+          >
+            {nlStatus === 'loading' && (
+              <Loader2 size={14} className="ct-spinner" aria-hidden="true" />
+            )}
+            {nlStatus === 'success'
+              ? 'Fatto!'
+              : nlStatus === 'error'
+                ? 'Errore'
+                : nlStatus === 'loading'
+                  ? 'Invio...'
+                  : 'Iscriviti'}
           </button>
-        </div>
+        </form>
       </div>
 
       {/* ── Barra inferiore ── */}

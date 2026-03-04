@@ -38,7 +38,7 @@ const caratteristiche = [
   {
     titolo: 'Ipoallergenico',
     testo:
-      'Il mantello riccio del barboncino non fa cadere peli e produce pochissimi allergeni. Una scelta ideale per chi soffre di allergie o vuole una casa più pulita.',
+      'Privo di sottopelo, il mantello riccio del barboncino non fa cadere peli e produce pochissimi allergeni. Una scelta ideale per chi soffre di allergie o vuole una casa più pulita.',
   },
 ]
 
@@ -242,7 +242,7 @@ export default function BentoSection() {
               heroChildRefs.current[1] = el
             }}
           >
-            Una razza <em className="bento-hero-accent">fuori dall'ordinario</em>
+            Una razza <em className="bento-hero-accent">fuori dall'ordinario.</em>
           </h2>
           <p
             className="bento-hero-text"

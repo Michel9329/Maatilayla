@@ -102,28 +102,96 @@
   - [x] CSS @keyframes marquee (compositor thread, zero scatti)
   - [x] Riga reverse: keyframe dedicato + 3 copie items + pre-offset seamless
   - [x] Pause on hover (animation-play-state)
-  - [x] GSAP entrance: righe da lati opposti (expo.out), card stagger opacity
-  - [x] Transizione entrata → marquee impercettibile (onUpdate progress 0.45)
+  - [x] CSS transition entrance: header fade-up, row slide da direzioni opposte
+  - [x] Marquee avviato via setTimeout (~800ms/1100ms) dopo IntersectionObserver
   - [x] Avatar colorati variati, stelle inline con nome, responsive (260px mobile)
 - [x] AllevamentoSection — Card Elevate layout (2 blocchi foto+testo alternati in card) con:
   - [x] Blocco 1: "Il nostro approccio" — filosofia allevamento, socializzazione, Biosensor
   - [x] Blocco 2: "Da Maatilayla a casa tua" — iter cucciolo, test genetici, garanzie
   - [x] 7 feature pills con icone Lucide (vaccini, eco, prcd-PRA, patella lux, microchip, pedigree, kit)
-  - [x] GSAP: card entry (opacity+y+scale), testo stagger, callout slide-in, pills fade-in
-  - [x] Parallax leggero sulle foto (yPercent -8→8, scrub 0.6)
+  - [x] CSS transition entrance: fade-up blocco intero, rAF pre-transition (no GSAP per entrate)
+  - [x] GSAP solo per parallax foto (yPercent -8→8, scrub 0.6, force3d)
   - [x] Shimmer continuo sul bordo callout Biosensor (linear gradient, 6.5s)
   - [x] Float continuo sulle pills + pulse icone (CSS @keyframes, sfalsati a onda)
   - [x] Responsive: mobile stack verticale, tablet 44%, desktop 48%, widescreen padding 3rem
-- [ ] Sezione anteprima Blog (cards articoli + link /blog)
-- [ ] Sezione cuccioli disponibili (cards con foto, sesso, disponibilità)
-- [ ] Galleria preview (Swiper carosello, link a pagina Galleria)
-- [ ] CTA finale (sezione richiamo contatti)
-- [ ] **Newsletter — scelta provider** (Mailchimp vs Brevo vs ConvertKit: valutare piano gratuito, API disponibile, GDPR ready)
-- [ ] **Newsletter — sezione homepage** (titolo, sottotitolo, campo email, CTA)
-- [ ] **Newsletter — form** (react-hook-form + Zod, validazione email)
-- [ ] **Newsletter — integrazione API provider** (subscribe endpoint, gestione double opt-in lato provider)
-- [ ] **Newsletter — stati UI** (idle → loading → success / error)
-- [ ] **Newsletter — GDPR** (checkbox consenso con link Privacy Policy, testo obbligatorio)
+- [x] BlogPreviewSection — scroll orizzontale 6 card articoli con:
+  - [x] Header centrato (badge "Dal Blog" + titolo + sottotitolo)
+  - [x] Track orizzontale con peek pattern (~2.5 card visibili, terza tagliata)
+  - [x] Card: foto 16/10, categoria+data, titolo line-clamp 2, excerpt line-clamp 3
+  - [x] Drag-to-scroll desktop (mousedown/mousemove/mouseup), touch nativo mobile
+  - [x] Progress bar scaleX (compositor, no layout recalc) + fade overlay div
+  - [x] Scroll-snap x proximity, scrollbar nascosta
+  - [x] CSS transition entrance: header fade-up stagger + card opacity stagger (no GSAP)
+  - [x] Keyboard nav (Arrow Left/Right), focus-visible, aria-label
+  - [x] Hover: ombra + zoom foto 1.03, contain: layout style paint
+  - [x] Link "Tutti gli articoli" nel subtitle-row
+  - [x] Responsive: 85vw mobile, 42vw tablet, clamp(280,36vw,380) desktop, widescreen 3rem
+- [x] Ottimizzazione performance scroll:
+  - [x] Immagini compresse con sharp (blog: 5.8MB→388KB, allevamento: 1.5MB→81KB)
+  - [x] Navbar backdrop-filter: blur(24px)→blur(10px), background più opaco
+  - [x] Tutte le entrate convertite da GSAP a CSS transition + IntersectionObserver
+  - [x] Lenis: syncTouch false, autoRaf false
+  - [x] Regole immagini aggiunte a CLAUDE.md (formato, compressione, naming, alt text)
+- [x] FuturiPadroniSection — griglia 2x2 card valori "Ai futuri padroni" con:
+  - [x] Header centrato (badge con dot pulsante + titolo accent + sottotitolo)
+  - [x] 4 card: consegna di persona, scelta consapevole, crescita sotto i nostri occhi, sempre al vostro fianco
+  - [x] Icone Lucide in cerchio primary-pale (HandHeart, ShieldAlert, Eye, MessageCircleHeart)
+  - [x] CTA "Hai domande? Scrivici" con link a /contatti
+  - [x] CSS transition entrance: fade-up blocco intero (header + griglia + CTA con delay scalato)
+  - [x] Sfondo warm-white (alternanza con cream del blog), contain: layout style paint
+  - [x] Responsive: 2x2 desktop, 1 colonna mobile
+- [x] CinematicCtaSection — layout flex due colonne (foto + testo) con:
+  - [x] Foto originale alta qualità (5568x3712 JPG → 1600x1067 webp, quality 82)
+  - [x] CSS mask-image per sfumare bordo destro foto nel cream (82%→100%)
+  - [x] Sfondo cream per alternanza con FuturiPadroniSection (warm-white)
+  - [x] Desktop: GSAP word-by-word entrance (toggleActions play, start top 75%)
+  - [x] Titolo word-by-word reveal (span .cine-word, GSAP stagger 0.07)
+  - [x] Badge → titolo → body → CTA sequenza GSAP
+  - [x] Parallax foto (yPercent -4→4, scrub 0.6)
+  - [x] Mobile: stack colonna, mask-image bottom fade, CSS transition entrance
+  - [x] CTA "Contattaci" → /contatti (bottone primary)
+  - [x] "famiglia giusta" accent primary (due parole)
+  - [x] prefers-reduced-motion: tutto visibile, no animazione
+  - [x] Accessibilità: aria-label, focus-visible, WCAG AA contrasto
+- [x] PedigreeSection — griglia 2x3 card educativa "Importanza del pedigree" con:
+  - [x] Header centrato (badge "Il Pedigree" + titolo accent "barboncino" + sottotitolo)
+  - [x] 6 card: dati anagrafici, albero genealogico, campioni, salute genetica, LOI, tracciabilità
+  - [x] Icone Lucide in cerchio primary-pale (FileText, GitBranch, Trophy, ShieldCheck, BookOpen, UserCheck)
+  - [x] Callout blockquote con bordo sinistro primary (importanza economica pedigree)
+  - [x] CSS transition entrance: header fade-up → griglia (delay 0.22s) → callout (delay 0.35s)
+  - [x] Sfondo trasparente (warm-white body), card cream — alternanza con CinematicCTA cream
+  - [x] Responsive: 3 col desktop, 2 col tablet, 1 col mobile
+- [x] NewsletterSection — form iscrizione newsletter con Brevo API:
+  - [x] Layout 2 colonne (testo + form), sfondo cream
+  - [x] Badge "Newsletter" con dot pulsante
+  - [x] Form: email + checkbox GDPR (react-hook-form + Zod)
+  - [x] Integrazione Brevo API (POST /v3/contacts, listIds, updateEnabled)
+  - [x] Stati UI: idle → loading (spinner) → success (conferma) → error (fallback)
+  - [x] GDPR: checkbox consenso obbligatoria, nota privacy
+  - [x] CSS transition entrance (IntersectionObserver, fade-up con delay)
+  - [x] Responsive: stack colonna su mobile
+- [x] ContactSection — form contatti con EmailJS + info:
+  - [x] Header centrato (badge "Contatti" + titolo accent + sottotitolo)
+  - [x] Layout 2 colonne: form 55% + info card 45%
+  - [x] Form: nome, email, messaggio, checkbox GDPR (react-hook-form + Zod)
+  - [x] Integrazione EmailJS (@emailjs/browser)
+  - [x] Stati UI: idle → loading → success → error (fallback email diretta)
+  - [x] Info card cream: indirizzo (Google Maps), telefono fisso+cell, email, orari
+  - [x] Nota "visite solo su appuntamento"
+  - [x] CSS transition entrance (header → form → info card con delay scalato)
+  - [x] Responsive: stack colonna su mobile
+- [x] InstagramFeedSection — marquee full-width 8 foto, card 300px, hover overlay Instagram
+- [x] **Homepage polish completo:**
+  - [x] Visual consistency (titoli, font-weight/size, padding uniformi)
+  - [x] Content review (testi allineati WordPress, copy migliorati, "pedigree ENCI")
+  - [x] SEO audit (canonical, structured data JSON-LD, OG, alt text, preload hero)
+  - [x] Responsive ultra-wide (max-width 1400px container, CinematicCta 1920px+)
+  - [x] Code audit (setTimeout cleanup, querySelector null check, build pulita)
+  - [x] Link audit (52 interni + 15 esterni verificati, 0 rotti)
+  - [x] Ordine sezioni aggiornato: Blog → Pedigree → ParallaxCta → FuturiPadroni
+  - [x] FuturiPadroniSection espansa: 8 card valori + 1 CTA dark card (griglia 3x3)
+  - [x] FaqCtaSection: min-height 480px allineata a ParallaxCtaSection
+  - [x] ContactSection: testo privacy completo (come footer)
 - [ ] **Newsletter — footer** (versione compatta inline nel footer, sopra la bottom bar)
 
 ### Phase 4 — Pagine Interne
@@ -171,39 +239,77 @@
 - [ ] Test accessibilità contrasto WCAG su entrambi i temi
 - [ ] Test cross-device (mobile toggle, OS sync)
 
-### Phase 6 — Deploy & Compliance GDPR
+### Phase 6 — Pre Go-Live: Configurazione Servizi & Test
 
-**Goal:** Sito live su Siteground, conforme GDPR con iubenda
+**Goal:** Tutti i servizi configurati, API key inserite, link e CTA verificati, strumenti di marketing e compliance pronti prima del deploy
 
-- [ ] Build ottimizzata (immagini WebP, font self-hosted GDPR)
+#### API Key & Servizi (`.env.local` → `.env.production`)
+- [ ] **EmailJS** — inserire `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`
+- [ ] **Brevo** — inserire `VITE_BREVO_API_KEY`, `VITE_BREVO_LIST_ID`; attivare double opt-in; verificare mittente `maatilayla.org@gmail.com`
+- [ ] **Google reCAPTCHA v3** — inserire `VITE_RECAPTCHA_SITE_KEY`; aggiungere dominio `allevamentobarboncinimaatilayla.it` + `localhost` alla console reCAPTCHA
+- [ ] **Google Analytics GA4** — inserire `VITE_GA_TRACKING_ID`; configurare con consenso cookie iubenda (fire solo dopo accettazione)
+- [ ] Test invio email dal form contatti (verifica ricezione su `maatilayla.org@gmail.com`)
+- [ ] Test iscrizione newsletter (verifica contatto su dashboard Brevo)
+
+#### iubenda — Privacy & GDPR
+- [ ] Generare **Privacy Policy** su iubenda e integrare (link nel footer)
+- [ ] Generare **Cookie Policy** su iubenda e integrare (link nel footer)
+- [ ] Generare **Termini e Condizioni** su iubenda e integrare (link nel footer)
+- [ ] **Cookie Solution** — banner consenso GDPR al primo accesso (script iubenda)
+- [ ] **Preferenze Cookie** — pulsante gestione nel footer (sostituisce `#preferenze`)
+- [ ] Footer: sostituire link stub (`#privacy`, `#cookie`, `#preferenze`, `#termini`) con URL iubenda reali
+
+#### Cloudflare
+- [ ] DNS dominio `allevamentobarboncinimaatilayla.it` puntato a Cloudflare
+- [ ] SSL/TLS in modalità Full (strict) — certificato attivo
+- [ ] Cache statico attivato (immagini, JS, CSS — TTL 1 mese)
+- [ ] Regola Page Rule: `www.` → redirect 301 a dominio apex (o viceversa, scegliere canonical)
+- [ ] Firewall: rate limiting su `/` (protezione base DDoS)
+- [ ] Speed: Minify HTML/CSS/JS attivato
+- [ ] Verifica .htaccess compatibile con Cloudflare (header già presenti)
+
+#### Google Search Console
+- [ ] Dominio già verificato — verificare che la verifica sia ancora attiva dopo migrazione
+- [ ] Inviare nuova sitemap `https://allevamentobarboncinimaatilayla.it/sitemap.xml`
+- [ ] Richiedere indicizzazione homepage manuale (Ispeziona URL → Indicizza)
+
+#### Test Completo Pre-Lancio
+- [ ] Test tutti i **link interni** (menu, CTA, footer — 52 link verificati in Phase 3, ricontrollare dopo pagine interne Phase 4)
+- [ ] Test tutti i **link esterni** (ENCI, FCI, Google Maps, WhatsApp, social)
+- [ ] Test **form contatti** — invio reale con email di test
+- [ ] Test **newsletter** — iscrizione reale su tutte e 3 le entry point (sezione homepage, footer, pagina contatti)
+- [ ] Test **cross-browser**: Chrome, Safari, Firefox, Edge (desktop)
+- [ ] Test **cross-device**: iPhone (Safari), Android (Chrome), tablet
+- [ ] Verifica **nessun console.error** in produzione (DevTools → Console)
+- [ ] Verifica **.htaccess** funzionante su Apache Siteground (SPA routing, compression, cache)
+- [ ] Build produzione finale pulita (`npm run build` zero errori)
+
+### Phase 7 — Deploy su Siteground
+
+**Goal:** Sito live sul dominio reale
+
+- [ ] Build ottimizzata finale (`npm run build`)
 - [ ] Ottimizzazione logo ENCI (430KB → max 60KB WebP/PNG compressa)
-- [ ] Deploy su Siteground (FTP/SFTP dist/ → public_html/)
-- [ ] SSL + DNS configurati
-- [ ] Test cross-browser + mobile (Chrome, Safari, Firefox, Edge)
-- [ ] Verifica .htaccess su Apache Siteground
-- [ ] **iubenda — Privacy Policy** (generata e integrata, link nel footer)
-- [ ] **iubenda — Cookie Policy** (generata e integrata, link nel footer)
-- [ ] **iubenda — Termini e Condizioni** (generati e integrati, link nel footer)
-- [ ] **iubenda — Cookie Solution** (banner consenso GDPR al primo accesso, consent database)
-- [ ] **iubenda — Preferenze Cookie** (pulsante gestione preferenze nel footer)
-- [ ] Footer: link legali aggiornati con URL iubenda reali (sostituire #privacy, #cookie, #preferenze, #termini)
+- [ ] Upload `dist/` su Siteground via FTP/SFTP → `public_html/`
+- [ ] Verifica sito live su `https://allevamentobarboncinimaatilayla.it`
+- [ ] Test SSL attivo (lucchetto verde, redirect HTTP→HTTPS)
+- [ ] Verifica Cloudflare proxy attivo (arancione) su tutti i record DNS
 
-### Phase 7 — SEO & Ottimizzazione
+### Phase 8 — SEO & Ottimizzazione
 
-**Goal:** Massimizzare visibilità e performance
+**Goal:** Massimizzare visibilità organica e performance Core Web Vitals
 
 - [ ] Lighthouse audit (target 90+ su tutte le categorie)
-- [ ] Structured data JSON-LD (LocalBusiness, DogBreeder, FAQ, BreadcrumbList)
-- [ ] Google Search Console configurato + sitemap inviata
-- [ ] Google Analytics GA4 configurato (con consenso cookie)
 - [ ] Ottimizzazione Core Web Vitals (LCP, CLS, INP)
 - [ ] Meta description e titoli ottimizzati per keyword principali
 - [ ] Sitemap.xml dinamica (include tutte le pagine e lingue)
-- [ ] Schema markup Organization + breed-specific
+- [ ] Schema markup aggiuntivo (DogBreeder, FAQ, BreadcrumbList)
 - [ ] Test OG tags (Facebook, WhatsApp, Telegram preview)
 - [ ] Robots.txt ottimizzato per crawler
 
-### Phase 8 — Internazionalizzazione (IT · EN · FR · ES)
+### Phase 9 — Internazionalizzazione (IT · EN · FR · ES)
+
+> Fase gia' pianificata — il language switcher (IT|EN|FR|ES) e' gia' presente come stub nel footer
 
 **Goal:** Sito accessibile in 4 lingue, SEO multilingua, switcher in UI
 
@@ -247,7 +353,7 @@ src/i18n/
 - [ ] Test: cambio lingua preserva pagina corrente
 - [ ] Test: lingua OS → redirect automatico corretto
 
-### Phase 9 — Blog CMS (post-lancio)
+### Phase 10 — Blog CMS (post-lancio)
 
 **Goal:** Blog aggiornabile senza toccare codice, gestione multilingua
 

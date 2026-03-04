@@ -327,12 +327,12 @@ Sezione recensioni con due righe marquee infinite a direzioni opposte.
 - Riga 2 (reverse): `[items, items, items]` — keyframe dedicato `tm-marquee-reverse` + pre-offset a `translateX(-scrollDist)` per avvio seamless. 3 copie necessarie per coprire viewport su schermi larghi
 - Hover: `animation-play-state: paused` sul wrapper
 
-**Animazioni entrata GSAP:**
+**Animazioni entrata CSS (no GSAP):**
 
-- Badge + titolo: fade-up con stagger (ScrollTrigger once)
-- Righe: slide da lato coerente con direzione marquee (riga 1 da destra, riga 2 da sinistra)
-- `expo.out`, durata 1.8s/2.0s, card stagger opacity graduale
-- Transizione entrata → marquee: `onUpdate` avvia CSS animation a progress 0.45 (quando il 93% del movimento è già completato con expo.out)
+- Badge + titolo: CSS transition fade-up con stagger (IntersectionObserver aggiunge `.tm-entered`)
+- Righe: CSS transition slide da lato coerente con direzione marquee (riga 1 da destra translateX(30%), riga 2 da sinistra translateX(-30%))
+- Cubic-bezier expo-like, durata 1.8s/2.0s
+- Transizione entrata → marquee: `setTimeout` avvia CSS animation a ~800ms/1100ms dopo IntersectionObserver (quando la transition e' quasi completa)
 
 **Responsive:**
 
@@ -359,19 +359,156 @@ Sezione homepage con due blocchi foto+testo alternati dentro card elevate (sfond
 - Frase finale in italico sull'indole
 - 7 feature pills con icone Lucide: vaccinato, ecocardiogramma, test prcd-PRA, test patella lux, microchip, pedigree ENCI, Puppy Starter Kit
 
-**Animazioni GSAP:**
+**Animazioni:**
 
-- Card entry: `opacity 0→1, y 36→0, scale 0.97→1` con `power3.out`, ScrollTrigger per-card
-- Testo: `opacity 0→1, y 20→0` con stagger 0.09s, delay 0.35s
-- Callout Biosensor: slide-in da sinistra (`x -30→0`), ScrollTrigger individuale
-- Pills: fade-in stagger GSAP + float continuo CSS (translate 0 -2px, 3.2s) + pulse icona (scale 1→1.15, 2.8s)
-- Parallax foto: `yPercent -8→8`, scrub 0.6 (immagine 120% altezza container)
+- Entrata blocco: CSS transition `opacity 0→1, translateY(24px)→0` con `ease-out` 0.6s (IntersectionObserver + rAF pre-transition, no GSAP)
+- Pills: float continuo CSS (translate 0 -2px, 3.2s) + pulse icona (scale 1→1.15, 2.8s)
+- Shimmer callout Biosensor: gradient lineare loop 6.5s
+- Parallax foto: GSAP `yPercent -8→8`, scrub 0.6, force3d (unico uso GSAP nella sezione)
 
 **Responsive:** Mobile stack verticale (foto sopra, testo sotto), tablet 44% foto, desktop 48% foto. Padding allineato con BentoSection.
 
 ---
 
-### 12. Pagina Il Barbone (`src/pages/IlBarbone.tsx`)
+### 12. BlogPreviewSection (`src/components/sections/BlogPreviewSection.tsx`)
+
+Sezione homepage con scroll orizzontale di 6 card articoli dal blog. Pattern "peek": ~2.5 card visibili su desktop, la terza tagliata sul bordo destro.
+
+**Struttura:**
+
+- Header: badge "Dal Blog" con dot pulsante + titolo con accent primary
+- Subtitle row: sottotitolo a sinistra + link "Tutti gli articoli" a destra (allineato al margine delle altre sezioni)
+- Track orizzontale: 6 card articolo in flex row, overflow-x auto, scroll-snap proximity
+- Progress bar: 4px centrata (scaleX transform, no layout recalc), fill 12% default per UX
+- Fade overlay: div con gradient CSS sul bordo destro (no mask-image per performance)
+
+**Card articolo:**
+
+- Foto in alto (aspect-ratio 16/10, object-fit cover, zoom 1.03 su hover)
+- Meta: categoria (primary, uppercase) + data
+- Titolo h3 (line-clamp 2)
+- Excerpt (line-clamp 3)
+- Link "Leggi articolo" con freccia animata in fondo alla card
+- Sfondo warm-white, bordo sottile, border-radius card
+
+**Interazioni:**
+
+- Drag-to-scroll su desktop (mousedown/mousemove/mouseup handlers, cursor grab/grabbing)
+- Touch scroll nativo su mobile (no drag handlers)
+- Scroll-snap x mandatory — snap ai bordi card
+- Keyboard: Arrow Left/Right per navigare (step 320px, smooth)
+- Hover: ombra + zoom foto 1.03
+- Progress bar aggiornata in realtime via scroll event
+
+**Animazioni CSS (no GSAP):**
+
+- Header: CSS transition fade-up stagger (badge → titolo → sottotitolo), IntersectionObserver
+- Card: CSS transition opacity stagger (0.1s → 0.35s delay), contain: layout style paint
+- Nessun transform sulle card (evita GPU layer promotion inutile)
+
+**6 articoli selezionati** (i più recenti dal blog WordPress):
+
+1. "Controlli? Sì, grazie!" (2023) — Allevamento
+2. "Quando a volte tornano" (2022) — Storie
+3. "Chi alleva, alleva tutto" (2021) — Riflessioni
+4. "Facciamo fare il cane al cane" (2021) — Educazione
+5. "Per una zampata di fango" (2021) — Vita quotidiana
+6. "Pandemia sei tutta mia" (2021) — Riflessioni
+
+**Responsive:** Card 85vw mobile (~1.15 visibili), 42vw tablet (~2.2 visibili), clamp(280px,36vw,380px) desktop, widescreen padding 3rem.
+
+---
+
+### 13. FuturiPadroniSection (`src/components/sections/FuturiPadroniSection.tsx`)
+
+Sezione homepage rivolta a chi sta pensando di prendere un cucciolo. Sfondo warm-white (trasparente, background pagina).
+
+**Struttura:**
+
+- Header centrato: badge "Ai futuri padroni" con dot pulsante + titolo con accent primary + sottotitolo
+- Griglia 3x3 desktop di 8 card valori + 1 CTA card:
+  1. "Vi incontriamo di persona" (HandHeart) — consegna esclusivamente di persona
+  2. "Scelta consapevole" (ShieldAlert) — diffidate dai prezzi stracciati
+  3. "Crescita sotto i nostri occhi" (Eye) — crescita supervisionata con madre e fratelli
+  4. "Sempre al vostro fianco" (MessageCircleHeart) — supporto post-cessione
+  5. "Un cucciolo pronto per la vita" (PawPrint) — vaccinazioni, socializzazione, microchip
+  6. "Selezione delle famiglie" (UserCheck) — valutiamo ogni famiglia
+  7. "Accoppiamenti naturali" (HeartHandshake) — nessuna inseminazione artificiale
+  8. "Rispetto dei tempi" (CalendarClock) — intervallo minimo 1 anno tra gravidanze
+  9. CTA dark card: "Stai cercando il tuo cucciolo?" → /contatti (sfondo --color-text, testo bianco)
+
+**Card:** sfondo cream, border-radius card, padding 1.5rem, icona Lucide in cerchio primary-pale (40x40).
+
+**CTA card:** sfondo scuro (--color-text), testo bianco, Link a /contatti, senza shimmer.
+
+**Animazioni CSS (no GSAP):**
+
+- CSS transition fade-up (opacity + translateY 24px) con IntersectionObserver
+- 9 card con delay scalato via nth-child (0.08s incremento)
+- `contain: layout style paint` sulle card
+
+**Responsive:** Griglia `repeat(3, 1fr)` su desktop, `repeat(2, 1fr)` tablet, scroll orizzontale mobile. Widescreen: max-width 1400px centrato.
+
+---
+
+### 14. CinematicCtaSection (`src/components/sections/CinematicCtaSection.tsx`)
+
+Sezione CTA a due colonne prima del footer. Foto cuccioli a sinistra con dissolvenza CSS, testo a destra su sfondo cream.
+
+**Layout:**
+
+- Flex row: `.cine-img-wrap` (50%) + `.cine-content` (flex: 1)
+- Sfondo cream (#FDF6EE) per alternanza con FuturiPadroniSection (warm-white)
+- Foto originale alta qualità (5568x3712 JPG → 1600x1067 webp, quality 82, 43KB)
+- CSS `mask-image` sfuma il bordo destro della foto (black 0-82%, transparent 100%) — no bordo visibile
+- Titolo: "Ogni cucciolo merita la *famiglia giusta.*" — accent primary su "famiglia" e "giusta."
+
+**Desktop (>= 768px) — GSAP entrance:**
+
+- ScrollTrigger toggleActions (play, start top 75%) — no pin, no scrub
+- Badge → titolo word-by-word (stagger 0.07) → body → CTA: sequenza GSAP
+- Parallax foto: yPercent -4→4, scrub 0.6
+
+**Mobile (< 768px) — stack colonna:**
+
+- flex-direction: column, immagine sopra, testo sotto centrato
+- mask-image: fade bottom (black 0-65%, transparent 100%)
+- CSS transition entrance via IntersectionObserver (fade-up stagger)
+- `.cine-word` diventa display: inline (no per-word animation)
+
+**Accessibilità:** aria-label sulla sezione, focus-visible sul CTA, prefers-reduced-motion mostra tutto senza animazione.
+
+---
+
+### 15. PedigreeSection (`src/components/sections/PedigreeSection.tsx`)
+
+Sezione educativa che spiega cos'è il pedigree e perché è importante. Posizionata dopo CinematicCtaSection, ultima sezione prima del footer.
+
+**Struttura:**
+
+- Header centrato: badge "Il Pedigree" con dot pulsante + titolo con accent primary su "barboncino" + sottotitolo
+- Griglia 2x3 desktop di 6 card informative:
+  1. "Dati anagrafici" (FileText) — razza, nome, sesso, nascita, mantello, microchip
+  2. "Albero genealogico" (GitBranch) — fino al quarto grado, purezza razza
+  3. "Campioni in famiglia" (Trophy) — campioni bellezza/lavoro, premi esposizione
+  4. "Salute genetica" (ShieldCheck) — patologie testate geneticamente
+  5. "Libro delle Origini" (BookOpen) — iscrizione LOI ENCI
+  6. "Tracciabilità completa" (UserCheck) — proprietario, allevatore, passaggi
+- Callout blockquote: bordo sinistro primary, testo italico sull'importanza economica del pedigree
+
+**Card:** sfondo cream (#FDF6EE), border-radius card, padding 1.5rem, icona Lucide in cerchio primary-pale (40x40), hover box-shadow.
+
+**Animazioni CSS (no GSAP):**
+
+- CSS transition fade-up (opacity + translateY) con IntersectionObserver
+- 3 gruppi con delay scalato: header → griglia (0.22s) → callout (0.35s)
+- `contain: layout style paint` sulle card
+
+**Responsive:** Griglia `repeat(3, 1fr)` desktop, `repeat(2, 1fr)` tablet, 1 colonna mobile. Widescreen: padding 5rem 3rem.
+
+---
+
+### 16. Pagina Il Barbone (`src/pages/IlBarbone.tsx`)
 
 Stub per `/il-barbone` — pagina dedicata alla razza (da sviluppare in Phase 4 estesa).
 Attualmente: HeroSection + SEO Helmet (titolo, description, OG tags).
@@ -379,13 +516,14 @@ Raggiungibile dal pulsante "Leggi di più" nella BentoSection CTA card.
 
 ---
 
-### 13. Lenis Smooth Scroll (`src/lib/lenis.ts`)
+### 17. Lenis Smooth Scroll (`src/lib/lenis.ts`)
 
 Smooth scroll globale integrato con GSAP ticker.
 
 **Come funziona:**
 
 - `initLenis()` chiamata in `src/main.tsx` prima del render
+- Opzioni: `autoRaf: false` (GSAP ticker controlla), `syncTouch: false` (touch nativo su mobile)
 - Lenis alimentato da `gsap.ticker.add((time) => lenis.raf(time * 1000))` — tick unificato
 - `lenis.on('scroll', ScrollTrigger.update)` — ScrollTrigger sincronizzato con Lenis
 - `gsap.ticker.lagSmoothing(0)` — no jump nel refresh di ScrollTrigger
@@ -393,15 +531,48 @@ Smooth scroll globale integrato con GSAP ticker.
 
 ---
 
-### 14. Feature Pianificate (stub presenti, funzionalità in fasi future)
+### 18. Feature Pianificate (stub presenti, funzionalità in fasi future)
 
-#### Newsletter (Phase 3)
+### 16. NewsletterSection (`src/components/sections/NewsletterSection.tsx`)
 
-- Form inline nel footer: input email pill-style + bottone "Iscriviti" affiancati
-- Sezione dedicata nella homepage con testo e consenso GDPR
-- Provider da scegliere: Mailchimp / Brevo / ConvertKit (tutti gratuiti per basse liste)
-- Implementazione: react-hook-form + Zod + API provider + double opt-in gestito lato provider
-- Stub attuale: visibile nel footer ma `disabled` (no funzionalità)
+Sezione newsletter per iscrizione alla mailing list. Layout 2 colonne: testo a sinistra, form a destra.
+
+- **Sfondo:** cream (alternanza con PedigreeSection warm-white)
+- **Badge:** "Newsletter" con dot pulsante (animazione CSS pulse)
+- **Titolo:** "Resta *aggiornato*" (accent primary su "aggiornato")
+- **Form:** campo email + bottone "Iscriviti" + checkbox GDPR obbligatoria
+- **Validazione:** react-hook-form + Zod (email valida, consenso required)
+- **Integrazione:** Brevo API (POST /v3/contacts con api-key header)
+  - Variabili: `VITE_BREVO_API_KEY`, `VITE_BREVO_LIST_ID` in `.env.local`
+  - Double opt-in gestito lato dashboard Brevo
+  - Gestione duplicati (Brevo risponde "duplicate_parameter" → trattato come successo)
+- **Stati UI:** idle → loading (spinner) → success (messaggio verde) → error (fallback contatto diretto)
+- **Nota privacy:** "Nessuno spam. Puoi disiscriverti in qualsiasi momento."
+- **Animazione:** CSS transition entrance (IntersectionObserver): testo fade-up → form fade-up (delay 0.15s)
+- **Mobile:** stack colonna, form centrato full-width
+
+### 17. ContactSection (`src/components/sections/ContactSection.tsx`)
+
+Sezione contatti con form e info. Header centrato + 2 colonne: form (55%) + info card (45%).
+
+- **Sfondo:** warm-white (trasparente, alternanza con Newsletter cream)
+- **Badge:** "Contatti" con dot pulsante
+- **Titolo:** "Hai domande? *Scrivici.*" (accent primary su "Scrivici.")
+- **Form campi:** Nome (min 2), Email (validata), Messaggio (textarea, min 10), Checkbox GDPR
+- **Validazione:** react-hook-form + Zod
+- **Integrazione:** EmailJS (@emailjs/browser, già installato)
+  - Variabili: `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`
+- **Stati UI:** idle → loading → success ("Messaggio inviato!") → error (email diretta come alternativa)
+- **Info card (destra):** sfondo cream, border-radius card
+  - `MapPin` — indirizzo + link Google Maps
+  - `Phone` — fisso 0761 179 0344 + cell 338 761 7628 (WhatsApp)
+  - `Mail` — maatilayla.org@gmail.com
+  - `Clock` — Lun-Sab 9.00-13.00 | 15.30-19.00
+  - Nota: "La sede dell'allevamento è anche il posto in cui viviamo. Al fine di tutelare la nostra privacy, non potremo ricevere chi non avrà preventivamente fissato un appuntamento."
+- **Animazione:** CSS transition entrance: header → form (0.15s) → info card (0.25s)
+- **Mobile:** stack colonna, info card full-width
+
+#### Newsletter footer (futuro)
 
 #### Dark / Light Mode (Phase 5)
 

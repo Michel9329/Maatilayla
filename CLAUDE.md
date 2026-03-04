@@ -38,15 +38,18 @@
 - Mobile-first approach
 
 ### Glass Effect
-- Desktop: `.liquid-glass` (blur 28px, low opacity)
-- Mobile hero: `.hero-card` with lighter glass (blur 16px, higher opacity)
+- Desktop: `.liquid-glass` (blur 10px, low opacity)
+- Mobile hero: `.hero-card` with lighter glass (blur 10px, higher opacity)
+- Navbar: max `blur(10px)` on fixed elements (higher blur causes scroll jank)
 - Follow Apple HIG materials pattern (blur + specular highlight + rim lighting)
 
 ### Animations
-- GSAP for entrance animations
+- CSS transitions + IntersectionObserver for entrance animations (compositor thread, no jank)
+- GSAP only for scrub/parallax effects (no entrance animations, no per-frame callbacks)
 - Always check `prefers-reduced-motion` before animating
 - Framer Motion for interactive UI (hover, tap)
-- Lenis for smooth scroll
+- Lenis for smooth scroll (`syncTouch: false`, `autoRaf: false`)
+- Max ~3 simultaneous CSS transitions per entrance (avoid stagger on 10+ elements)
 
 ### Hero Section
 - Reusable via CSS classes: `.hero-section`, `.hero-bg`, `.hero-overlay`, `.hero-card`, `.hero-cta`
@@ -69,6 +72,37 @@ public/content/ → Images, logos
 .planning/      → PROJECT.md, ROADMAP.md
 .claude/agents/ → AI agent prompts
 ```
+
+## Images — MANDATORY processing
+
+Every image added to the project MUST be processed before use:
+
+### Format & Compression
+- **All images must be `.webp`** — convert from jpg/png/etc using `sharp`
+- **Max width**: 800px for card/thumbnail images, 1200px for hero/full-width, 1600px for backgrounds
+- **Quality**: 72-75 for cards, 78-80 for hero/full-width
+- **Target size**: under 150KB per image (cards under 80KB)
+- Use `sharp` (dev dependency) with `resize({ width, withoutEnlargement: true }).webp({ quality })`
+
+### File naming
+- Format: `maatilayla-[soggetto]-[contesto].webp`
+- Lowercase, hyphens, no spaces, no special characters
+- Descriptive: `maatilayla-cucciolo-barboncino-toy-rosso-prato.webp`
+- Location: `public/content/images/`
+
+### Alt text
+- Italian, descriptive, includes "barboncino toy" or "Maatilayla" for SEO
+- Describes the subject and context: `"Cucciolo di barboncino toy rosso nel prato dell'allevamento Maatilayla"`
+- No "foto di" or "immagine di" prefixes
+
+### HTML attributes
+- Always include: `loading="lazy"` + `decoding="async"` (except hero above-the-fold images)
+- Hero/above-fold images: `fetchpriority="high"`, no `loading="lazy"`
+
+### Performance rules
+- `contain: layout style paint` on card containers with images
+- No `transform: scale()` hover on images larger than 100KB
+- No `backdrop-filter` above `blur(10px)` on fixed/sticky elements
 
 ## Conventions
 - No emoji in code or UI text

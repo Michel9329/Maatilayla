@@ -11,7 +11,10 @@ export function initLenis(): void {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   if (_lenis) return
 
-  _lenis = new Lenis()
+  _lenis = new Lenis({
+    autoRaf: false,
+    syncTouch: false,
+  })
 
   // Sincronizza ScrollTrigger con la posizione scroll di Lenis
   _lenis.on('scroll', ScrollTrigger.update)

@@ -20,6 +20,12 @@ export default defineConfig([
       ecmaVersion: 2022,
       globals: globals.browser,
     },
+    rules: {
+      // Regole React Compiler (eslint-plugin-react-hooks v7) — falsi positivi
+      // su event handler e callback normali che usano ref/Date.now
+      'react-hooks/refs': 'off',
+      'react-hooks/purity': 'off',
+    },
   },
   prettierConfig,
 ])

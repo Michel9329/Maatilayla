@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const features = [
-  { icon: Heart, label: 'Vaccinato e sverminato' },
+  { icon: Heart, label: '3 vaccinazioni e sverminazione' },
   { icon: Stethoscope, label: 'Ecocardiogramma certificato' },
   { icon: Dna, label: 'Test genetico prcd-PRA' },
   { icon: Dna, label: 'Test genetico patella lux' },
@@ -26,36 +26,52 @@ export default function AllevamentoSection() {
   const calloutRef = useRef<HTMLDivElement>(null)
   const featRefs = useRef<(HTMLDivElement | null)[]>([])
 
+  // ── CSS entrance via IntersectionObserver (compositor thread) ──
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) {
+      // Mostra tutto subito senza animazione
+      block1Ref.current?.classList.add('allev-entered')
+      block2Ref.current?.classList.add('allev-entered')
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // rAF: da un frame al browser per preparare la transition
+            requestAnimationFrame(() => {
+              entry.target.classList.add('allev-entered')
+            })
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0, rootMargin: '-12% 0px' },
+    )
+
+    if (block1Ref.current) observer.observe(block1Ref.current)
+    if (block2Ref.current) observer.observe(block2Ref.current)
+
+    return () => observer.disconnect()
+  }, [])
+
+  // ── Parallax foto (solo GSAP — scrub leggero, nessun conflitto) ──
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) return
 
     const ctx = gsap.context(() => {
-      // ── Blocco 1: card entry + inner stagger ──
-      if (block1Ref.current) {
+      const img1 = img1Ref.current?.querySelector('img')
+      if (img1 && block1Ref.current) {
         gsap.fromTo(
-          block1Ref.current,
-          { opacity: 0, y: 36, scale: 0.97 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.75,
-            ease: 'power3.out',
-            clearProps: 'transform',
-            scrollTrigger: { trigger: block1Ref.current, start: 'top 88%', once: true },
-          },
-        )
-      }
-
-      // Parallax leggero immagine blocco 1
-      if (img1Ref.current && block1Ref.current) {
-        gsap.fromTo(
-          img1Ref.current.querySelector('img'),
+          img1,
           { yPercent: -8 },
           {
             yPercent: 8,
             ease: 'none',
+            force3d: true,
             scrollTrigger: {
               trigger: block1Ref.current,
               start: 'top bottom',
@@ -65,65 +81,15 @@ export default function AllevamentoSection() {
           },
         )
       }
-
-      // Testo blocco 1 (escluso callout)
-      const b1Els = b1Texts.current.filter((el) => el && el !== calloutRef.current) as HTMLElement[]
-      gsap.fromTo(
-        b1Els,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.55,
-          stagger: 0.09,
-          ease: 'power3.out',
-          delay: 0.35,
-          clearProps: 'transform',
-          scrollTrigger: { trigger: block1Ref.current, start: 'top 88%', once: true },
-        },
-      )
-
-      // Callout Biosensor: slide-in dal bordo sinistro
-      if (calloutRef.current) {
+      const img2 = img2Ref.current?.querySelector('img')
+      if (img2 && block2Ref.current) {
         gsap.fromTo(
-          calloutRef.current,
-          { opacity: 0, x: -30 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.65,
-            ease: 'power3.out',
-            clearProps: 'transform',
-            scrollTrigger: { trigger: calloutRef.current, start: 'top 92%', once: true },
-          },
-        )
-      }
-
-      // ── Blocco 2: card entry + inner stagger ──
-      if (block2Ref.current) {
-        gsap.fromTo(
-          block2Ref.current,
-          { opacity: 0, y: 36, scale: 0.97 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.75,
-            ease: 'power3.out',
-            clearProps: 'transform',
-            scrollTrigger: { trigger: block2Ref.current, start: 'top 88%', once: true },
-          },
-        )
-      }
-
-      // Parallax leggero immagine blocco 2
-      if (img2Ref.current && block2Ref.current) {
-        gsap.fromTo(
-          img2Ref.current.querySelector('img'),
+          img2,
           { yPercent: -8 },
           {
             yPercent: 8,
             ease: 'none',
+            force3d: true,
             scrollTrigger: {
               trigger: block2Ref.current,
               start: 'top bottom',
@@ -133,37 +99,6 @@ export default function AllevamentoSection() {
           },
         )
       }
-
-      gsap.fromTo(
-        b2Texts.current.filter(Boolean) as HTMLElement[],
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.55,
-          stagger: 0.09,
-          ease: 'power3.out',
-          delay: 0.35,
-          clearProps: 'transform',
-          scrollTrigger: { trigger: block2Ref.current, start: 'top 88%', once: true },
-        },
-      )
-
-      // ── Feature pills: fade-in stagger ──
-      gsap.fromTo(
-        featRefs.current.filter(Boolean) as HTMLElement[],
-        { opacity: 0, y: 14 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.4,
-          stagger: 0.07,
-          delay: 0.5,
-          ease: 'power2.out',
-          clearProps: 'transform',
-          scrollTrigger: { trigger: block2Ref.current, start: 'top 88%', once: true },
-        },
-      )
     }, sectionRef)
 
     return () => ctx.revert()
@@ -196,7 +131,7 @@ export default function AllevamentoSection() {
               b1Texts.current[1] = el
             }}
           >
-            Cresciuti in famiglia, con <em className="allev-accent">dedizione e competenza</em>
+            Cresciuti in famiglia, con <em className="allev-accent">dedizione e competenza.</em>
           </h2>
           <p
             className="allev-body"
@@ -206,7 +141,7 @@ export default function AllevamentoSection() {
           >
             Ogni barboncino toy nasce e cresce dentro casa nostra, a stretto contatto con tutta la
             famiglia. Fin dai primi giorni li esponiamo a stimoli mirati — tattili, sonori, sociali
-            — perche sviluppino un carattere equilibrato e una socializzazione solida.
+            — perché sviluppino un carattere equilibrato e una socializzazione solida.
           </p>
           <p
             className="allev-body"
@@ -216,7 +151,7 @@ export default function AllevamentoSection() {
           >
             Le coccole e le cure quotidiane li abituano alla manipolazione: toelettatura e visite
             veterinarie non saranno mai fonte di stress. Li esponiamo ai rumori domestici —
-            aspirapolvere, temporali, fuochi d'artificio — cosi da prevenire qualsiasi disagio
+            aspirapolvere, temporali, fuochi d'artificio — così da prevenire qualsiasi disagio
             comportamentale.
           </p>
           <p
@@ -240,8 +175,8 @@ export default function AllevamentoSection() {
             <p className="allev-callout-text">
               Sin dai primi giorni di vita applichiamo il protocollo americano di stimolazione
               neurologica precoce. Esercizi specifici di stimolazione tattile e sensoriale che
-              producono cuccioli con un sistema immunitario piu resistente, maggiore predisposizione
-              alla socializzazione e una migliore capacita di apprendimento durante la crescita.
+              producono cuccioli con un sistema immunitario più resistente, maggiore predisposizione
+              alla socializzazione e una migliore capacità di apprendimento durante la crescita.
             </p>
           </div>
         </div>
@@ -264,7 +199,7 @@ export default function AllevamentoSection() {
               b2Texts.current[0] = el
             }}
           >
-            Pronti per te
+            Il grande passo
           </span>
           <h2
             className="allev-title"
@@ -272,7 +207,9 @@ export default function AllevamentoSection() {
               b2Texts.current[1] = el
             }}
           >
-            Da Maatilayla a casa tua, <em className="allev-accent">un cucciolo pronto per te</em>
+            Da Maatilayla a casa tua,
+            <br />
+            <em className="allev-accent">un cucciolo pronto per te.</em>
           </h2>
           <p
             className="allev-body"
@@ -281,8 +218,8 @@ export default function AllevamentoSection() {
             }}
           >
             I nostri barboncini restano in allevamento fino al compimento del terzo mese di vita.
-            Questo tempo con la mamma e i fratelli e essenziale: imprinting corretto verso simili e
-            umani, inibizione al morso, rispetto degli spazi. Insegnamenti che solo la madre puo
+            Questo tempo con la mamma e i fratelli è essenziale: imprinting corretto verso simili e
+            umani, inibizione al morso, rispetto degli spazi. Insegnamenti che solo la madre può
             dare.
           </p>
           <p
