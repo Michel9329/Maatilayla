@@ -1,5 +1,12 @@
 import { Helmet } from 'react-helmet-async'
 import HeroSection from '@/components/sections/HeroSection'
+import StoriaLaylaSection from '@/components/sections/StoriaLaylaSection'
+import CredenzialiSection from '@/components/sections/CredenzialiSection'
+import ValoriSection from '@/components/sections/ValoriSection'
+import StrutturaDSection from '@/components/sections/StrutturaDSection'
+import TimelineSection from '@/components/sections/TimelineSection'
+import WorldMapSection from '@/components/sections/WorldMapSection'
+import ChiSiamoCta from '@/components/sections/ChiSiamoCta'
 
 export default function ChiSiamo() {
   return (
@@ -24,6 +31,7 @@ export default function ChiSiamo() {
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="Maatilayla" />
       </Helmet>
+
       <HeroSection
         key="chi-siamo"
         lightText
@@ -46,6 +54,14 @@ export default function ChiSiamo() {
           { label: 'Storia', to: '/chi-siamo#storia', variant: 'outline' },
         ]}
       />
+
+      <StoriaLaylaSection />
+      <CredenzialiSection />
+      <ValoriSection />
+      <StrutturaDSection />
+      <TimelineSection />
+      <WorldMapSection />
+      <ChiSiamoCta />
     </>
   )
 }
