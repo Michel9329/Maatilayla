@@ -1,3 +1,18 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: — Sito Completo
+current_plan: 04-07
+status: executing
+stopped_at: "Checkpoint 04-07 Task 3: attesa verifica visiva /chi-siamo"
+last_updated: "2026-03-05T11:20:00.028Z"
+progress:
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 7
+  completed_plans: 7
+---
+
 # Project State — Maatilayla
 
 ## Current Position
@@ -45,6 +60,8 @@ Phase 5-10                    Pending
 - Cast a Coordinates branded type per compatibilità TypeScript della libreria react19-simple-maps
 - GeoJSON world-atlas scaricato in public/content/data/ — zero dipendenza CDN a runtime
 - Tooltip SVG nativo <title> — nessun JS aggiuntivo, accessibile screen reader
+- [Phase 04-pagine-interne]: StoriaLaylaSection aveva già id='storia' — nessun wrapper div necessario in ChiSiamo.tsx
+- [Phase 04-pagine-interne]: Pattern CTA word-by-word ereditato da FaqCtaSection per coerenza visiva tra pagine
 
 ## Performance Metrics
 
@@ -56,9 +73,10 @@ Phase 5-10                    Pending
 | 04 | 04 | ~2min | 2 | 2 |
 | 04 | 05 | ~3min | 2 | 2 |
 | 04 | 06 | ~2min | 2 | 6 |
+| Phase 04-pagine-interne P07 | 5 | 2 tasks | 3 files |
 
 ## Last Session
 
-- **Stopped At:** Completed 04-06-PLAN.md (WorldMapSection)
+- **Stopped At:** Checkpoint 04-07 Task 3: attesa verifica visiva /chi-siamo
 - **Timestamp:** 2026-03-05
 - **Next:** 04-07-PLAN.md — ChiSiamoAssembly (assemblaggio pagina completa)
