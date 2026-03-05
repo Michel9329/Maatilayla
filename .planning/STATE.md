@@ -3,7 +3,7 @@
 ## Current Position
 
 - **Phase:** 04-pagine-interne
-- **Current Plan:** 04-05
+- **Current Plan:** 04-06
 - **Status:** In Progress
 
 ## Progress
@@ -13,7 +13,7 @@ Phase 0 ████████████████████ COMPLETE
 Phase 1 ████████████████████ COMPLETE
 Phase 2 ████████████████████ COMPLETE
 Phase 3 ████████████████████ COMPLETE
-Phase 4 ████████░░░░░░░░░░░░ 4/7 plans done
+Phase 4 ██████████░░░░░░░░░░ 5/7 plans done
 Phase 5-10                    Pending
 ```
 
@@ -25,6 +25,7 @@ Phase 5-10                    Pending
 | 04-pagine-interne | 02 | CredenzialiSection | ac8527f | 2026-03-05 |
 | 04-pagine-interne | 03 | ValoriSection | d686b41 | 2026-03-05 |
 | 04-pagine-interne | 04 | StrutturaDSection | 587d673 | 2026-03-05 |
+| 04-pagine-interne | 05 | TimelineSection | c23c62a | 2026-03-05 |
 
 ## Decisions
 
@@ -36,6 +37,9 @@ Phase 5-10                    Pending
 - Stagger applicato ai gruppi (non alle singole card) — rispetta limite 3 transizioni simultanee CLAUDE.md
 - YouTube facade con youtube-nocookie.com (privacy by design) — nessuna risorsa caricata prima del click
 - Placeholder immagine struttura in attesa di foto specifica casetta dai cani
+- Array milestones hardcoded nel componente con struttura configurabile per future tappe
+- CSS-only timeline (scroll-snap nativo) — nessuna libreria necessaria per browser target
+- Dot indicatori sincronizzati via scroll listener passivo (passive: true)
 
 ## Performance Metrics
 
@@ -45,9 +49,10 @@ Phase 5-10                    Pending
 | 04 | 02 | ~10min | 2 | 2 |
 | 04 | 03 | ~15min | 2 | 2 |
 | 04 | 04 | ~2min | 2 | 2 |
+| 04 | 05 | ~3min | 2 | 2 |
 
 ## Last Session
 
-- **Stopped At:** Completed 04-04-PLAN.md (StrutturaDSection)
+- **Stopped At:** Completed 04-05-PLAN.md (TimelineSection)
 - **Timestamp:** 2026-03-05
-- **Next:** 04-05-PLAN.md — TimelineSection
+- **Next:** 04-06-PLAN.md — WorldMapSection
