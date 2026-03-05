@@ -204,7 +204,7 @@
 
 Piani:
 - [x] 04-01-PLAN.md — StoriaLaylaSection (racconto emotivo + foto placeholder + CSS ls-)
-- [ ] 04-02-PLAN.md — CredenzialiSection (3 card ENCI Layla Zarfati + CSS cr-)
+- [x] 04-02-PLAN.md — CredenzialiSection (3 card ENCI Layla Zarfati + CSS cr-)
 - [ ] 04-03-PLAN.md — ValoriSection (griglia 3x2 sei pillars + CSS vl-)
 - [ ] 04-04-PLAN.md — StrutturaDSection (layout 2col + YouTube lazy facade + CSS st-/yt-)
 - [ ] 04-05-PLAN.md — TimelineSection (5 tappe orizzontali + scroll-snap mobile + CSS tl-)
