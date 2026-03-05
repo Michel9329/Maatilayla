@@ -7,8 +7,7 @@ import {
   type Coordinates,
 } from '@vnedyalk0v/react19-simple-maps'
 import destinations from '@/data/wm-destinations.json'
-
-const GEO_URL = '/content/data/countries-110m.json'
+import geoData from '@/data/countries-110m.json'
 
 interface Destination {
   id: string
@@ -67,7 +66,7 @@ export default function WorldMapSection() {
             height={400}
             style={{ width: '100%', height: 'auto' }}
           >
-            <Geographies geography={GEO_URL}>
+            <Geographies geography={geoData}>
               {({ geographies }) =>
                 geographies.map((geo) => (
                   <Geography
