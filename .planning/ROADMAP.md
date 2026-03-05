@@ -208,7 +208,7 @@ Piani:
 - [x] 04-03-PLAN.md — ValoriSection (griglia 3x2 sei pillars + CSS vl-)
 - [x] 04-04-PLAN.md — StrutturaDSection (layout 2col + YouTube lazy facade + CSS st-/yt-)
 - [x] 04-05-PLAN.md — TimelineSection (5 tappe orizzontali + scroll-snap mobile + CSS tl-)
-- [ ] 04-06-PLAN.md — WorldMapSection (SVG react19-simple-maps + dati JSON + CSS wm-)
+- [x] 04-06-PLAN.md — WorldMapSection (SVG react19-simple-maps + dati JSON + CSS wm-)
 - [ ] 04-07-PLAN.md — Assembly ChiSiamo.tsx + ChiSiamoCta + checkpoint visivo
 
 #### Altre pagine (da pianificare separatamente)

@@ -3,7 +3,7 @@
 ## Current Position
 
 - **Phase:** 04-pagine-interne
-- **Current Plan:** 04-06
+- **Current Plan:** 04-07
 - **Status:** In Progress
 
 ## Progress
@@ -13,7 +13,7 @@ Phase 0 ████████████████████ COMPLETE
 Phase 1 ████████████████████ COMPLETE
 Phase 2 ████████████████████ COMPLETE
 Phase 3 ████████████████████ COMPLETE
-Phase 4 ██████████░░░░░░░░░░ 5/7 plans done
+Phase 4 ████████████████░░░░ 6/7 plans done
 Phase 5-10                    Pending
 ```
 
@@ -26,6 +26,7 @@ Phase 5-10                    Pending
 | 04-pagine-interne | 03 | ValoriSection | d686b41 | 2026-03-05 |
 | 04-pagine-interne | 04 | StrutturaDSection | 587d673 | 2026-03-05 |
 | 04-pagine-interne | 05 | TimelineSection | c23c62a | 2026-03-05 |
+| 04-pagine-interne | 06 | WorldMapSection | 980d28c | 2026-03-05 |
 
 ## Decisions
 
@@ -40,6 +41,10 @@ Phase 5-10                    Pending
 - Array milestones hardcoded nel componente con struttura configurabile per future tappe
 - CSS-only timeline (scroll-snap nativo) — nessuna libreria necessaria per browser target
 - Dot indicatori sincronizzati via scroll listener passivo (passive: true)
+- Fork @vnedyalk0v/react19-simple-maps usato al posto dell'originale zcreativelabs (incompatibile React 19)
+- Cast a Coordinates branded type per compatibilità TypeScript della libreria react19-simple-maps
+- GeoJSON world-atlas scaricato in public/content/data/ — zero dipendenza CDN a runtime
+- Tooltip SVG nativo <title> — nessun JS aggiuntivo, accessibile screen reader
 
 ## Performance Metrics
 
@@ -50,9 +55,10 @@ Phase 5-10                    Pending
 | 04 | 03 | ~15min | 2 | 2 |
 | 04 | 04 | ~2min | 2 | 2 |
 | 04 | 05 | ~3min | 2 | 2 |
+| 04 | 06 | ~2min | 2 | 6 |
 
 ## Last Session
 
-- **Stopped At:** Completed 04-05-PLAN.md (TimelineSection)
+- **Stopped At:** Completed 04-06-PLAN.md (WorldMapSection)
 - **Timestamp:** 2026-03-05
-- **Next:** 04-06-PLAN.md — WorldMapSection
+- **Next:** 04-07-PLAN.md — ChiSiamoAssembly (assemblaggio pagina completa)
