@@ -5606,3 +5606,132 @@ a img {
     right: 3rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   WORLD MAP SECTION  (wm-)
+   ═══════════════════════════════════════════════════ */
+
+.wm-section {
+  background: var(--color-cream);
+  padding: clamp(4rem, 8vw, 7rem) 0;
+}
+
+.wm-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 3.5vw, 3rem);
+}
+
+/* Header */
+.wm-header {
+  text-align: center;
+  max-width: 640px;
+}
+
+.wm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-primary-pale);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.wm-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.wm-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.wm-accent {
+  font-style: italic;
+  color: var(--color-primary);
+}
+
+.wm-intro {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+/* Mappa */
+.wm-map-wrap {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--color-warm-white);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  box-shadow: 0 2px 20px rgba(26, 16, 8, 0.06);
+  contain: layout style;
+}
+
+.wm-caption {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ── Animazione entrata ── */
+.wm-container {
+  opacity: 0;
+  translate: 0 24px;
+  transition:
+    opacity 0.65s ease,
+    translate 0.65s ease;
+}
+
+.wm-container.wm-entered {
+  opacity: 1;
+  translate: none;
+}
+
+.wm-container.wm-entered .wm-header {
+  transition-delay: 0s;
+}
+.wm-container.wm-entered .wm-map-wrap {
+  transition-delay: 0.15s;
+}
+.wm-container.wm-entered .wm-caption {
+  transition-delay: 0.25s;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .wm-map-wrap {
+    padding: 0.75rem;
+    border-radius: var(--radius-card);
+  }
+}
+
+@media (min-width: 1440px) {
+  .wm-container {
+    padding: 0 3rem;
+  }
+}
