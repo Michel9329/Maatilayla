@@ -5735,3 +5735,146 @@ a img {
     padding: 0 3rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   CHI SIAMO CTA  (cs-)
+   ═══════════════════════════════════════════════════ */
+
+.cs-section {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-warm-white);
+}
+
+.cs-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cs-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 16, 8, 0.52);
+  z-index: 1;
+}
+
+.cs-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(250, 224, 208, 0.2);
+  color: var(--color-primary-pale);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(250, 224, 208, 0.3);
+}
+
+.cs-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+.cs-word {
+  display: inline-block;
+}
+
+.cs-word--accent em {
+  font-style: italic;
+  color: var(--color-primary-pale);
+}
+
+.cs-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.75;
+  max-width: 540px;
+}
+
+.cs-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2.25rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cs-cta-btn:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.cs-cta-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Mobile CSS entrance (quando IntersectionObserver, non GSAP) */
+.cs-section:not(.cs-entered) .cs-content {
+  opacity: 0;
+  translate: 0 20px;
+  transition:
+    opacity 0.6s ease,
+    translate 0.6s ease;
+}
+
+.cs-section.cs-entered .cs-content {
+  opacity: 1;
+  translate: none;
+}
+
+@media (max-width: 768px) {
+  .cs-section {
+    min-height: 520px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .cs-section {
+    min-height: 560px;
+  }
+}
