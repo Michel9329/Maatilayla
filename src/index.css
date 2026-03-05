@@ -1986,23 +1986,91 @@ a img {
 }
 
 /* ── Entrance: solo blocco, nessuno stagger figli (1 sola transition) ── */
+/* ── Animazione entrata blocco ── */
 .allev-block {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+  translate: 0 28px;
+  transition: translate 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .allev-block.allev-entered {
+  translate: none;
+}
+
+/* Foto: fade-in */
+.allev-img {
+  opacity: 0;
+  transition: opacity 0.8s ease-out 0.05s;
+}
+
+.allev-block.allev-entered .allev-img {
   opacity: 1;
-  transform: none;
+}
+
+/* Figli testo: stagger */
+.allev-content > * {
+  opacity: 0;
+  translate: 0 16px;
+  transition:
+    opacity 0.5s ease-out,
+    translate 0.5s ease-out;
+}
+
+.allev-block.allev-entered .allev-content > :nth-child(1) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.15s;
+}
+
+.allev-block.allev-entered .allev-content > :nth-child(2) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.25s;
+}
+
+.allev-block.allev-entered .allev-content > :nth-child(3) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.35s;
+}
+
+.allev-block.allev-entered .allev-content > :nth-child(4) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.42s;
+}
+
+.allev-block.allev-entered .allev-content > :nth-child(5) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.49s;
+}
+
+.allev-block.allev-entered .allev-content > :nth-child(6) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.56s;
+}
+
+.allev-block.allev-entered .allev-content > :nth-child(7) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.62s;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .allev-block {
+    translate: none;
+    transition: none;
+  }
+
+  .allev-img {
     opacity: 1;
-    transform: none;
+    transition: none;
+  }
+
+  .allev-content > * {
+    opacity: 1;
+    translate: none;
     transition: none;
   }
 }
@@ -4618,5 +4686,157 @@ a img {
   }
   .cine-content {
     max-width: 700px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   STORIA LAYLA SECTION  (ls-)
+   ═══════════════════════════════════════════════════ */
+
+.ls-section {
+  background: var(--color-warm-white);
+  padding: clamp(4rem, 8vw, 7rem) 0;
+}
+
+.ls-block {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+/* Foto */
+.ls-img {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--color-primary-pale);
+  contain: layout style paint;
+}
+
+.ls-img img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  translate: 0 -10%;
+}
+
+/* Contenuto testuale */
+.ls-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-primary-pale);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.ls-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.ls-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.ls-accent {
+  font-style: italic;
+  color: var(--color-primary);
+}
+
+.ls-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.ls-callout {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--color-primary);
+  background: var(--color-primary-pale);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  color: var(--color-text);
+  line-height: 1.75;
+  font-style: italic;
+}
+
+/* ── Animazione entrata ── */
+.ls-block {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity 0.7s ease,
+    translate 0.7s ease;
+}
+
+.ls-block.ls-entered {
+  opacity: 1;
+  translate: none;
+}
+
+.ls-block.ls-entered .ls-img {
+  transition-delay: 0s;
+}
+
+.ls-block.ls-entered .ls-content > :nth-child(1) {
+  transition-delay: 0.08s;
+}
+.ls-block.ls-entered .ls-content > :nth-child(2) {
+  transition-delay: 0.15s;
+}
+.ls-block.ls-entered .ls-content > :nth-child(3) {
+  transition-delay: 0.22s;
+}
+.ls-block.ls-entered .ls-content > :nth-child(4) {
+  transition-delay: 0.29s;
+}
+.ls-block.ls-entered .ls-content > :nth-child(5) {
+  transition-delay: 0.36s;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ls-block {
+    grid-template-columns: 1fr;
+  }
+
+  .ls-img {
+    aspect-ratio: 3 / 2;
+    max-height: 320px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .ls-block {
+    padding: 0 3rem;
   }
 }
