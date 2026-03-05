@@ -198,7 +198,21 @@
 
 **Goal:** Tutte le pagine del menu completate
 
-- [ ] Chi Siamo (storia, valori, foto allevamento)
+#### Chi Siamo — 7 piani (in pianificazione)
+
+**Piani:** 7 piani
+
+Piani:
+- [ ] 04-01-PLAN.md — StoriaLaylaSection (racconto emotivo + foto placeholder + CSS ls-)
+- [ ] 04-02-PLAN.md — CredenzialiSection (3 card ENCI Layla Zarfati + CSS cr-)
+- [ ] 04-03-PLAN.md — ValoriSection (griglia 3x2 sei pillars + CSS vl-)
+- [ ] 04-04-PLAN.md — StrutturaDSection (layout 2col + YouTube lazy facade + CSS st-/yt-)
+- [ ] 04-05-PLAN.md — TimelineSection (5 tappe orizzontali + scroll-snap mobile + CSS tl-)
+- [ ] 04-06-PLAN.md — WorldMapSection (SVG react19-simple-maps + dati JSON + CSS wm-)
+- [ ] 04-07-PLAN.md — Assembly ChiSiamo.tsx + ChiSiamoCta + checkpoint visivo
+
+#### Altre pagine (da pianificare separatamente)
+
 - [ ] Blog (lista articoli + pagina singolo articolo)
 - [ ] Galleria (lightbox YARL, griglia masonry)
 - [ ] F.A.Q. (accordion animato)
