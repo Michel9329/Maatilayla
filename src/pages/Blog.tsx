@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import HeroSection from '@/components/sections/HeroSection'
 import BlogGrid from '@/components/sections/BlogGrid'
+import BlogCta from '@/components/sections/BlogCta'
 import ContactSection from '@/components/sections/ContactSection'
 import InstagramFeedSection from '@/components/sections/InstagramFeedSection'
 import { blogArticlesSorted, blogCategories } from '@/data/blogArticles'
@@ -53,7 +54,7 @@ export default function Blog() {
         <meta property="og:url" content="https://allevamentobarboncinimaatilayla.it/blog" />
         <meta
           property="og:image"
-          content="https://allevamentobarboncinimaatilayla.it/content/images/maatilayla-header-cucciolo-allevamento.webp"
+          content="https://allevamentobarboncinimaatilayla.it/content/images/maatilayla-header-blog.webp"
         />
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="Maatilayla" />
@@ -61,12 +62,13 @@ export default function Blog() {
       </Helmet>
       <HeroSection
         key="blog"
-        image="/content/images/maatilayla-header-cucciolo-allevamento.webp"
-        alt="Cucciolo di barboncino toy fulvo dell'allevamento Maatilayla"
+        image="/content/images/maatilayla-header-blog.webp"
+        alt="Barboncini toy dell'allevamento Maatilayla nel prato"
         title="Blog"
         subtitle="Articoli e approfondimenti dal mondo cinofilo"
       />
       <BlogGrid articles={blogArticlesSorted} categories={blogCategories} />
+      <BlogCta />
       <ContactSection />
       <InstagramFeedSection />
     </>
