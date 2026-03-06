@@ -2,39 +2,24 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: — Sito Completo
-current_plan: 04-15 (completed)
+current_plan: 04-20 (completed)
 status: completed
-stopped_at: Phase 04 FAQ+Contatti context gathered
-last_updated: "2026-03-06T15:55:56.137Z"
+stopped_at: Phase 04 complete — FAQ + Contatti + polish visivo
+last_updated: "2026-03-06T23:00:00.000Z"
 progress:
   total_phases: 1
   completed_phases: 1
-  total_plans: 16
-  completed_plans: 16
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: — Sito Completo
-current_plan: 04-15
-status: executing
-stopped_at: Completed 04-15-PLAN.md
-last_updated: "2026-03-06T12:36:00.000Z"
-progress:
-  total_phases: 1
-  completed_phases: 1
-  total_plans: 16
-  completed_plans: 15
+  total_plans: 20
+  completed_plans: 20
 ---
 
 # Project State — Maatilayla
 
 ## Current Position
 
-- **Phase:** 04-pagine-interne
-- **Current Plan:** 04-15 (completed)
-- **Status:** Phase 04 Blog rework - Articolo singolo redesign complete
+- **Phase:** 04-pagine-interne (COMPLETA)
+- **Current Plan:** 04-20 (completed)
+- **Status:** Tutte le pagine interne complete — pronto per Phase 5
 
 ## Progress
 
@@ -43,10 +28,12 @@ Phase 0 ████████████████████ COMPLETE
 Phase 1 ████████████████████ COMPLETE
 Phase 2 ████████████████████ COMPLETE
 Phase 3 ████████████████████ COMPLETE
-Phase 4 ████████████████████ 7/7 Chi Siamo done + Polish done
+Phase 4 ████████████████████ Chi Siamo 7/7 + Polish done
+Phase 4 ████████████████████ Blog 4/4 done
 Phase 4 ████████████████████ Galleria 2/2 done
-Phase 4 ███████████████████░ Blog rework 3/4
-Phase 5-10                    Pending
+Phase 4 ████████████████████ FAQ 2/2 done
+Phase 4 ████████████████████ Contatti 2/2 done + polish
+Phase 5-10                    Pending — da pianificare con GSD
 ```
 
 ## Completed Plans
@@ -138,4 +125,4 @@ Phase 5-10                    Pending
 
 - **Stopped At:** Phase 04 FAQ+Contatti context gathered
 - **Timestamp:** 2026-03-06
-- **Next:** Blog rework continua — piano 16 (foto copertina articoli)
+- **Next:** Phase 5 da pianificare con GSD (polish finale, link, foto, responsive, SEO, lingue)

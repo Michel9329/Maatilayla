@@ -223,76 +223,63 @@ Fix completati:
 - [x] Bundle splitting: swiper, lenis, forms in manual chunks (main 531KB -> 361KB)
 - [x] Flag SVG scaricati localmente (rimossa dipendenza CDN hatscripts)
 
-#### Blog — 3 piani
+#### Blog ✅ — 4 piani
 
-**Goal:** Data layer centralizzato, pagina griglia articoli, pagina singolo articolo con markdown
-
-**Plans:** 12/12 plans complete
+**Goal:** Data layer centralizzato, pagina griglia articoli, pagina singolo articolo con markdown, rework visivo
 
 Piani:
-- [ ] 04-08-PLAN.md — Data layer blogArticles.ts + refactor BlogPreviewSection
-- [ ] 04-09-PLAN.md — Pagina griglia /blog con BlogGrid + filtri categoria + SEO
-- [ ] 04-10-PLAN.md — Pagina singolo articolo /blog/:slug + ArticleRenderer + route
+- [x] 04-08-PLAN.md — Data layer blogArticles.ts + refactor BlogPreviewSection
+- [x] 04-09-PLAN.md — Pagina griglia /blog con BlogGrid + filtri categoria + SEO
+- [x] 04-10-PLAN.md — Pagina singolo articolo /blog/:slug + ArticleRenderer + route
+- [x] 04-13-PLAN.md — Blog hero + CTA + pill verdi
+- [x] 04-14-PLAN.md — H2 headlines articoli + heading IDs
+- [x] 04-15-PLAN.md — Articolo singolo redesign (hero + sidebar TOC + CTA)
+- [x] 04-16-PLAN.md — Rework visivo blog, hero, contatti + foto articoli
 
-#### Galleria — 2 piani
+#### Galleria ✅ — 2 piani
 
 **Goal:** Catalogo immagini, griglia masonry, lightbox YARL, filtri categoria
 
-**Plans:** 2 plans
-
 Piani:
-- [ ] 04-11-PLAN.md — Data layer galleryData.ts + GallerySection (masonry + filtri + lightbox YARL)
-- [ ] 04-12-PLAN.md — Assembly Galleria.tsx + CTA + checkpoint visivo
-#### F.A.Q. — 2 piani
+- [x] 04-11-PLAN.md — Data layer galleryData.ts + GallerySection (masonry + filtri + lightbox YARL)
+- [x] 04-12-PLAN.md — Assembly Galleria.tsx + CTA + checkpoint visivo
+
+#### F.A.Q. ✅ — 2 piani
 
 **Goal:** Pagina FAQ completa con 17 domande raggruppate per categoria, accordion animato, CTA
 
 Piani:
-- [ ] 04-17-PLAN.md — FaqSection (intro + accordion per categorie + 17 FAQ) + FaqPageCta
-- [ ] 04-18-PLAN.md — Assembly Faq.tsx + SEO + checkpoint visivo
+- [x] 04-17-PLAN.md — FaqAccordionSection + FaqIntroSection + FaqPageCta
+- [x] 04-18-PLAN.md — Assembly Faq.tsx + SEO + checkpoint visivo
 
-#### Contatti — 2 piani
+#### Contatti ✅ — 2 piani + polish
 
-**Goal:** Pagina contatti completa con info, mappa Mapbox pastello, form EmailJS, callout visite
+**Goal:** Pagina contatti completa con form EmailJS, mappa Mapbox pastello, callout visite, indicazioni
 
 Piani:
-- [ ] 04-19-PLAN.md — ContactInfoSection (card info + mappa Mapbox custom) + callout visite
-- [ ] 04-20-PLAN.md — Assembly Contatti.tsx + SEO + checkpoint visivo
+- [x] 04-19-PLAN.md — ContactMapSection (Mapbox GL JS) + ContactCallout + DirectionsSection
+- [x] 04-20-PLAN.md — Assembly Contatti.tsx + SEO + TestimonialsSection transparent + polish
 
-### Phase 5 — Dark / Light Mode
+### Phase 5 — Polish Finale & Preparazione Lancio
 
-**Goal:** Tema scuro completo, toggle persistente, tutto il sito coperto
+**Goal:** Tutte le pagine pronte per il lancio — link, foto, animazioni, responsive, SEO, lingue
 
-**Decisioni architetturali:**
+**Da pianificare con GSD (macro-task):**
 
-- Strategia: classe `.dark` su `<html>` + override CSS variables (no Tailwind dark:)
-- Rilevamento automatico: `prefers-color-scheme: dark` come default iniziale
-- Persistenza: `localStorage` (scelta utente sovrascrive OS preference)
-- Token: palette dark definita in `@media (prefers-color-scheme: dark)` e `.dark {}`
+- [ ] Link audit — verificare tutti i link interni/esterni, fix broken, aggiornare footer
+- [ ] Foto — cambiare alcune foto specifiche (utente decide quali), aggiungere foto reali Galleria
+- [ ] Pagina Galleria — layout finale, foto reali, rimuovere placeholder
+- [ ] Footer — sistemare link, aggiungere lingua tedesca (DE)
+- [ ] Animazioni — review e fix globale (jank, timing, consistenza)
+- [ ] Email + Brevo — settaggio EmailJS produzione + integrazione Brevo newsletter
+- [ ] Responsive mobile — controllo completo tutte le pagine
+- [ ] Lingue — aggiungere tedesco nel footer
+- [ ] SEO — audit completo: meta, canonical, structured data, alt text, performance
 
-**Palette dark (da definire):**
-
-- Background: warm dark (es. #1C1610) — non nero puro, mantiene calore
-- Surface: #252018 (cards, footer)
-- Text: #F5EDE0 (testo principale)
-- Text muted: #A89070
-- Primary: #E07B60 (leggermente più chiaro per contrasto su dark)
-- Bordi: rgba(255,255,255,0.1)
-
-**Task:**
-
-- [ ] Definire palette dark e aggiungere token in `src/index.css`
-- [ ] Toggle button in Navbar (icona sole/luna, animazione Framer Motion)
-- [ ] Hook `useTheme` (legge/scrive localStorage, applica classe a `<html>`)
-- [ ] Dark mode: Navbar (glass scuro, logo leggibile)
-- [ ] Dark mode: Hero section (overlay, glass card)
-- [ ] Dark mode: Footer (sfondo, bordi, testi)
-- [ ] Dark mode: tutte le sezioni Homepage (Phase 3)
-- [ ] Dark mode: tutte le Pagine Interne (Phase 4)
-- [ ] Dark mode: form contatti e newsletter
-- [ ] Dark mode: Swiper, lightbox YARL
-- [ ] Test accessibilità contrasto WCAG su entrambi i temi
-- [ ] Test cross-device (mobile toggle, OS sync)
+**Regole di fase:**
+- Chiedere SEMPRE prima di agire
+- Alert se richiesta fuori fase corrente
+- Sub-task aggiunte solo su richiesta esplicita dell'utente
 
 ### Phase 6 — Pre Go-Live: Configurazione Servizi & Test
 

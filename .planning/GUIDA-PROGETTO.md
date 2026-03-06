@@ -574,21 +574,35 @@ Sezione contatti con form e info. Header centrato + 2 colonne: form (55%) + info
 
 #### Newsletter footer (futuro)
 
-#### Dark / Light Mode (Phase 5)
+#### Pagina F.A.Q. (Phase 4) ✅
 
-- Toggle in Navbar (icona sole/luna con Framer Motion)
-- Strategia: classe `.dark` su `<html>` + override CSS variables
-- Palette dark calda: sfondo `#1C1610`, surface `#252018`, testo `#F5EDE0`
-- Persistenza: `localStorage` (sovrascrive preferenza OS `prefers-color-scheme`)
-- Stub attuale: toggle visibile in Navbar ma non funzionante
+- FaqIntroSection: intro con badge + titolo
+- FaqAccordionSection: 17 domande raggruppate per categoria, accordion animato CSS
+- FaqPageCta: CTA con foto background, testo allineato a destra
+- Dati: src/data/faqData.ts (5 categorie, 17 FAQ)
 
-#### Internazionalizzazione IT · EN · FR · ES (Phase 8)
+#### Pagina Contatti (Phase 4) ✅
+
+- Hero: lightText + hero-card--lighter (uniformato alle altre pagine)
+- ContactSection: form EmailJS con header allineato a sinistra, props custom per copy
+- ContactCallout: 2 card (visite su appuntamento + zona poco segnale)
+- ContactMapSection: Mapbox GL JS con stile Studio custom + paint overrides pastello
+  - Coordinate: [12.2102, 42.2005], marker SVG terracotta, popup sempre visibile
+- DirectionsSection: 3 card (Fiumicino, auto da Roma, treno da Roma), sfondo #EEF2EE, icone verdi
+- TestimonialsSection con prop `transparent` (bordi invece di shadow)
+- Footer: colore aggiornato a #F0EDE8 + box-shadow sottile
+
+#### Phase 5 — Polish Finale & Preparazione Lancio (da pianificare)
+
+Macro-task: link audit, foto, galleria, footer, animazioni, EmailJS+Brevo, responsive mobile, lingue (DE), SEO
+
+#### Internazionalizzazione IT · EN · FR · ES · DE (Phase futura)
 
 - Libreria: `react-i18next` con lazy loading namespace
-- URL: `/en/`, `/fr/`, `/es/` — italiano default senza prefisso
+- URL: `/en/`, `/fr/`, `/es/`, `/de/` — italiano default senza prefisso
 - Language switcher in Navbar + Footer (sotto "Legale")
 - SEO: `hreflang` tag su ogni pagina per ogni lingua
-- Stub attuale: switcher IT/EN/FR/ES visibile nel footer, solo IT attivo
+- Stub attuale: switcher IT/EN/FR/ES visibile nel footer, solo IT attivo — aggiungere DE
 
 ---
 
