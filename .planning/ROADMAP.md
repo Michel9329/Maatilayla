@@ -243,10 +243,21 @@ Piani:
 Piani:
 - [ ] 04-11-PLAN.md — Data layer galleryData.ts + GallerySection (masonry + filtri + lightbox YARL)
 - [ ] 04-12-PLAN.md — Assembly Galleria.tsx + CTA + checkpoint visivo
-#### Altre pagine — da pianificare separatamente
+#### F.A.Q. — 2 piani
 
-- [ ] F.A.Q. (accordion animato)
-- [ ] Contatti (form EmailJS: nome, email, messaggio, consenso GDPR)
+**Goal:** Pagina FAQ completa con 17 domande raggruppate per categoria, accordion animato, CTA
+
+Piani:
+- [ ] 04-17-PLAN.md — FaqSection (intro + accordion per categorie + 17 FAQ) + FaqPageCta
+- [ ] 04-18-PLAN.md — Assembly Faq.tsx + SEO + checkpoint visivo
+
+#### Contatti — 2 piani
+
+**Goal:** Pagina contatti completa con info, mappa Mapbox pastello, form EmailJS, callout visite
+
+Piani:
+- [ ] 04-19-PLAN.md — ContactInfoSection (card info + mappa Mapbox custom) + callout visite
+- [ ] 04-20-PLAN.md — Assembly Contatti.tsx + SEO + checkpoint visivo
 
 ### Phase 5 — Dark / Light Mode
 

@@ -2,6 +2,21 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: — Sito Completo
+current_plan: 04-15 (completed)
+status: completed
+stopped_at: Phase 04 FAQ+Contatti context gathered
+last_updated: "2026-03-06T15:55:56.137Z"
+progress:
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 16
+  completed_plans: 16
+---
+
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: — Sito Completo
 current_plan: 04-15
 status: executing
 stopped_at: Completed 04-15-PLAN.md
@@ -121,6 +136,6 @@ Phase 5-10                    Pending
 
 ## Last Session
 
-- **Stopped At:** Completed 04-15-PLAN.md
+- **Stopped At:** Phase 04 FAQ+Contatti context gathered
 - **Timestamp:** 2026-03-06
 - **Next:** Blog rework continua — piano 16 (foto copertina articoli)
