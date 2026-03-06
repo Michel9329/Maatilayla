@@ -1,63 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router'
-
-const articles = [
-  {
-    title: 'Controlli? Sì, grazie!',
-    date: '24 Maggio 2023',
-    category: 'Allevamento',
-    excerpt:
-      'Perché sottoporsi ai controlli sanitari e genetici è un atto di responsabilità verso i cuccioli e le famiglie che li accoglieranno.',
-    image: '/content/images/maatilayla-blog-controlli-si-grazie.webp',
-    alt: "Casetta dei barboncini toy nell'allevamento Maatilayla",
-  },
-  {
-    title: 'Quando a volte tornano',
-    date: '9 Novembre 2022',
-    category: 'Storie',
-    excerpt:
-      'Capita che un cucciolo torni in allevamento. Non è un fallimento, è un atto di amore — e noi siamo sempre pronti ad accoglierli.',
-    image: '/content/images/maatilayla-blog-quando-tornano.webp',
-    alt: "Aeroporto di Fiumicino, il ritorno di un barboncino toy all'allevamento Maatilayla",
-  },
-  {
-    title: 'Chi alleva, alleva tutto',
-    date: '23 Novembre 2021',
-    category: 'Riflessioni',
-    excerpt:
-      'Allevare non significa solo far nascere cuccioli. Significa prendersi cura di ogni aspetto: salute, socializzazione, benessere emotivo.',
-    image: '/content/images/maatilayla-blog-chi-alleva.webp',
-    alt: "Barboncino toy dell'allevamento Maatilayla, chi alleva alleva tutto",
-  },
-  {
-    title: 'Facciamo fare il cane al cane',
-    date: '27 Agosto 2021',
-    category: 'Educazione',
-    excerpt:
-      "Lasciamo che i nostri barboncini vivano come cani: correre, annusare, sporcarsi. La libertà di essere se stessi è il primo passo verso l'equilibrio.",
-    image: '/content/images/maatilayla-cucciolo-barboncino-toy-corre-prato.webp',
-    alt: "Cucciolo di barboncino toy che corre libero nel prato dell'allevamento Maatilayla",
-    objectPosition: 'center 0%',
-  },
-  {
-    title: 'Per una zampata di fango',
-    date: '23 Aprile 2021',
-    category: 'Vita quotidiana',
-    excerpt:
-      "Un barboncino che gioca nel fango è un barboncino felice. Dietro ogni zampa sporca c'è un momento di pura gioia.",
-    image: '/content/images/maatilayla-blog-zampata-fango.webp',
-    alt: 'Barboncino toy Tato con zampata di fango, allevamento Maatilayla',
-  },
-  {
-    title: 'Pandemia sei tutta mia',
-    date: '22 Gennaio 2021',
-    category: 'Riflessioni',
-    excerpt:
-      'La pandemia ha cambiato il rapporto con i nostri animali. Più tempo insieme, più consapevolezza — ma anche nuove sfide da affrontare.',
-    image: '/content/images/maatilayla-blog-pandemia.webp',
-    alt: 'Barboncini toy di Maatilayla in camera da letto durante la pandemia',
-  },
-]
+import { blogPreviewArticles } from '@/data/blogArticles'
 
 export default function BlogPreviewSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -255,28 +198,36 @@ export default function BlogPreviewSection() {
           aria-label="Articoli del blog, scorri orizzontalmente"
           onKeyDown={onKeyDown}
         >
-          {articles.map((article) => (
-            <article key={article.title} className="bp-card">
-              <div className="bp-card-img">
-                <img
-                  src={article.image}
-                  alt={article.alt}
-                  loading="lazy"
-                  decoding="async"
-                  style={
-                    article.objectPosition ? { objectPosition: article.objectPosition } : undefined
-                  }
-                />
-              </div>
+          {blogPreviewArticles.map((article) => (
+            <article key={article.slug} className="bp-card">
+              {article.image && (
+                <div className="bp-card-img">
+                  <img
+                    src={article.image}
+                    alt={article.imageAlt || article.title}
+                    loading="lazy"
+                    decoding="async"
+                    style={
+                      article.imagePosition ? { objectPosition: article.imagePosition } : undefined
+                    }
+                  />
+                </div>
+              )}
               <div className="bp-card-body">
                 <div className="bp-card-meta">
                   <span className="bp-card-category">{article.category}</span>
-                  <span className="bp-card-date">{article.date}</span>
+                  <span className="bp-card-date">
+                    {new Date(article.date).toLocaleDateString('it-IT', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </span>
                 </div>
                 <h3 className="bp-card-title">{article.title}</h3>
                 <p className="bp-card-excerpt">{article.excerpt}</p>
                 <Link
-                  to="/blog"
+                  to={`/blog/${article.slug}`}
                   className="bp-card-link"
                   aria-label={`Leggi articolo: ${article.title}`}
                 >
