@@ -140,6 +140,10 @@ export default function HeroSection({
                   key={btn.to}
                   href={btn.to}
                   className={btn.variant === 'primary' ? 'btn-hero-primary' : 'btn-hero-outline'}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    import('../../lib/lenis').then(({ scrollToHash }) => scrollToHash(btn.to))
+                  }}
                 >
                   {btn.label}
                 </a>

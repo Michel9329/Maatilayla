@@ -31,3 +31,19 @@ export function initLenis(): void {
 export function getLenis(): Lenis | null {
   return _lenis
 }
+
+/**
+ * Scroll to a hash target using Lenis.
+ * Falls back to native scrollIntoView if Lenis is not active.
+ */
+export function scrollToHash(hash: string, offset = -80): void {
+  const target = hash.startsWith('#') ? hash : `#${hash}`
+  const el = document.querySelector(target)
+  if (!el) return
+
+  if (_lenis) {
+    _lenis.scrollTo(el as HTMLElement, { offset })
+  } else {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}

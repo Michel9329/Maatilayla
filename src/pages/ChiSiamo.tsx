@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 import HeroSection from '@/components/sections/HeroSection'
 import StoriaLaylaSection from '@/components/sections/StoriaLaylaSection'
@@ -7,9 +8,10 @@ import ValoriSection from '@/components/sections/ValoriSection'
 import StrutturaDSection from '@/components/sections/StrutturaDSection'
 import ChiSiamoCta from '@/components/sections/ChiSiamoCta'
 import TimelineSection from '@/components/sections/TimelineSection'
-import WorldMapSection from '@/components/sections/WorldMapSection'
 import ContactSection from '@/components/sections/ContactSection'
 import InstagramFeedSection from '@/components/sections/InstagramFeedSection'
+
+const WorldMapSection = lazy(() => import('@/components/sections/WorldMapSection'))
 
 export default function ChiSiamo() {
   return (
@@ -64,7 +66,9 @@ export default function ChiSiamo() {
       <CaniVitaSection />
       <StrutturaDSection />
       <TimelineSection />
-      <WorldMapSection />
+      <Suspense fallback={null}>
+        <WorldMapSection />
+      </Suspense>
       <ChiSiamoCta />
       <ContactSection />
       <InstagramFeedSection />

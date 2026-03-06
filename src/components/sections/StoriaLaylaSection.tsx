@@ -146,7 +146,14 @@ export default function StoriaLaylaSection() {
           <blockquote className="ls-callout" ref={calloutRef}>
             Jolie non è tornata con me — ma in un certo senso non è mai andata via. È lei la ragione
             per cui Maatilayla esiste.
-            <a href="#cani-vita" className="ls-callout-link">
+            <a
+              href="#cani-vita"
+              className="ls-callout-link"
+              onClick={(e) => {
+                e.preventDefault()
+                import('../../lib/lenis').then(({ scrollToHash }) => scrollToHash('#cani-vita'))
+              }}
+            >
               Tutti i cani della mia vita <span aria-hidden="true">&#8594;</span>
             </a>
           </blockquote>

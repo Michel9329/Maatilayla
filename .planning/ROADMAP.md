@@ -198,9 +198,7 @@
 
 **Goal:** Tutte le pagine del menu completate
 
-#### Chi Siamo — 7 piani (in pianificazione)
-
-**Piani:** 7 piani
+#### Chi Siamo ✅ — 7 piani completati
 
 Piani:
 - [x] 04-01-PLAN.md — StoriaLaylaSection (racconto emotivo + foto placeholder + CSS ls-)
@@ -209,12 +207,38 @@ Piani:
 - [x] 04-04-PLAN.md — StrutturaDSection (layout 2col + YouTube lazy facade + CSS st-/yt-)
 - [x] 04-05-PLAN.md — TimelineSection (5 tappe orizzontali + scroll-snap mobile + CSS tl-)
 - [x] 04-06-PLAN.md — WorldMapSection (SVG react19-simple-maps + dati JSON + CSS wm-)
-- [ ] 04-07-PLAN.md — Assembly ChiSiamo.tsx + ChiSiamoCta + checkpoint visivo
+- [x] 04-07-PLAN.md — Assembly ChiSiamo.tsx + ChiSiamoCta + checkpoint visivo
 
-#### Altre pagine (da pianificare separatamente)
+#### Polish Homepage e Chi Siamo ✅
 
-- [ ] Blog (lista articoli + pagina singolo articolo)
-- [ ] Galleria (lightbox YARL, griglia masonry)
+**Goal:** Correggere responsive, animazioni, immagini pesanti, scroll hash, layout bento/timeline/worldmap su tablet/mobile
+
+Fix completati:
+- [x] StrutturaDSection mobile layout (display flex, position relative, width 100%)
+- [x] Hash scroll con Lenis (scrollToHash in lenis.ts, click handler su HeroSection + StoriaLayla)
+- [x] 9 immagini compresse con sharp (2.5MB risparmiati totali)
+- [x] Tablet breakpoint: StoriaLayla, StrutturaDSection, Timeline, WorldMap, ChiSiamoCta
+- [x] WorldMapSection lazy-loaded (ChiSiamo chunk 246KB -> 26KB)
+- [x] GeoJSON caricato via fetch (non bundled in JS)
+- [x] Bundle splitting: swiper, lenis, forms in manual chunks (main 531KB -> 361KB)
+- [x] Flag SVG scaricati localmente (rimossa dipendenza CDN hatscripts)
+
+#### Blog — da pianificare
+
+**Goal:** Data layer centralizzato, pagina griglia articoli, pagina singolo articolo con markdown
+
+Piani:
+- [ ] TBD (run /gsd:plan-phase 4 per dettaglio)
+
+#### Galleria — da pianificare
+
+**Goal:** Catalogo immagini, griglia masonry, lightbox YARL, filtri categoria
+
+Piani:
+- [ ] TBD (run /gsd:plan-phase 4 per dettaglio)
+
+#### Altre pagine — da pianificare separatamente
+
 - [ ] F.A.Q. (accordion animato)
 - [ ] Contatti (form EmailJS: nome, email, messaggio, consenso GDPR)
 

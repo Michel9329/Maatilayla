@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ComposableMap, Geographies, Geography } from '@vnedyalk0v/react19-simple-maps'
-import geoData from '@/data/countries-110m.json'
 
 const HIGHLIGHTED_ORDER = [
   'Italy',
@@ -38,6 +37,15 @@ export default function WorldMapSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<HTMLDivElement>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [geoData, setGeoData] = useState<any>(null)
+
+  useEffect(() => {
+    fetch('/content/data/countries-110m.json')
+      .then((r) => r.json())
+      .then(setGeoData)
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -94,57 +102,59 @@ export default function WorldMapSection() {
         </div>
 
         <div className="wm-map-wrap" ref={mapRef}>
-          <ComposableMap
-            projection="geoEqualEarth"
-            projectionConfig={{ scale: 148, center: [0 as never, 0 as never] }}
-            width={980}
-            height={510}
-            style={{ width: '100%', height: 'auto' }}
-          >
-            <Geographies geography={geoData}>
-              {({ geographies }) =>
-                geographies
-                  .filter((geo) => geo.properties.name !== 'Antarctica')
-                  .map((geo) => {
-                    const idx = HIGHLIGHTED_INDEX.get(geo.properties.name)
-                    const highlighted = idx !== undefined
+          {geoData && (
+            <ComposableMap
+              projection="geoEqualEarth"
+              projectionConfig={{ scale: 148, center: [0 as never, 0 as never] }}
+              width={980}
+              height={510}
+              style={{ width: '100%', height: 'auto' }}
+            >
+              <Geographies geography={geoData}>
+                {({ geographies }) =>
+                  geographies
+                    .filter((geo) => geo.properties.name !== 'Antarctica')
+                    .map((geo) => {
+                      const idx = HIGHLIGHTED_INDEX.get(geo.properties.name)
+                      const highlighted = idx !== undefined
 
-                    if (highlighted) {
-                      const isItaly = idx === 0
+                      if (highlighted) {
+                        const isItaly = idx === 0
+                        return (
+                          <g
+                            key={geo.rsmKey}
+                            style={
+                              { '--wm-delay': `${(idx * 0.25).toFixed(2)}s` } as React.CSSProperties
+                            }
+                          >
+                            <Geography
+                              geography={geo}
+                              className={isItaly ? 'wm-geo-hl wm-geo-italy' : 'wm-geo-hl'}
+                              stroke="#EDE5DC"
+                              strokeWidth={0.4}
+                              shapeRendering="geometricPrecision"
+                              style={GEO_STYLE}
+                            />
+                          </g>
+                        )
+                      }
+
                       return (
-                        <g
+                        <Geography
                           key={geo.rsmKey}
-                          style={
-                            { '--wm-delay': `${(idx * 0.25).toFixed(2)}s` } as React.CSSProperties
-                          }
-                        >
-                          <Geography
-                            geography={geo}
-                            className={isItaly ? 'wm-geo-hl wm-geo-italy' : 'wm-geo-hl'}
-                            stroke="#EDE5DC"
-                            strokeWidth={0.4}
-                            shapeRendering="geometricPrecision"
-                            style={GEO_STYLE}
-                          />
-                        </g>
+                          geography={geo}
+                          className="wm-geo-base"
+                          stroke="#EDE5DC"
+                          strokeWidth={0.4}
+                          shapeRendering="geometricPrecision"
+                          style={GEO_STYLE}
+                        />
                       )
-                    }
-
-                    return (
-                      <Geography
-                        key={geo.rsmKey}
-                        geography={geo}
-                        className="wm-geo-base"
-                        stroke="#EDE5DC"
-                        strokeWidth={0.4}
-                        shapeRendering="geometricPrecision"
-                        style={GEO_STYLE}
-                      />
-                    )
-                  })
-              }
-            </Geographies>
-          </ComposableMap>
+                    })
+                }
+              </Geographies>
+            </ComposableMap>
+          )}
         </div>
 
         <div className="wm-pills">
@@ -155,7 +165,7 @@ export default function WorldMapSection() {
               style={{ '--wm-pill-delay': `${i * 0.05}s` } as React.CSSProperties}
             >
               <img
-                src={`https://hatscripts.github.io/circle-flags/flags/${c.code}.svg`}
+                src={`/content/images/flags/${c.code}.svg`}
                 alt={c.name}
                 className="wm-flag"
                 width={20}

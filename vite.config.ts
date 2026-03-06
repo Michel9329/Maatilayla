@@ -18,6 +18,9 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
           gsap: ['gsap'],
+          swiper: ['swiper'],
+          lenis: ['lenis'],
+          forms: ['react-hook-form', 'zod', '@hookform/resolvers'],
         },
       },
     },

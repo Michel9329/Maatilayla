@@ -4950,6 +4950,16 @@ a img {
 }
 
 /* ── Responsive ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ls-block {
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .ls-img {
+    aspect-ratio: 3 / 4;
+  }
+}
+
 @media (max-width: 768px) {
   .ls-block {
     grid-template-columns: 1fr;
@@ -5856,9 +5866,28 @@ a img {
 }
 
 /* ── Responsive ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .st-left {
+    width: 55%;
+  }
+
+  .st-panorama {
+    width: 44%;
+  }
+
+  .st-content {
+    padding-right: clamp(1.5rem, 3vw, 3rem);
+  }
+}
+
 @media (max-width: 768px) {
   .st-block {
+    display: flex;
     flex-direction: column;
+  }
+
+  .st-left {
+    width: 100%;
   }
 
   .st-content {
@@ -5866,6 +5895,8 @@ a img {
   }
 
   .st-panorama {
+    position: relative;
+    width: 100%;
     min-height: 280px;
     aspect-ratio: 3 / 4;
   }
@@ -6064,6 +6095,17 @@ a img {
 }
 
 /* ── GSAP controlla opacity/y dei singoli items ── */
+
+/* ── Tablet: card piu strette ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tl-item {
+    flex: 0 0 clamp(180px, 20vw, 220px);
+  }
+
+  .tl-desc {
+    font-size: 0.72rem;
+  }
+}
 
 /* ── Mobile: altezza ridotta, scroll orizzontale ── */
 @media (max-width: 768px) {
@@ -6280,6 +6322,22 @@ a img {
 }
 
 /* ── Responsive ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wm-pills {
+    max-width: 700px;
+  }
+
+  .wm-pill {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem 0.25rem 0.3rem;
+  }
+
+  .wm-flag {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 @media (max-width: 768px) {
   .wm-map-wrap {
     padding: 0.75rem;
@@ -6441,6 +6499,13 @@ a img {
 }
 .cs-section.cs-entered .cs-content {
   opacity: 1;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cs-content {
+    max-width: 440px;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
+  }
 }
 
 @media (max-width: 768px) {
