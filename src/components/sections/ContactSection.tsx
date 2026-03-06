@@ -147,7 +147,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="ct-section" ref={sectionRef} aria-label="Contatti">
+    <section className="ct-section" id="contatti" ref={sectionRef} aria-label="Contatti">
       <div className="ct-header">
         <span className="ct-badge">Contatti</span>
         <h2 className="ct-title">

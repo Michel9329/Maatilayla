@@ -26,7 +26,6 @@ export default function IlBarbone() {
       </Helmet>
       <HeroSection
         key="il-barbone"
-        compact
         lightText
         image="/content/images/maatilayla-header-cucciolo-allevamento.webp"
         alt="Cucciolo di barboncino toy fulvo"

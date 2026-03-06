@@ -18,6 +18,8 @@ interface HeroProps {
   }>
   compact?: boolean
   lightText?: boolean
+  bgPosition?: string
+  opaqueCard?: boolean
 }
 
 export default function HeroSection({
@@ -30,6 +32,8 @@ export default function HeroSection({
   cta,
   compact,
   lightText,
+  bgPosition,
+  opaqueCard,
 }: HeroProps) {
   const colorText = lightText ? 'rgba(255,255,255,0.95)' : 'var(--color-text)'
   const colorMuted = lightText ? 'rgba(255,255,255,0.72)' : 'var(--color-text-muted)'
@@ -52,14 +56,17 @@ export default function HeroSection({
         className="hero-bg"
         role="img"
         aria-label={alt}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{
+          backgroundImage: `url(${image})`,
+          ...(bgPosition && { backgroundPosition: bgPosition }),
+        }}
       />
 
       {/* Dark overlay */}
       <div className="hero-overlay" aria-hidden="true" />
 
       {/* Glass Card — animazione via CSS @keyframes */}
-      <div className="hero-card">
+      <div className={`hero-card${opaqueCard ? ' hero-card--opaque' : ''}`}>
         {/* Badge */}
         {badge && (
           <span

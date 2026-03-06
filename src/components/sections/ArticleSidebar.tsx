@@ -137,22 +137,13 @@ export default function ArticleSidebar({ article, headings }: ArticleSidebarProp
           {blogCategories.map((cat) => (
             <Link
               key={cat}
-              to="/blog"
+              to={`/blog?category=${encodeURIComponent(cat)}`}
               className={`as-tag-pill${cat === article.category ? ' active' : ''}`}
             >
               {cat}
             </Link>
           ))}
         </div>
-      </div>
-
-      {/* CTA Contatti */}
-      <div className="as-cta-card">
-        <h3 className="as-cta-title">Hai domande?</h3>
-        <p className="as-cta-body">Contattaci per saperne di piu sui nostri barboncini.</p>
-        <Link to="/contatti" className="as-cta-btn">
-          Scrivici
-        </Link>
       </div>
 
       {/* Instagram */}
@@ -176,6 +167,29 @@ export default function ArticleSidebar({ article, headings }: ArticleSidebarProp
           </span>
         </div>
       </a>
+
+      {/* Tags articolo */}
+      {article.tags && article.tags.length > 0 && (
+        <div className="as-tags">
+          <h3 className="as-section-title">Tag</h3>
+          <div className="as-tags-list">
+            {article.tags.map((tag) => (
+              <span key={tag} className="as-tag-pill">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* CTA Contatti */}
+      <div className="as-cta-card">
+        <h3 className="as-cta-title">Hai domande?</h3>
+        <p className="as-cta-body">Contattaci per saperne di piu sui nostri barboncini.</p>
+        <Link to="/contatti" className="as-cta-btn">
+          Scrivici
+        </Link>
+      </div>
     </div>
   )
 }

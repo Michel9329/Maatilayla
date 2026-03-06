@@ -26,10 +26,25 @@ export default function Contatti() {
       </Helmet>
       <HeroSection
         key="contatti"
-        image="/content/images/maatilayla-header-cucciolo-allevamento.webp"
-        alt="Cucciolo di barboncino toy fulvo dell'allevamento Maatilayla"
-        title="Contattaci"
-        subtitle="Saremo lieti di chiarire ogni tuo dubbio"
+        image="/content/images/maatilayla-header-contatti.webp"
+        alt="Cucciolo di barboncino toy fulvo nel prato dell'allevamento Maatilayla"
+        opaqueCard
+        badge="Contatti"
+        title={
+          <>
+            Siamo qui per{' '}
+            <em style={{ fontStyle: 'italic', color: 'var(--color-primary)' }}>ascoltarti.</em>
+          </>
+        }
+        description={{
+          short:
+            'Hai domande sui nostri cuccioli, sulla razza o vuoi semplicemente conoscerci meglio? Scrivici, rispondiamo sempre con piacere.',
+          full: 'Hai domande sui nostri cuccioli, sulla razza o vuoi semplicemente conoscerci meglio? Scrivici o chiamaci, rispondiamo sempre con piacere. Ogni conversazione per noi è importante.',
+        }}
+        cta={[
+          { label: 'Scrivici', to: '#contatti', variant: 'primary' },
+          { label: 'Chi Siamo', to: '/chi-siamo', variant: 'outline' },
+        ]}
       />
     </>
   )

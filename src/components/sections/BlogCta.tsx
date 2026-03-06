@@ -5,8 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const TITLE_TEXT = 'Scopri la nostra storia.'
-const ACCENT_WORDS = new Set(['storia.'])
+const TITLE_TEXT = 'Dietro ogni articolo ci siamo noi.'
+const ACCENT_WORDS = new Set(['ci', 'siamo', 'noi.'])
 
 export default function BlogCta() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -122,8 +122,10 @@ export default function BlogCta() {
             ))}
           </h2>
           <p className="bc-body" ref={bodyRef}>
-            Dietro ogni cucciolo c'è una famiglia, una filosofia e anni di dedizione. Conoscici
-            meglio.
+            Una famiglia, una filosofia e anni di dedizione. Scopri come alleviamo i nostri
+            barboncini e perché
+            <br />
+            facciamo le cose in un certo modo.
           </p>
           <div className="bc-cta" ref={ctaRef}>
             <Link to="/chi-siamo" className="bc-cta-btn">
@@ -133,8 +135,8 @@ export default function BlogCta() {
         </div>
         <img
           ref={imgRef}
-          src="/content/images/maatilayla-cta-chi-siamo-background.webp"
-          alt="Barboncini toy Maatilayla — scopri la nostra storia e filosofia"
+          src="/content/images/maatilayla-cta-blog-barboncino-relax.webp"
+          alt="Barboncino toy Maatilayla rilassato — vieni a conoscerci"
           loading="lazy"
           decoding="async"
           className="bc-bg"

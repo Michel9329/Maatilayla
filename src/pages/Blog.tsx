@@ -64,8 +64,28 @@ export default function Blog() {
         key="blog"
         image="/content/images/maatilayla-header-blog.webp"
         alt="Barboncini toy dell'allevamento Maatilayla nel prato"
-        title="Blog"
-        subtitle="Articoli e approfondimenti dal mondo cinofilo"
+        bgPosition="center 75%"
+        opaqueCard
+        badge="Blog"
+        title={
+          <>
+            Ogni giorno insieme a loro è{' '}
+            <em
+              style={{ fontStyle: 'italic', color: 'var(--color-primary)', whiteSpace: 'nowrap' }}
+            >
+              una storia da raccontare.
+            </em>
+          </>
+        }
+        description={{
+          short:
+            "La vita di tutti i giorni con i nostri barboncini, le riflessioni di un'allevatrice e quello che nessun manuale ti racconta.",
+          full: "La vita di tutti i giorni con i nostri barboncini, le riflessioni di un'allevatrice e quello che nessun manuale ti racconta. Salute, carattere, piccole scoperte quotidiane\u00a0— senza filtri.",
+        }}
+        cta={[
+          { label: 'Sfoglia gli articoli', to: '#articoli', variant: 'primary' },
+          { label: 'Contattaci', to: '/contatti', variant: 'outline' },
+        ]}
       />
       <BlogGrid articles={blogArticlesSorted} categories={blogCategories} />
       <BlogCta />

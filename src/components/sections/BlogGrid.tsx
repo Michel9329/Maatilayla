@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import type { BlogArticle } from '@/data/blogArticles'
 
 interface BlogGridProps {
@@ -18,7 +18,8 @@ function formatDateIT(dateStr: string): string {
 }
 
 export default function BlogGrid({ articles, categories }: BlogGridProps) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+  const [searchParams] = useSearchParams()
+  const [activeCategory, setActiveCategory] = useState<string | null>(searchParams.get('category'))
   const sectionRef = useRef<HTMLElement>(null)
 
   const filtered = activeCategory ? articles.filter((a) => a.category === activeCategory) : articles
@@ -48,7 +49,7 @@ export default function BlogGrid({ articles, categories }: BlogGridProps) {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-section" aria-label="Articoli del blog">
+    <section ref={sectionRef} id="articoli" className="bg-section" aria-label="Articoli del blog">
       <div className="bg-container">
         {/* Filtri categoria */}
         <div className="bg-filters" role="group" aria-label="Filtra per categoria">
