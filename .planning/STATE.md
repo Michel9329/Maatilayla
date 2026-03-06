@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: — Sito Completo
-current_plan: 04-13
+current_plan: 04-14
 status: executing
-stopped_at: Completed 04-13-PLAN.md
-last_updated: "2026-03-06T12:24:00.000Z"
+stopped_at: Completed 04-14-PLAN.md
+last_updated: "2026-03-06T13:30:00.000Z"
 progress:
   total_phases: 1
   completed_phases: 1
   total_plans: 16
-  completed_plans: 13
+  completed_plans: 14
 ---
 
 # Project State — Maatilayla
@@ -18,8 +18,8 @@ progress:
 ## Current Position
 
 - **Phase:** 04-pagine-interne
-- **Current Plan:** 04-13 (completed)
-- **Status:** Phase 04 Blog rework - hero + CTA + pill verdi complete
+- **Current Plan:** 04-14 (completed)
+- **Status:** Phase 04 Blog rework - H2 headlines + heading IDs complete
 
 ## Progress
 
@@ -30,7 +30,7 @@ Phase 2 ████████████████████ COMPLETE
 Phase 3 ████████████████████ COMPLETE
 Phase 4 ████████████████████ 7/7 Chi Siamo done + Polish done
 Phase 4 ████████████████████ Galleria 2/2 done
-Phase 4 █████████████░░░░░░░ Blog rework 1/4
+Phase 4 ████████████████░░░░ Blog rework 2/4
 Phase 5-10                    Pending
 ```
 
@@ -50,6 +50,7 @@ Phase 5-10                    Pending
 | 04-pagine-interne | 11 | GallerySection (data+component) | 3db9f22 | 2026-03-06 |
 | 04-pagine-interne | 12 | Galleria page assembly + CTA | 8ad9b40 | 2026-03-06 |
 | 04-pagine-interne | 13 | Blog hero + CTA + pill verdi | 082bff6 | 2026-03-06 |
+| 04-pagine-interne | 14 | H2 headlines articoli + heading IDs | 5f6b0ce | 2026-03-06 |
 
 ## Decisions
 
@@ -81,6 +82,9 @@ Phase 5-10                    Pending
 - [Phase 04-13]: Overlay scuro uniforme per BlogCta (non blur radiale) — foto diversa da ChiSiamoCta
 - [Phase 04-13]: Dot badge verde salvia #8BAD91 per coerenza con pill categoria blog
 - [Phase 04-13]: Riuso foto cta-chi-siamo-background.webp per BlogCta — nessuna foto aggiuntiva
+- [Phase 04-14]: Solo H2 (no H3) per semplicita e pulizia TOC
+- [Phase 04-14]: slugify() gestisce caratteri accentati italiani per id heading
+- [Phase 04-14]: extractText() ricorsiva per nodi React complessi da react-markdown
 
 ## Performance Metrics
 
@@ -99,6 +103,7 @@ Phase 5-10                    Pending
 | 04 | 10 | ~3min | 2 | 4 |
 | Phase 04 P12 | ~2min | 2 tasks | 2 files |
 | 04 | 13 | ~3min | 2 | 4 |
+| 04 | 14 | ~3min | 2 | 16 |
 
 ## Accumulated Context
 
@@ -110,6 +115,6 @@ Phase 5-10                    Pending
 
 ## Last Session
 
-- **Stopped At:** Completed 04-13-PLAN.md
+- **Stopped At:** Completed 04-14-PLAN.md
 - **Timestamp:** 2026-03-06
-- **Next:** Blog rework continua — piani 14-16 (foto copertina, sidebar TOC, ecc.)
+- **Next:** Blog rework continua — piani 15-16 (sidebar TOC, foto copertina)
