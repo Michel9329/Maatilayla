@@ -18,7 +18,7 @@ progress:
 ## Current Position
 
 - **Phase:** 04-pagine-interne
-- **Current Plan:** 04-07
+- **Current Plan:** 04-11
 - **Status:** In Progress
 
 ## Progress
@@ -29,7 +29,7 @@ Phase 1 ████████████████████ COMPLETE
 Phase 2 ████████████████████ COMPLETE
 Phase 3 ████████████████████ COMPLETE
 Phase 4 ████████████████████ 7/7 Chi Siamo done + Polish done
-Phase 4 ░░░░░░░░░░░░░░░░░░░░ Blog + Galleria da pianificare
+Phase 4 ██░░░░░░░░░░░░░░░░░░ Galleria data+section done
 Phase 5-10                    Pending
 ```
 
@@ -43,6 +43,8 @@ Phase 5-10                    Pending
 | 04-pagine-interne | 04 | StrutturaDSection | 587d673 | 2026-03-05 |
 | 04-pagine-interne | 05 | TimelineSection | c23c62a | 2026-03-05 |
 | 04-pagine-interne | 06 | WorldMapSection | 980d28c | 2026-03-05 |
+| 04-pagine-interne | 08 | Blog Data Layer + BlogPreview refactor | 6c371c2 | 2026-03-06 |
+| 04-pagine-interne | 11 | GallerySection (data+component) | 3db9f22 | 2026-03-06 |
 
 ## Decisions
 
@@ -63,6 +65,8 @@ Phase 5-10                    Pending
 - Tooltip SVG nativo <title> — nessun JS aggiuntivo, accessibile screen reader
 - [Phase 04-pagine-interne]: StoriaLaylaSection aveva già id='storia' — nessun wrapper div necessario in ChiSiamo.tsx
 - [Phase 04-pagine-interne]: Pattern CTA word-by-word ereditato da FaqCtaSection per coerenza visiva tra pagine
+- [Phase 04-11]: CSS column-count per masonry (zero JS, supporto universale) invece di librerie JS
+- [Phase 04-11]: Lightbox usa filteredPhotos come slides per sincronizzazione index corretta
 
 ## Performance Metrics
 
@@ -75,6 +79,8 @@ Phase 5-10                    Pending
 | 04 | 05 | ~3min | 2 | 2 |
 | 04 | 06 | ~2min | 2 | 6 |
 | Phase 04-pagine-interne P07 | 5 | 2 tasks | 3 files |
+| 04 | 08 | ~3min | 2 | 5 |
+| 04 | 11 | ~3min | 2 | 3 |
 
 ## Accumulated Context
 
@@ -86,6 +92,6 @@ Phase 5-10                    Pending
 
 ## Last Session
 
-- **Stopped At:** Polish HP+ChiSiamo completato (8 fix applicati)
+- **Stopped At:** Completed 04-11-PLAN.md (GallerySection data+component)
 - **Timestamp:** 2026-03-06
-- **Next:** Pianificare e costruire Blog (data layer + griglia + singolo articolo)
+- **Next:** Integrare GallerySection in Galleria.tsx, aggiungere foto reali
