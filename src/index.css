@@ -7452,6 +7452,403 @@ a img {
 }
 
 /* ═══════════════════════════════════════════════════
+   ARTICLE SIDEBAR  (as-)
+   ═══════════════════════════════════════════════════ */
+
+.as-sidebar {
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.2s;
+}
+
+.as-sidebar.as-entered {
+  opacity: 1;
+}
+
+.as-section-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+/* TOC */
+.as-toc-link {
+  display: block;
+  padding: 0.35rem 0;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  color: var(--color-text-muted);
+  border-left: 2px solid transparent;
+  padding-left: 0.75rem;
+  text-decoration: none;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.as-toc-link:hover {
+  color: var(--color-text);
+}
+
+.as-toc-link.active {
+  color: #5a8c62;
+  border-left-color: #8bad91;
+  font-weight: 600;
+}
+
+/* Articoli correlati */
+.as-related-card {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+
+.as-related-card:hover {
+  opacity: 0.8;
+}
+
+.as-related-thumb {
+  width: 64px;
+  height: 48px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.as-related-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.as-related-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.as-related-date {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Categorie / Tags */
+.as-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.as-tag-pill {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  border: 1px solid rgba(139, 173, 145, 0.4);
+  color: #5a8c62;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.as-tag-pill:hover {
+  background: rgba(139, 173, 145, 0.1);
+}
+
+.as-tag-pill.active {
+  background: #8bad91;
+  color: #fff;
+  border-color: #8bad91;
+}
+
+/* CTA Contatti card */
+.as-cta-card {
+  background: var(--color-cream);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  border-left: 4px solid #8bad91;
+}
+
+.as-cta-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.as-cta-body {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.as-cta-btn {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-btn);
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.as-cta-btn:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.as-cta-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Instagram */
+.as-instagram {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  display: block;
+}
+
+.as-instagram img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.as-instagram:hover img {
+  transform: scale(1.03);
+}
+
+.as-instagram-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.as-instagram-label {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Sidebar mobile */
+@media (max-width: 1023px) {
+  .as-sidebar {
+    position: static;
+    margin-top: 2rem;
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .as-sidebar {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   ARTICLE CTA  (ac-)
+   ═══════════════════════════════════════════════════ */
+
+.ac-wrap {
+  padding: 2rem 0;
+}
+
+.ac-section {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: var(--color-cream);
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: var(--radius-card);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.ac-section.ac-entered {
+  opacity: 1;
+}
+
+.ac-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  z-index: 0;
+}
+
+.ac-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ac-content {
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 5vw, 3rem);
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.ac-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.ac-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8bad91;
+  animation: pulse-dot 2.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.ac-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.35em;
+}
+
+.ac-word {
+  display: inline-block;
+}
+
+.ac-word--accent em {
+  font-style: italic;
+  color: var(--color-primary-light);
+}
+
+.ac-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.65;
+}
+
+.ac-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.75rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ac-cta-btn:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.ac-cta-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Mobile CSS entrance contenuto */
+.ac-section:not(.ac-entered) .ac-content {
+  opacity: 0;
+}
+.ac-section.ac-entered .ac-content {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .ac-section {
+    min-height: 280px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-section {
+    opacity: 1;
+    transition: none;
+  }
+  .ac-content {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
    GALLERIA CTA  (gc-)
    ═══════════════════════════════════════════════════ */
 
