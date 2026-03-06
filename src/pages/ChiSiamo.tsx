@@ -52,7 +52,7 @@ export default function ChiSiamo() {
         description={{
           short:
             'Una struttura immersa nel verde, dove ogni barboncino cresce in libertà. Tre obiettivi guidano ogni scelta: cuccioli sani, belli ed equilibrati.',
-          full: "Una struttura immersa nel verde della natura, in piena sintonia con l'aspetto wild dei nostri barboni. Salute, selezione ed equilibrio caratteriale: ogni decisione segue un criterio preciso, dalla scelta dei riproduttori ai primi tre mesi di vita del cucciolo.",
+          full: "Una struttura immersa nel verde della natura, in piena sintonia con l'aspetto wild dei nostri barboni. Salute, selezione ed equilibrio caratteriale: ogni decisione segue un criterio preciso.",
         }}
         cta={[
           { label: 'Struttura', to: '#struttura', variant: 'primary' },

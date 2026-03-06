@@ -1938,7 +1938,7 @@ a img {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-primary);
+  color: #6a9a72;
   flex-shrink: 0;
   animation: allev-icon-pulse 2.8s ease-in-out infinite;
 }
@@ -2655,11 +2655,11 @@ a img {
     from var(--fp-shimmer-angle, 0deg),
     transparent 0%,
     transparent 65%,
-    rgba(90, 139, 168, 0.4) 74%,
-    rgba(90, 139, 168, 0.7) 82%,
+    rgba(139, 173, 145, 0.4) 74%,
+    rgba(139, 173, 145, 0.7) 82%,
     rgba(255, 255, 255, 0.6) 85%,
-    rgba(90, 139, 168, 0.7) 88%,
-    rgba(90, 139, 168, 0.4) 96%,
+    rgba(139, 173, 145, 0.7) 88%,
+    rgba(139, 173, 145, 0.4) 96%,
     transparent 100%
   );
   mask:
@@ -2702,11 +2702,11 @@ a img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #dce8f0;
+  background: #dde8df;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #5a8ba8;
+  color: #6a9a72;
   flex-shrink: 0;
 }
 
@@ -2730,7 +2730,7 @@ a img {
 
 /* ── Card CTA ── */
 .fp-card--cta {
-  background: #2c4a5e;
+  background: #5a8c62;
   text-decoration: none;
   justify-content: center;
   cursor: pointer;
@@ -2742,7 +2742,7 @@ a img {
   display: none;
 }
 .fp-card--cta:hover {
-  background: #365a70;
+  background: #4a7a52;
 }
 .fp-cta-label {
   font-family: var(--font-heading);
@@ -3371,9 +3371,10 @@ a img {
   text-align: center;
   gap: 0.6rem;
   contain: layout style paint;
+  will-change: transform, box-shadow;
   transition:
-    box-shadow 0.3s ease,
-    translate 0.3s ease;
+    box-shadow 0.15s ease-out,
+    translate 0.15s ease-out;
 }
 
 .ped-card:hover {
@@ -3455,9 +3456,13 @@ a img {
   transform: translateY(24px);
   transition:
     opacity 0.5s ease-out,
-    transform 0.5s ease-out,
-    box-shadow 0.3s ease,
-    translate 0.3s ease;
+    transform 0.5s ease-out;
+}
+
+.ped-entered .ped-card {
+  transition:
+    box-shadow 0.15s ease-out,
+    translate 0.15s ease-out;
 }
 
 .ped-notice {

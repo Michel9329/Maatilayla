@@ -26,13 +26,8 @@ export default function ChiSiamoCta() {
 
     // Parallax disabilitato — foto panoramica bassa, il movimento mostra i bordi
 
-    // Desktop: evita conflitto CSS opacity (cs-section:not(.cs-entered) impone opacity:0 al content)
-    if (window.matchMedia('(min-width: 768px)').matches && !prefersReduced) {
-      section.classList.add('cs-entered')
-    }
-
     if (prefersReduced || !window.matchMedia('(min-width: 768px)').matches) {
-      // Mobile: IntersectionObserver CSS
+      // Mobile / reduced-motion: semplice IntersectionObserver CSS
       const observer = new IntersectionObserver(
         ([entry]) => {
           requestAnimationFrame(() => {
@@ -43,12 +38,10 @@ export default function ChiSiamoCta() {
         { threshold: 0, rootMargin: '-10% 0px' },
       )
       observer.observe(section)
-      return () => {
-        observer.disconnect()
-      }
+      return () => observer.disconnect()
     }
 
-    // Desktop: word-by-word GSAP (pattern FaqCtaSection)
+    // Desktop: ScrollTrigger unico per fade sezione + word-by-word GSAP
     const wordEls = titleRef.current?.querySelectorAll<HTMLElement>('.cs-word') ?? []
     gsap.set(badgeRef.current, { opacity: 0, y: 24 })
     gsap.set(wordEls, { opacity: 0, y: 16 })
@@ -65,17 +58,51 @@ export default function ChiSiamoCta() {
         '-=0.2',
       )
 
+    let leaveTimer: ReturnType<typeof setTimeout> | null = null
+
     const st = ScrollTrigger.create({
       trigger: section,
       start: 'top 80%',
-      end: 'bottom 20%',
-      onEnter: () => tl.restart(),
-      onEnterBack: () => tl.restart(),
-      onLeave: () => tl.pause(0),
-      onLeaveBack: () => tl.pause(0),
+      end: 'bottom -10%',
+      onEnter: () => {
+        if (leaveTimer) {
+          clearTimeout(leaveTimer)
+          leaveTimer = null
+        }
+        section.classList.add('cs-entered')
+        tl.restart()
+      },
+      onEnterBack: () => {
+        if (leaveTimer) {
+          clearTimeout(leaveTimer)
+          leaveTimer = null
+        }
+        section.classList.add('cs-entered')
+        tl.restart()
+      },
+      onLeave: () => {
+        leaveTimer = setTimeout(() => {
+          section.classList.remove('cs-entered')
+          tl.pause(0)
+        }, 200)
+      },
+      onLeaveBack: () => {
+        leaveTimer = setTimeout(() => {
+          section.classList.remove('cs-entered')
+          tl.pause(0)
+        }, 200)
+      },
     })
 
+    // Se la sezione è già in viewport al mount, triggera subito
+    ScrollTrigger.refresh()
+    if (st.isActive) {
+      section.classList.add('cs-entered')
+      tl.restart()
+    }
+
     return () => {
+      if (leaveTimer) clearTimeout(leaveTimer)
       tl.kill()
       st.kill()
     }
@@ -98,9 +125,7 @@ export default function ChiSiamoCta() {
             ))}
           </h2>
           <p className="cs-body" ref={bodyRef}>
-            I nostri barboncini, le madri, i cuccioli nel prato.
-            <br />
-            Momenti veri, senza filtri.
+            I nostri barboncini, le madri, i cuccioli nel prato. Momenti veri, senza filtri.
           </p>
           <div className="cs-cta" ref={ctaRef}>
             <Link to="/galleria" className="cs-cta-btn">
