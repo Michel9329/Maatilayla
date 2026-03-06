@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: — Sito Completo
 current_plan: 04-12
 status: executing
-stopped_at: Completed 04-10-PLAN.md
-last_updated: "2026-03-06T11:10:15.145Z"
+stopped_at: Completed 04-12-PLAN.md
+last_updated: "2026-03-06T11:16:54.564Z"
 progress:
   total_phases: 1
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 12
-  completed_plans: 11
+  completed_plans: 12
 ---
 
 # Project State — Maatilayla
@@ -18,8 +18,8 @@ progress:
 ## Current Position
 
 - **Phase:** 04-pagine-interne
-- **Current Plan:** 04-12
-- **Status:** In Progress
+- **Current Plan:** 04-12 (completed)
+- **Status:** Phase 04 Galleria complete
 
 ## Progress
 
@@ -29,7 +29,7 @@ Phase 1 ████████████████████ COMPLETE
 Phase 2 ████████████████████ COMPLETE
 Phase 3 ████████████████████ COMPLETE
 Phase 4 ████████████████████ 7/7 Chi Siamo done + Polish done
-Phase 4 ██░░░░░░░░░░░░░░░░░░ Galleria data+section done
+Phase 4 ████████████████████ Galleria 2/2 done
 Phase 5-10                    Pending
 ```
 
@@ -47,6 +47,7 @@ Phase 5-10                    Pending
 | 04-pagine-interne | 09 | Blog Grid Page | de586cd | 2026-03-06 |
 | 04-pagine-interne | 10 | Blog Article Page + CSS | b5d83ce | 2026-03-06 |
 | 04-pagine-interne | 11 | GallerySection (data+component) | 3db9f22 | 2026-03-06 |
+| 04-pagine-interne | 12 | Galleria page assembly + CTA | 8ad9b40 | 2026-03-06 |
 
 ## Decisions
 
@@ -74,6 +75,7 @@ Phase 5-10                    Pending
 - [Phase 04]: CSS bg-* namespace per blog grid, JSON-LD Blog+BlogPosting schema, SVG inline fallback card senza immagine
 - [Phase 04-10]: Prev/next navigazione: prev = piu vecchio (indice+1), next = piu recente (indice-1) in blogArticlesSorted
 - [Phase 04-10]: Regex cleanup markdown: rimuove H1 e riga data per evitare duplicazione con header pagina
+- [Phase 04]: CTA galleria inline (non componente separato) — pattern semplificato senza foto background
 
 ## Performance Metrics
 
@@ -90,6 +92,7 @@ Phase 5-10                    Pending
 | 04 | 11 | ~3min | 2 | 3 |
 | Phase 04 P09 | ~3min | 2 tasks | 3 files |
 | 04 | 10 | ~3min | 2 | 4 |
+| Phase 04 P12 | ~2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -101,6 +104,6 @@ Phase 5-10                    Pending
 
 ## Last Session
 
-- **Stopped At:** Completed 04-10-PLAN.md
+- **Stopped At:** Completed 04-12-PLAN.md
 - **Timestamp:** 2026-03-06
-- **Next:** Piano 04-12 (ultimo piano rimanente)
+- **Next:** Phase 04 Galleria completata — pronto per prossima fase

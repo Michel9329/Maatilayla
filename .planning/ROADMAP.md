@@ -227,7 +227,7 @@ Fix completati:
 
 **Goal:** Data layer centralizzato, pagina griglia articoli, pagina singolo articolo con markdown
 
-**Plans:** 9/12 plans executed
+**Plans:** 12/12 plans complete
 
 Piani:
 - [ ] 04-08-PLAN.md — Data layer blogArticles.ts + refactor BlogPreviewSection
