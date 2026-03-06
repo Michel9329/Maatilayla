@@ -67,6 +67,8 @@ Phase 5-10                    Pending
 - [Phase 04-pagine-interne]: Pattern CTA word-by-word ereditato da FaqCtaSection per coerenza visiva tra pagine
 - [Phase 04-11]: CSS column-count per masonry (zero JS, supporto universale) invece di librerie JS
 - [Phase 04-11]: Lightbox usa filteredPhotos come slides per sincronizzazione index corretta
+- [Phase 04-08]: Import statico ?raw per tutti i 15 .md blog — nessun import dinamico (incompatibile Vite prod)
+- [Phase 04-08]: blogPreviewArticles importato in homepage — aumento chunk ~58KB accettabile per 15 articoli corti
 
 ## Performance Metrics
 
@@ -92,6 +94,6 @@ Phase 5-10                    Pending
 
 ## Last Session
 
-- **Stopped At:** Completed 04-11-PLAN.md (GallerySection data+component)
+- **Stopped At:** Completed 04-08-PLAN.md (Blog Data Layer)
 - **Timestamp:** 2026-03-06
-- **Next:** Integrare GallerySection in Galleria.tsx, aggiungere foto reali
+- **Next:** Blog grid page, singolo articolo, galleria integrazione
