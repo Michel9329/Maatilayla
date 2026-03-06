@@ -223,20 +223,26 @@ Fix completati:
 - [x] Bundle splitting: swiper, lenis, forms in manual chunks (main 531KB -> 361KB)
 - [x] Flag SVG scaricati localmente (rimossa dipendenza CDN hatscripts)
 
-#### Blog — da pianificare
+#### Blog — 3 piani
 
 **Goal:** Data layer centralizzato, pagina griglia articoli, pagina singolo articolo con markdown
 
-Piani:
-- [ ] TBD (run /gsd:plan-phase 4 per dettaglio)
+**Plans:** 3 plans
 
-#### Galleria — da pianificare
+Piani:
+- [ ] 04-08-PLAN.md — Data layer blogArticles.ts + refactor BlogPreviewSection
+- [ ] 04-09-PLAN.md — Pagina griglia /blog con BlogGrid + filtri categoria + SEO
+- [ ] 04-10-PLAN.md — Pagina singolo articolo /blog/:slug + ArticleRenderer + route
+
+#### Galleria — 2 piani
 
 **Goal:** Catalogo immagini, griglia masonry, lightbox YARL, filtri categoria
 
-Piani:
-- [ ] TBD (run /gsd:plan-phase 4 per dettaglio)
+**Plans:** 2 plans
 
+Piani:
+- [ ] 04-11-PLAN.md — Data layer galleryData.ts + GallerySection (masonry + filtri + lightbox YARL)
+- [ ] 04-12-PLAN.md — Assembly Galleria.tsx + CTA + checkpoint visivo
 #### Altre pagine — da pianificare separatamente
 
 - [ ] F.A.Q. (accordion animato)
