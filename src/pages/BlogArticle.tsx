@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async'
 import { getArticleBySlug, blogArticlesSorted } from '@/data/blogArticles'
 import ArticleRenderer from '@/components/sections/ArticleRenderer'
 import ArticleSidebar from '@/components/sections/ArticleSidebar'
-import ArticleCta from '@/components/sections/ArticleCta'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const BASE_URL = 'https://allevamentobarboncinimaatilayla.it'
@@ -162,8 +161,6 @@ export default function BlogArticle() {
           <article>
             <ArticleRenderer content={article.content} />
           </article>
-
-          <ArticleCta />
 
           <nav className="ba-nav" aria-label="Navigazione articoli">
             {prevArticle ? (
