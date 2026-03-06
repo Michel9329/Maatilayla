@@ -7180,3 +7180,118 @@ a img {
     text-align: left;
   }
 }
+
+/* ═══════════════════════════════════════════════════
+   GALLERIA CTA  (gc-)
+   ═══════════════════════════════════════════════════ */
+
+.gc-wrap {
+  padding: 2rem 1.5rem;
+  background: var(--color-cream);
+}
+
+.gc-section {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: var(--radius-card);
+  background: var(--color-warm-white);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.gc-section.gc-entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.gc-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse-dot 2.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.gc-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.15;
+}
+
+.gc-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.gc-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.gc-cta-btn:hover {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+}
+
+.gc-cta-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .gc-wrap {
+    padding: 3rem 2rem;
+  }
+  .gc-section {
+    padding: 4rem 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gc-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
