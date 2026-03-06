@@ -6536,3 +6536,188 @@ a img {
     transition: none;
   }
 }
+
+/* ── GallerySection ── */
+.gl-section {
+  padding: 4rem 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.gl-section.gl-entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Header */
+.gl-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.gl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.gl-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.gl-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+.gl-accent {
+  color: var(--color-primary);
+}
+
+.gl-subtitle {
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin-top: 0.5rem;
+}
+
+.gl-count {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Filtri pill */
+.gl-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.gl-filter-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-btn);
+  border: 1.5px solid var(--color-secondary);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.gl-filter-btn:hover {
+  background: var(--color-primary-pale);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.gl-filter-btn.gl-filter-active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.gl-filter-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Griglia masonry */
+.gl-grid {
+  column-count: 2;
+  column-gap: 0.75rem;
+}
+
+.gl-item {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: 0.75rem;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  cursor: pointer;
+  contain: layout style paint;
+  transition: box-shadow 0.3s ease;
+}
+
+.gl-item:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.gl-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gl-item:hover img {
+  transform: scale(1.03);
+}
+
+.gl-item:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .gl-grid {
+    column-count: 3;
+  }
+  .gl-section {
+    padding: 5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gl-grid {
+    column-count: 4;
+  }
+  .gl-section {
+    padding: 5rem 2.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .gl-section {
+    padding: 5rem 3rem;
+  }
+}
+
+/* Reduced motion — GallerySection */
+@media (prefers-reduced-motion: reduce) {
+  .gl-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .gl-item img {
+    transition: none;
+  }
+  .gl-item {
+    transition: none;
+  }
+}
