@@ -12,6 +12,7 @@ const Galleria = lazy(() => import('@/pages/Galleria'))
 const Faq = lazy(() => import('@/pages/Faq'))
 const Contatti = lazy(() => import('@/pages/Contatti'))
 const IlBarbone = lazy(() => import('@/pages/IlBarbone'))
+const BlogArticle = lazy(() => import('@/pages/BlogArticle'))
 
 /* Scrolla in cima ad ogni cambio pagina, compatibile con Lenis */
 function ScrollToTop() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/galleria" element={<Galleria />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/contatti" element={<Contatti />} />

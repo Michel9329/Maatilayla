@@ -6721,3 +6721,257 @@ a img {
     transition: none;
   }
 }
+
+/* =============================================
+   BlogGrid — bg- prefix
+   ============================================= */
+
+.bg-section {
+  padding: 4rem 1.25rem;
+  background-color: var(--color-warm-white);
+}
+
+.bg-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: 0;
+}
+
+/* Filtri categoria */
+.bg-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.bg-filter-pill {
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-btn);
+  border: 1px solid;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.bg-filter-pill.active {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.bg-filter-pill:not(.active) {
+  background-color: transparent;
+  color: var(--color-text-muted);
+  border-color: rgba(107, 80, 64, 0.3);
+}
+
+.bg-filter-pill:not(.active):hover {
+  background-color: var(--color-primary-pale);
+}
+
+.bg-filter-pill:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Griglia */
+.bg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+/* Card */
+.bg-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background-color: var(--color-cream);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.25s ease;
+  contain: layout style paint;
+}
+
+.bg-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.bg-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Card — blocco immagine */
+.bg-card-img {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--color-primary-pale);
+}
+
+.bg-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.bg-card:hover .bg-card-img img {
+  transform: scale(1.03);
+}
+
+/* Fallback card senza immagine */
+.bg-no-image {
+  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-primary-pale) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-no-image::after {
+  content: '';
+  width: 48px;
+  height: 48px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8614A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z'/%3E%3Cline x1='4' y1='22' x2='4' y2='15'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+}
+
+/* Card — body */
+.bg-card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bg-card-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.bg-card-category {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.bg-card-date {
+  color: var(--color-text-muted);
+}
+
+.bg-card-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bg-card-excerpt {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.bg-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.bg-card-readtime {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.bg-card-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Entrance animation */
+.bg-section .bg-card {
+  opacity: 0;
+  translate: 0 24px;
+  transition:
+    opacity 0.5s ease,
+    translate 0.5s ease;
+}
+
+.bg-section.bg-entered .bg-card {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Stagger — max 6 visibili */
+.bg-section.bg-entered .bg-card:nth-child(1) {
+  transition-delay: 0.06s;
+}
+.bg-section.bg-entered .bg-card:nth-child(2) {
+  transition-delay: 0.12s;
+}
+.bg-section.bg-entered .bg-card:nth-child(3) {
+  transition-delay: 0.18s;
+}
+.bg-section.bg-entered .bg-card:nth-child(4) {
+  transition-delay: 0.24s;
+}
+.bg-section.bg-entered .bg-card:nth-child(5) {
+  transition-delay: 0.3s;
+}
+.bg-section.bg-entered .bg-card:nth-child(6) {
+  transition-delay: 0.36s;
+}
+
+/* Responsive — tablet */
+@media (max-width: 1023px) {
+  .bg-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Responsive — mobile */
+@media (max-width: 767px) {
+  .bg-grid {
+    grid-template-columns: 1fr;
+  }
+  .bg-section {
+    padding: 3rem 1rem;
+  }
+}
+
+/* Reduced motion — BlogGrid */
+@media (prefers-reduced-motion: reduce) {
+  .bg-section .bg-card {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+  .bg-card-img img {
+    transition: none;
+  }
+}
