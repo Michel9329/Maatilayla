@@ -57,10 +57,27 @@ export default function Galleria() {
 
       <HeroSection
         key="galleria"
-        image="/content/images/maatilayla-header-cucciolo-allevamento.webp"
-        alt="Barboncini toy fulvi dell'allevamento Maatilayla"
-        title="Galleria."
-        subtitle="Scatti e momenti dall'allevamento Maatilayla."
+        image="/content/images/maatilayla-header-contatti.webp"
+        alt="Cucciolo di barboncino toy fulvo nel prato — galleria Maatilayla"
+        lightText
+        badge="Galleria"
+        title={
+          <>
+            Momenti che raccontano
+            <br />
+            <em style={{ fontStyle: 'italic', color: 'var(--color-primary)' }}>
+              chi siamo davvero.
+            </em>
+          </>
+        }
+        description={{
+          short: 'Scatti autentici dalla vita quotidiana con i nostri barboncini toy.',
+          full: 'Scatti autentici dalla vita quotidiana con i nostri barboncini toy. Cuccioli, adulti, giornate al sole e momenti di famiglia.',
+        }}
+        cta={[
+          { label: 'Sfoglia la galleria', to: '#galleria', variant: 'primary' },
+          { label: 'Contattaci', to: '/contatti', variant: 'outline' },
+        ]}
       />
 
       <GallerySection />
@@ -69,10 +86,10 @@ export default function Galleria() {
       <div className="gc-wrap">
         <section className="gc-section" ref={ctaSectionRef} aria-label="Contattaci">
           <span className="gc-badge">Ti piace quello che vedi?</span>
-          <h2 className="gc-title">Vieni a conoscerci di persona.</h2>
+          <h2 className="gc-title">Dietro ogni scatto c'è una storia.</h2>
           <p className="gc-body">
-            Ogni cucciolo ha una storia e un carattere unico. Contattaci per organizzare una visita
-            al nostro allevamento e incontrare i nostri barboncini.
+            Ogni cucciolo ha un carattere unico e una personalità tutta sua. Scrivici per saperne di
+            più sui nostri barboncini e sulla nostra filosofia di allevamento.
           </p>
           <div className="gc-cta">
             <Link to="/contatti" className="gc-cta-btn">

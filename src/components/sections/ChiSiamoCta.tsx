@@ -63,7 +63,7 @@ export default function ChiSiamoCta() {
     const st = ScrollTrigger.create({
       trigger: section,
       start: 'top 80%',
-      end: 'bottom -10%',
+      end: 'bottom -40%',
       onEnter: () => {
         if (leaveTimer) {
           clearTimeout(leaveTimer)

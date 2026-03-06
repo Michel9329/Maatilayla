@@ -45,7 +45,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Allevamento',
     excerpt:
       'Perche sottoporsi ai controlli sanitari e genetici e un atto di responsabilita verso i cuccioli e le famiglie che li accoglieranno.',
-    image: '/content/images/maatilayla-blog-controlli-si-grazie.webp',
+    image: '/content/images/maatilayla-blog-controlli-si-grazie-wide.webp',
     imageAlt: "Casetta dei barboncini toy nell'allevamento Maatilayla",
     content: controlliRaw,
     readingTime: calcReadingTime(controlliRaw),
@@ -142,7 +142,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Vita quotidiana',
     excerpt:
       "Un barboncino che gioca nel fango e un barboncino felice. Dietro ogni zampa sporca c'e un momento di pura gioia.",
-    image: '/content/images/maatilayla-blog-zampata-fango.webp',
+    image: '/content/images/maatilayla-blog-zampata-fango-wide.webp',
     imageAlt: 'Barboncino toy Tato con zampata di fango, allevamento Maatilayla',
     content: zampatFangoRaw,
     readingTime: calcReadingTime(zampatFangoRaw),
@@ -166,7 +166,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Riflessioni',
     excerpt:
       'La pandemia ha cambiato il rapporto con i nostri animali. Piu tempo insieme, piu consapevolezza — ma anche nuove sfide da affrontare.',
-    image: '/content/images/maatilayla-blog-pandemia.webp',
+    image: '/content/images/maatilayla-blog-pandemia-wide.webp',
     imageAlt: 'Barboncini toy di Maatilayla in camera da letto durante la pandemia',
     content: pandemiaRaw,
     readingTime: calcReadingTime(pandemiaRaw),
@@ -239,6 +239,8 @@ export const blogArticles: BlogArticle[] = [
     category: 'Educazione',
     excerpt:
       'Le differenze comportamentali tra maschi e femmine nel barboncino toy: cosa aspettarsi e come orientare la scelta del cucciolo.',
+    image: '/content/images/maatilayla-blog-maschio-o-femmina.webp',
+    imageAlt: 'Barboncini toy maschio e femmina — differenze e scelta del cucciolo, Maatilayla',
     content: maschioFemminaRaw,
     readingTime: calcReadingTime(maschioFemminaRaw),
     tags: [
@@ -285,6 +287,8 @@ export const blogArticles: BlogArticle[] = [
     category: 'Vita quotidiana',
     excerpt:
       "Come un cane cambia le nostre abitudini quotidiane: dalle sveglie all'alba alle vacanze al Bau Beach, un racconto tra ironia e verita.",
+    image: '/content/images/maatilayla-blog-va-dove-ti-porta-il-cane.webp',
+    imageAlt: 'Barboncino toy a passeggio — va dove ti porta il cane, allevamento Maatilayla',
     content: vaDoveTiPortaRaw,
     readingTime: calcReadingTime(vaDoveTiPortaRaw),
     tags: [
@@ -307,6 +311,8 @@ export const blogArticles: BlogArticle[] = [
     category: 'Educazione',
     excerpt:
       'Un cane non e un regalo: le responsabilita che comporta accogliere un cucciolo in famiglia e perche la scelta va ponderata con attenzione.',
+    image: '/content/images/maatilayla-blog-cucciolo-per-natale.webp',
+    imageAlt: "Cucciolo di barboncino toy sotto l'albero di Natale — allevamento Maatilayla",
     content: cuccioloNataleRaw,
     readingTime: calcReadingTime(cuccioloNataleRaw),
     tags: [
@@ -329,6 +335,8 @@ export const blogArticles: BlogArticle[] = [
     category: 'Razza',
     excerpt:
       'Una straordinaria descrizione del Barbone tratta dal libro di Elena Garoni: dalla storia della razza alla motivazione collaborativa che lo rende unico.',
+    image: '/content/images/maatilayla-blog-il-barbone.webp',
+    imageAlt: 'Barbone in posa, razza e standard ENCI — allevamento Maatilayla',
     content: ilBarboneRaw,
     readingTime: calcReadingTime(ilBarboneRaw),
     tags: [
@@ -351,6 +359,8 @@ export const blogArticles: BlogArticle[] = [
     category: 'Storie',
     excerpt:
       'Come nasce il nome Maatilayla: dalla passione per gli animali da cortile al sogno di una fattoria, fuso con il nome della fondatrice.',
+    image: '/content/images/maatilayla-blog-origine-del-nome.webp',
+    imageAlt: "Barboncini toy e oca nel prato — l'origine del nome Maatilayla",
     content: origineNomeRaw,
     readingTime: calcReadingTime(origineNomeRaw),
     tags: [
@@ -373,6 +383,8 @@ export const blogArticles: BlogArticle[] = [
     category: 'Riflessioni',
     excerpt:
       'Il problema degli allevatori improvvisati che mettono a rischio la salute dei cani per facili guadagni, ignorando selezione e standard di razza.',
+    image: '/content/images/maatilayla-blog-siamo-tutti-allevatori.webp',
+    imageAlt: 'Allevamento responsabile di barboncini toy — siamo tutti allevatori, Maatilayla',
     content: siamoTuttiRaw,
     readingTime: calcReadingTime(siamoTuttiRaw),
     tags: [

@@ -179,7 +179,11 @@ function MarqueeRow({
   )
 }
 
-export default function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  transparent?: boolean
+}
+
+export default function TestimonialsSection({ transparent = false }: TestimonialsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const rowRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -239,7 +243,11 @@ export default function TestimonialsSection() {
   }, [])
 
   return (
-    <section className="tm-section" ref={sectionRef} aria-label="Recensioni clienti">
+    <section
+      className={`tm-section${transparent ? ' tm-section--transparent' : ''}`}
+      ref={sectionRef}
+      aria-label="Recensioni clienti"
+    >
       <div className="tm-header">
         <span className="tm-badge">Recensioni</span>
         <h2 className="tm-title">

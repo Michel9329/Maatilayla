@@ -20,6 +20,8 @@ interface HeroProps {
   lightText?: boolean
   bgPosition?: string
   opaqueCard?: boolean
+  cardClassName?: string
+  sectionClassName?: string
 }
 
 export default function HeroSection({
@@ -34,6 +36,8 @@ export default function HeroSection({
   lightText,
   bgPosition,
   opaqueCard,
+  cardClassName,
+  sectionClassName,
 }: HeroProps) {
   const colorText = lightText ? 'rgba(255,255,255,0.95)' : 'var(--color-text)'
   const colorMuted = lightText ? 'rgba(255,255,255,0.72)' : 'var(--color-text-muted)'
@@ -47,7 +51,7 @@ export default function HeroSection({
     margin: 0,
   }
 
-  const sectionClass = compact ? 'hero-section hero-section--compact' : 'hero-section'
+  const sectionClass = `${compact ? 'hero-section hero-section--compact' : 'hero-section'}${sectionClassName ? ` ${sectionClassName}` : ''}`
 
   return (
     <section className={sectionClass} aria-label="Sezione principale">
@@ -66,7 +70,9 @@ export default function HeroSection({
       <div className="hero-overlay" aria-hidden="true" />
 
       {/* Glass Card — animazione via CSS @keyframes */}
-      <div className={`hero-card${opaqueCard ? ' hero-card--opaque' : ''}`}>
+      <div
+        className={`hero-card${opaqueCard ? ' hero-card--opaque' : ''}${lightText ? ' hero-card--light' : ''}${cardClassName ? ` ${cardClassName}` : ''}`}
+      >
         {/* Badge */}
         {badge && (
           <span

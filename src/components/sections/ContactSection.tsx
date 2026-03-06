@@ -50,7 +50,19 @@ const contactInfo = [
   },
 ]
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  alignLeft?: boolean
+  badge?: string
+  title?: React.ReactNode
+  subtitle?: React.ReactNode
+}
+
+export default function ContactSection({
+  alignLeft = false,
+  badge,
+  title,
+  subtitle,
+}: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const [honeypot, setHoneypot] = useState('')
   const lastSubmitRef = useRef(0)
@@ -147,15 +159,24 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="ct-section" id="contatti" ref={sectionRef} aria-label="Contatti">
+    <section
+      className={`ct-section${alignLeft ? ' ct-section--left' : ''}`}
+      id="contatti"
+      ref={sectionRef}
+      aria-label="Contatti"
+    >
       <div className="ct-header">
-        <span className="ct-badge">Contatti</span>
+        <span className="ct-badge">{badge ?? 'Contatti'}</span>
         <h2 className="ct-title">
-          Hai domande? <em className="ct-title-accent">Scrivici.</em>
+          {title ?? (
+            <>
+              Hai domande? <em className="ct-title-accent">Scrivici.</em>
+            </>
+          )}
         </h2>
         <p className="ct-subtitle">
-          Siamo a disposizione per informazioni sui cuccioli, visite all&apos;allevamento o
-          qualsiasi curiosità.
+          {subtitle ??
+            "Siamo a disposizione per informazioni sui cuccioli, visite all'allevamento o qualsiasi curiosità."}
         </p>
       </div>
 
@@ -296,11 +317,6 @@ export default function ContactSection() {
               </div>
             </div>
           ))}
-          <p className="ct-info-note-text">
-            La sede dell&apos;allevamento è anche il posto in cui viviamo. Al fine di tutelare la
-            nostra privacy, non potremo ricevere chi non avrà preventivamente fissato un
-            appuntamento.
-          </p>
         </div>
       </div>
     </section>

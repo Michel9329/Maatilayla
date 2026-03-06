@@ -65,7 +65,8 @@ export default function Blog() {
         image="/content/images/maatilayla-header-blog.webp"
         alt="Barboncini toy dell'allevamento Maatilayla nel prato"
         bgPosition="center 75%"
-        opaqueCard
+        lightText
+        cardClassName="hero-card--lighter"
         badge="Blog"
         title={
           <>
