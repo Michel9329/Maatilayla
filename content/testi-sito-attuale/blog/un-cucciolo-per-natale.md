@@ -1,6 +1,8 @@
 # Scusi, avete un cucciolo per il prossimo Natale?
 *2020-02-10*
 
+## Le richieste sotto le feste
+
 Perdonatemi la vena polemica.
 
 Durante le trascorse giornate infinite di festa, ho ricevuto, ma non credo solo io, una serie interminabile di richieste di cuccioli da poter regalare al proprio bambino in occasione del Natale.
@@ -15,6 +17,8 @@ Fortuna ha voluto (pensaunpo’cheparadosso) che per Natale non avessi alcuna di
 
 È il concetto del cane inteso come “qualcosa” da regalare che proprio non mi va giù. Soprattutto se destinato a bambini che, per carità, magari sono davvero molto attratti e tanto innamorati dei cani, ma che nulla ne sanno della enorme responsabilità che da lì a poco stanno per accollarsi.
 
+## Quando l’euforia finisce
+
 Il più delle volte poi, proprio perchè bambini, superata l’euforia iniziale del cucciolo puffosetto tutto coccoloso, e finite le feste, se ne tornano a giocare ai loro videogames e poco importa se la ciotola dell’acqua rimane vuota.
 
 Ed è qui che, per forza di cose, se ne dovranno far carico i genitori.
@@ -28,6 +32,8 @@ Dovranno cambiare le loro abitudini vacanziere e cercare un alloggio pet-friendl
 Quando poi la propria cucciolotta andrà in calore, dovranno accettare che il proprio portone di casa venga eletto a punto di raduno di tutti i cani maschi del rione, con tanto d'inequivocabili spruzzatine marcatorie sullo zerbino.
 
 Queste sono solo alcune delle millemila circostanze da affrontare quando si decide di far entrare un cane in famiglia.
+
+## Un amore con la A maiuscola
 
 Non vorrei adesso darmi la zappa sui piedi da sola, in quanto allevatrice, ma vorrei solo essere sicura che un mio cucciolo vada nelle mani solo di chi è disposto a tali sacrifici...
 

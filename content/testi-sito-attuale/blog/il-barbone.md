@@ -21,6 +21,8 @@ E non si pensi che la toelettatura sia nata per intenti puramente estetici!
 
 Serviva per le attività in acqua. Il pelo lungo sulla testa e sul tronco proteggeva le parti più delicate esposte al raffreddamento, mentre il pelo rasato sui posteriori fino alle costole consentiva al cane una più lesta e agevole uscita dall’acqua, senza il peso del pelo imbibito.
 
+## Dalle campagne ai salotti
+
 Diretto discendente del Barbet, e quindi un gran lavoratore, lascia la campagna dove stana le anatre e le porta fuori dagli stagni, per entrare algido nei salotti nobili e nelle corti di tutta Europa, e viene rappresentato nei dipinti in braccio alle damine e languidamente adagiato sui sofà.
 
 Con la Rivoluzione francese accompagna sulla via dell’esilio i suoi nobili padroni e si fa conoscere in tutta Europa e poi negli Stati Uniti.
@@ -34,6 +36,8 @@ Ma da Capi, barboncino bianco, abbiamo imparato a non sottovalutare mai i batuff
 La motivazione sociale interspecifica è lo strumento che ha permesso ai Barboni di trovarsi a loro agio negli affollati palazzi nobiliari dei secoli passati, sui tram della frettolosa Milano e sulle lente passeggiate del lungomare ligure.
 
 Con i loro conspecifici ci sanno fare con sicurezza, sostenuti da un’ottima comunicazione, ma spesso sono ostacolati dalle toelettature da esposizione, che li rendono più simili a pupazzi semoventi che a cani con una ferma dignità.
+
+## Devozione e collaborazione
 
 Il loro tratto più straordinario è senz’altro la motivazione collaborativa, che questi cani intendono come stare insieme a qualunque costo.
 
@@ -52,6 +56,8 @@ Molti di loro rimangono imprigionati in un ruolo riduttivo di bambini di famigli
 Il rischio, dunque, è di passare da cani devoti a pazienti con disturbo dell’attaccamento.
 
 La responsabilità della famiglia umana, dunque, è di sfuggire alla trappola tesa dalla selezione di razza e dalle nostre caratteristiche umane di forsennata epimelesi (quell’impulso che soprattutto i mammiferi sociali provano trovandosi di fronte a un essere vivente, anche di specie diversa, che in qualche modo riproduce le fattezze del neonato e che li induce a non attaccarlo, anzi a prendersene cura – Linguaggio tecnico… o cinoegizio?).
+
+## Come si fa a diventare grandi
 
 Ma come si fa a diventare grandi?
 

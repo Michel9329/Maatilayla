@@ -1,6 +1,8 @@
 # L'origine del nome
 *2020-01-02*
 
+## Il sogno della fattoria
+
 Mi sono accorta di non aver ancora mai spiegato l’origine e il significato del mio affisso (anzi suffisso) “Maatilayla”.
 
 Beh, diciamo che tutto nasce da una **passione innata per gli animali**, tutti, ma soprattutto per quelli da cortile.
@@ -13,7 +15,11 @@ Il contesto cittadino in cui ho sempre vissuto, studiato e lavorato ovviamente n
 
 Da qui, ho già raccontato, tutti i miei cani diversi e poi infine, i barboni.
 
+## Da Maatila a Maatilayla
+
 Ma il sogno nel cassetto era sempre lì, che faticava a rimanere chiuso, come se all’interno ci fosse una carica a orologeria e, continuando a fantasticare decisi che, semmai ne avessi avuta la possibilità, quella piccola fattoria l’avrei chiamata così, con la parola **MAATILA**, che in norvegese significa appunto **fattoria**, fusa fino a diventare tutt’uno con il mio nome, **LAYLA**.
+
+## Il nostro compromesso
 
 Quella dove viviamo oggi non sarà mai una vera fattoria, anche perché l’impegno che richiedono mucche, cavalli e caprette, devo ammettere che sarebbe al di sopra delle mie possibilità, ma qui c’è abbastanza spazio per poter accogliere qualche piccolo animale da cortile e soprattutto i nostri cani. Mi sembra un giusto compromesso.
 

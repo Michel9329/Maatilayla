@@ -1,6 +1,8 @@
 # Maltipoo, Cockapoo o Goldendoodle?
 *2021-01-01*
 
+## La moda dei meticci
+
 Di due cose comincio a essere veramente stufa: delle continue richieste di cuccioli da regalare a Natale (tranquilli, non riattacco la filippica perché già ampiamente illustrata in un precedente articolo all'interno del blog) e delle continue richieste di Maltipoo. Anzi, maltipoo, lo scrivo con la minuscola che è più adatta.
 
 Dico io: ma se leggi che allevo solo Barboni toy – tanto lo so che l'hai letto, mi stai scrivendo dal contact form! – che ho un allevamento riconosciuto Enci con tanto di affisso, ma come ti viene in mente di chiedermi se ho un meticcio??
@@ -8,6 +10,8 @@ Dico io: ma se leggi che allevo solo Barboni toy – tanto lo so che l'hai letto
 Ma cerchiamo di capire com'è nata questa moda.
 
 In un articolo pubblicato sul mensile edito dall'Enci "I nostri cani", viene finalmente sollevata la problematica sulle fabbriche dei "design dogs", – cani tanto in voga tra i personaggi famosi – dove vengono creati migliaia di incroci tra cani di razze differenti tra loro, a rischio di gravi malattie genetiche.
+
+## L'origine dei design dogs
 
 Tutto è cominciato negli anni ottanta, quando Wally Conron, un allevatore della Royal Guide Dogs Association of Australia, poiché non gli bastavano tutte le razze canine già esistenti, pensò d'iniziare una serie incredibile di sperimentazioni incrociando tra loro cani di razze differenti, sino ad arrivare al cosiddetto "labradoodle".
 
@@ -23,11 +27,15 @@ Una cosa è cercare di valorizzarle, altro è crearne continuamente di nuove per
 
 Quando mi vengono richiesti, a volte cerco di spiegare che piuttosto che spendere somme così importanti per un meticcio, – questi esemplari arrivano a costare anche oltre 2000 euro ed essendo appunto dei meticci, non sono riconosciuti dall'Enci e, ovviamente nemmeno a livello internazionale dall'FCI – tanto vale andare a salvare un poveretto al canile, che non essendoci selezione a monte si rischia di prendere un cane con gravi tare genetiche, ecc. Altre volte lascio correre e rispondo rassegnata che no, non li allevo, tanto chi è partito per la tangente con questa "razza" difficilmente desiste dopo aver sentito le mie ragioni.
 
+## Il danno alle razze pure
+
 Bisogna sottolineare inoltre che il guaio grosso in tutta questa triste storia lo stanno subendo soprattutto i cani di razza, come il Barbone, appunto.
 
 Negli Usa, ho potuto recentemente verificare di persona, non si trova più un allevamento serio nemmeno a pagarlo oro, tant'è che sempre più spesso gli americani che cercano un vero Barbone vengono ad acquistarlo da noi.
 
 Ma sono sicura che prima o poi succederà anche qui. Potrebbe essere il preludio di un'estinzione anticipata. Sono troppe le persone che pensano solo alle proprie tasche. In una ricerca sul web ho trovato un allevamento di maltipoo con pedigree. Roba da non crederci, che poi, leggendo tra le righe, si tratta di pedigree "ACI" che equivale a zero.
+
+## Il caso del Cane Lupo Cecoslovacco
 
 Per non citare poi altri casi di cani che "sono di moda" ma che stanno creando serie problematiche di gestione come ad esempio il Cane Lupo Cecoslovacco.
 

@@ -1,6 +1,8 @@
 # Controlli? Si, grazie!
 *2023-05-24*
 
+## Una visita inaspettata
+
 Qualche tempo fa, è successo che alle 9 del mattino, mentre ero intenta a passare l'aspirapolvere in casa, ancora in pigiama, qualcuno ha suonato al videocitofono.
 
 Rispondo, ma l'abbaiare in coro dei cani non mi fa capire nulla, vedo solo una figura maschile che ripete un qualcosa ma che io proprio non riesco a sentire.
@@ -25,6 +27,8 @@ Di colpo realizzo che quello che ho creato per passione, ma all'inizio un po' pe
 
 Di colpo realizzo che sono cresciuta e che ora si fa sul serio, ci ho messo la faccia e me ne devo assumere tutte le responsabilità.
 
+## Il ruolo dei NAS
+
 I tre carabinieri fanno parte dei NAS (Nuclei Anti-Sofisticazione), un'unità operativa che si occupa di controllare il rispetto delle leggi in ambito alimentare, ambientale e di tutela degli animali.
 
 Possono effettuare controlli sugli allevamenti, sui canili (o gattili) per verificare che siano rispettate le leggi in materia di benessere animale e che gli animali siano trattati correttamente.
@@ -36,6 +40,8 @@ In caso di irregolarità, i NAS possono sanzionare gli allevatori o anche seques
 L'obiettivo (nobilissimo) è garantirne il benessere e prevenire la sofisticazione e il commercio di animali illegali.
 
 Questo è importante altresì per proteggere la salute e la sicurezza pubblica, oltre che per tutelare ovviamente i diritti degli stessi animali.
+
+## Il sopralluogo in allevamento
 
 La verifica qui, durata oltre due ore, ha pertanto riguardato la conduzione dell'allevamento, i microchip dei cani, i loro libretti sanitari, quanti maschi, quante femmine, quanti attivi nella riproduzione e quanti no.
 

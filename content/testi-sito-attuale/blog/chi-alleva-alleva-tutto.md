@@ -1,6 +1,8 @@
 # Chi alleva, alleva tutto
 *2021-11-23*
 
+## Un regalo inaspettato
+
 Questa camaleontina della specie Chameleo Calyptratus, fu lo splendido, quanto inaspettato, regalo di mio marito in occasione del nostro 17simo anniversario di matrimonio.
 
 In genere, in queste occasioni, ci si aspetta un anello, oppure, che ne so’, un mazzo di rose, un profumo, una borsa griffata.. Insomma, cose da femmina.
@@ -8,6 +10,8 @@ In genere, in queste occasioni, ci si aspetta un anello, oppure, che ne so’, u
 Invece no. Lui, che mi conosce meglio di chiunque altro, ricordava perfettamente di quel mio antico desiderio coltivato sin da bambina e mai esaudito.
 
 E quel giorno mi portò a scegliere il mio regalo, tra una quindicina di minuscoli camaleontini tutti uguali, di un acceso color verde pisello, nati da pochi giorni in un fornitissimo negozio di Roma.
+
+## Camilla e il suo terrario
 
 Tornando a casa, felice come una Pasqua con la mia scatoletta forata dal prezioso contenuto, si presentò però il problema di dove far alloggiare Camilla.
 
@@ -21,6 +25,8 @@ Ma le blatte no, quelle mi sono sempre rifiutata di tenerle, dato che in casa av
 
 E poi troppo schifose.
 
+## L'incidente dei grilli
+
 Inutile dire che reperire tutti questi insetti era diventato ogni volta un lavoro, quindi presi ad ordinarli online, e una volta successe che il corriere, non trovando nessuno in casa, pensò bene di lanciare oltre il cancello del giardino il pacchetto dal contenuto a lui (forse) ignoto, con conseguente spargimento di grilli (di specie non autoctona, ovviamente) per tutto il circondario.
 
 Non oso immaginare quanto abbiano riso i vicini vedendomi vagare gobba per ore, intenta ad una tanto ridicola, quanto infruttuosa, caccia al grillo...tutto pur di sfamare il mio camaleonte!
@@ -32,6 +38,8 @@ Dopo questo incidente, a seguito del quale rischio ancora oggi una denuncia per 
 Probabilmente fu lí, che partì il pallino dell’allevamento, chi lo sa…
 
 Lo studio complesso per mettere in atto la produzione casalinga di camole, grilli e quant’altro, fu davvero affascinante, anche se poco lo era, purtroppo, il loro ultimo destino.
+
+## L’addio a Camilla
 
 L’esperienza degli insetti allevati e la convivenza con la mia bellissima Camilla durò soli due anni, ma intensamente stimolanti e pieni di incredibili scoperte.
 

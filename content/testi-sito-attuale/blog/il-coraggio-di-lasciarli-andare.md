@@ -1,6 +1,8 @@
 # Il coraggio di lasciarli andare
 *2020-10-01*
 
+## Una fortuna che non conoscono
+
 Ritengo che i cani, rispetto a noi umani, siano doppiamente fortunati.
 
 La loro aspettativa di vita, di certo più breve della nostra, ci svincola dalla grave preoccupazione che avremmo, se fosse il contrario, riguardo al loro destino dopo la nostra dipartita.
@@ -8,6 +10,8 @@ La loro aspettativa di vita, di certo più breve della nostra, ci svincola dalla
 – Considerando poi che, se tutto va bene, il barbone toy potrebbe vivere anche oltre 18 anni, questo è uno dei motivi per i quali spingo a riflettere quando si rivolgono a me persone molto avanti con l’età. –
 
 Ma a mio avviso, la fortuna più grande che hanno riguarda la invece tanto discussa per noi umani italiani, questione del fine vita.
+
+## La piccola guerriera
 
 Ieri è nata una bellissima cucciola.
 
@@ -28,6 +32,8 @@ Viene rimessa subito con i suoi fratellini e la mamma, dopo una breve titubanza,
 In serata però, quel piccolo corpicino provato inizia ad arrendersi, essere una guerriera non le interessa più, forse perché sa che la vita potrebbe non avere nulla di buono da riservarle.
 
 Racconto questa storia, piuttosto che altre altrettanto dolorose – anzi sicuramente di più – solo perché è la più recente ed è quella che ancora brucia forte.
+
+## La scelta piu’ difficile
 
 Stamattina, con l’animo pesante ma con un pochino più di lucidità, mi domando se tentare di salvarla sia stata la scelta più giusta, indipendentemente dall’esito finale.
 

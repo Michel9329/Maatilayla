@@ -1,6 +1,8 @@
 # Siamo tutti "allevatori"
 *2019-12-31*
 
+## Le sciuremarie di Facebook
+
 Mi è capitato recentemente di affacciarmi su Facebook e dare uno sguardo a uno di quei gruppi degli amanti dei barboncini.
 
 E, a parte le foto postate da chi veramente ama il proprio barbone, immortalandolo mentre sta sotto l'albero addobbato, mentre mangia, corre, salta e fa pupù, sono incappata in una serie infinita di "sciuremarie" (chi non sa chi sia la sciuramaria, vada sul blog Ti presento il cane, fondato dalla mitica, purtroppo scomparsa, e mia mentore, Valeria Rossi).
@@ -13,6 +15,8 @@ Non contenta, ho voluto contattare una nuova mammina fotografata con cuoricini e
 
 Nulla mi ha saputo dire in merito ai genitori del piccolo, solo che il papà non c'era, ma dov'era? Per la mamma, invece, mi ha detto che non l'ha vista perché era coperta. Come coperta? Ma che vuol dire? Poteva esserci pure un Maltese allora, sotto la coperta!
 
+## Scoperte inquietanti
+
 Vado sul sito dell'Enci, inserisco il numero del pedigree di una mia femmina, guardo ancora una volta i suoi discendenti (è un controllo che ripeto spesso per vedere se i miei cuccioli, in attesa dell'arrivo del pedigree, hanno il relativo numero già assegnato) e mi va l'occhio su una femminuccia ceduta qualche anno fa che ha avuto a sua volta due cucciolate.
 
 Quella cucciola aveva purtroppo un difetto di malocclusione dentale, e chi l'ha scelta lo ha accettato di buon grado.
@@ -24,6 +28,8 @@ Chi è quel giudice che in sede di conferma di taglia non si è nemmeno degnato 
 Altra domanda che ancora non mi consente di dormire la notte: perché far riprodurre nuovamente quella povera cagnetta dopo soli 7 mesi dall'ultimo parto?
 
 Vorrei urlare.
+
+## La responsabilita' di cedere una femmina
 
 Confesso che quando mi chiedono se ho femmine disponibili mi si gela il sangue. E tutti che vogliono la femmina, poi.
 
