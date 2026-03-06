@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: — Sito Completo
-current_plan: 04-polish
-status: complete
-stopped_at: "Polish HP+ChiSiamo completato"
-last_updated: "2026-03-06"
+current_plan: 04-11
+status: executing
+stopped_at: Completed 04-09-PLAN.md
+last_updated: "2026-03-06T11:10:15.145Z"
 progress:
-  total_phases: 2
-  completed_phases: 2
-  total_plans: 7
-  completed_plans: 7
+  total_phases: 1
+  completed_phases: 0
+  total_plans: 12
+  completed_plans: 10
 ---
 
 # Project State — Maatilayla
@@ -69,6 +69,7 @@ Phase 5-10                    Pending
 - [Phase 04-11]: Lightbox usa filteredPhotos come slides per sincronizzazione index corretta
 - [Phase 04-08]: Import statico ?raw per tutti i 15 .md blog — nessun import dinamico (incompatibile Vite prod)
 - [Phase 04-08]: blogPreviewArticles importato in homepage — aumento chunk ~58KB accettabile per 15 articoli corti
+- [Phase 04]: CSS bg-* namespace per blog grid, JSON-LD Blog+BlogPosting schema, SVG inline fallback card senza immagine
 
 ## Performance Metrics
 
@@ -83,6 +84,7 @@ Phase 5-10                    Pending
 | Phase 04-pagine-interne P07 | 5 | 2 tasks | 3 files |
 | 04 | 08 | ~3min | 2 | 5 |
 | 04 | 11 | ~3min | 2 | 3 |
+| Phase 04 P09 | ~3min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -94,6 +96,6 @@ Phase 5-10                    Pending
 
 ## Last Session
 
-- **Stopped At:** Completed 04-08-PLAN.md (Blog Data Layer)
+- **Stopped At:** Completed 04-09-PLAN.md
 - **Timestamp:** 2026-03-06
 - **Next:** Blog grid page, singolo articolo, galleria integrazione
