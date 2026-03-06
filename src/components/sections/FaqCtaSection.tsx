@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { Fragment, useEffect, useRef, useMemo } from 'react'
 import { Link } from 'react-router'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -52,7 +52,8 @@ export default function FaqCtaSection() {
         ([entry]) => {
           if (entry.isIntersecting) {
             requestAnimationFrame(() => section.classList.add('fq-entered'))
-            observer.disconnect()
+          } else {
+            section.classList.remove('fq-entered')
           }
         },
         { threshold: 0, rootMargin: '-10% 0px' },
@@ -72,56 +73,77 @@ export default function FaqCtaSection() {
     gsap.set(body, { opacity: 0, y: 14 })
     gsap.set(cta, { opacity: 0, y: 10, scale: 0.97 })
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 75%',
-        toggleActions: 'play none none none',
-      },
-    })
+    const tl = gsap.timeline({ paused: true })
 
     tl.to(badge, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
       .to(wordEls, { opacity: 1, y: 0, duration: 0.4, stagger: 0.07, ease: 'power2.out' }, '-=0.2')
       .to(body, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.15')
       .to(cta, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'power2.out' }, '-=0.2')
 
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      onEnter: () => {
+        section.classList.add('fq-entered')
+        tl.restart()
+      },
+      onEnterBack: () => {
+        section.classList.add('fq-entered')
+        tl.restart()
+      },
+      onLeave: () => {
+        tl.pause(0)
+        section.classList.remove('fq-entered')
+      },
+      onLeaveBack: () => {
+        tl.pause(0)
+        section.classList.remove('fq-entered')
+      },
+    })
+
     return () => {
       parallaxTl.kill()
       tl.kill()
+      st.kill()
     }
   }, [])
 
   return (
-    <section className="fq-section" ref={sectionRef} aria-label="Domande frequenti">
-      <img
-        ref={imgRef}
-        src="/content/images/maatilayla-ginny-barboncino-toy-faq-cta.webp"
-        alt="Ginny, barboncino toy fulvo nel giardino dell'allevamento Maatilayla"
-        loading="lazy"
-        decoding="async"
-        className="fq-bg"
-      />
-      <div className="fq-content">
-        <span className="fq-badge" ref={badgeRef}>
-          F.A.Q.
-        </span>
-        <h2 className="fq-title" ref={titleRef}>
-          {words.map((word, i) => (
-            <span key={i} className={`fq-word${ACCENT_WORDS.has(word) ? ' fq-word--accent' : ''}`}>
-              {ACCENT_WORDS.has(word) ? <em>{word}</em> : word}
-            </span>
-          ))}
-        </h2>
-        <p className="fq-body" ref={bodyRef}>
-          Abbiamo raccolto le domande che ci vengono poste più spesso su cuccioli, pedigree, salute
-          e adozione.
-        </p>
-        <div className="fq-cta" ref={ctaRef}>
-          <Link to="/faq" className="fq-cta-btn">
-            Leggi le F.A.Q.
-          </Link>
+    <div className="fq-wrap">
+      <section className="fq-section" ref={sectionRef} aria-label="Domande frequenti">
+        <img
+          ref={imgRef}
+          src="/content/images/maatilayla-ginny-barboncino-toy-faq-cta.webp"
+          alt="Ginny, barboncino toy fulvo nel giardino dell'allevamento Maatilayla"
+          loading="lazy"
+          decoding="async"
+          className="fq-bg"
+        />
+        <div className="fq-content">
+          <span className="fq-badge" ref={badgeRef}>
+            F.A.Q.
+          </span>
+          <h2 className="fq-title" ref={titleRef}>
+            {words.map((word, i) => (
+              <Fragment key={i}>
+                <span className={`fq-word${ACCENT_WORDS.has(word) ? ' fq-word--accent' : ''}`}>
+                  {ACCENT_WORDS.has(word) ? <em>{word}</em> : word}
+                </span>{' '}
+              </Fragment>
+            ))}
+          </h2>
+          <p className="fq-body" ref={bodyRef}>
+            Abbiamo raccolto le domande che ci vengono poste più spesso su cuccioli, pedigree,
+            salute e adozione.
+          </p>
+          <div className="fq-cta" ref={ctaRef}>
+            <Link to="/faq" className="fq-cta-btn">
+              Leggi le F.A.Q.
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   )
 }

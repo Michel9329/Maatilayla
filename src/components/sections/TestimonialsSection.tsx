@@ -98,7 +98,13 @@ function ReviewCard({ name, text, index }: { name: string; text: string; index: 
       <p className="tm-text" style={{ WebkitLineClamp: MAX_LINES }}>
         {text}
       </p>
-      <a href={GOOGLE_URL} target="_blank" rel="noopener noreferrer" className="tm-more">
+      <a
+        href={GOOGLE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="tm-more"
+        aria-label="Leggi tutte le recensioni su Google (apre in una nuova scheda)"
+      >
         leggi di più{' '}
         <span className="tm-more-arrow" aria-hidden="true">
           &rarr;
@@ -198,7 +204,6 @@ export default function TestimonialsSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           section.classList.add('tm-entered')
-          observer.disconnect()
 
           // Avvia marquee dopo che la transizione slide è ~45% completata
           // Riga 1: ~800ms, Riga 2: ~1100ms (delay 0.2s + durata più lunga)
@@ -212,6 +217,14 @@ export default function TestimonialsSection() {
               i === 0 ? 800 : 1100,
             )
             timeoutIds.push(tid)
+          })
+        } else {
+          timeoutIds.forEach(clearTimeout)
+          timeoutIds.length = 0
+          section.classList.remove('tm-entered')
+          rowRefs.current.forEach((row) => {
+            const track = row?.querySelector('.tm-track')
+            if (track) track.classList.remove('tm-track--active')
           })
         }
       },

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { Fragment, useEffect, useRef, useMemo } from 'react'
 import { Link } from 'react-router'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -54,7 +54,8 @@ export default function ParallaxCtaSection() {
         ([entry]) => {
           if (entry.isIntersecting) {
             requestAnimationFrame(() => section.classList.add('cine-entered'))
-            observer.disconnect()
+          } else {
+            section.classList.remove('cine-entered')
           }
         },
         { threshold: 0, rootMargin: '-10% 0px' },
@@ -76,13 +77,7 @@ export default function ParallaxCtaSection() {
     gsap.set(author, { opacity: 0, y: 10 })
     gsap.set(cta, { opacity: 0, y: 10, scale: 0.97 })
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 75%',
-        toggleActions: 'play none none none',
-      },
-    })
+    const tl = gsap.timeline({ paused: true })
 
     tl.to(badge, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
       .to(wordEls, { opacity: 1, y: 0, duration: 0.4, stagger: 0.07, ease: 'power2.out' }, '-=0.2')
@@ -90,55 +85,79 @@ export default function ParallaxCtaSection() {
       .to(author, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.25')
       .to(cta, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'power2.out' }, '-=0.2')
 
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      onEnter: () => {
+        section.classList.add('cine-entered')
+        tl.restart()
+      },
+      onEnterBack: () => {
+        section.classList.add('cine-entered')
+        tl.restart()
+      },
+      onLeave: () => {
+        tl.pause(0)
+        section.classList.remove('cine-entered')
+      },
+      onLeaveBack: () => {
+        tl.pause(0)
+        section.classList.remove('cine-entered')
+      },
+    })
+
     return () => {
       parallaxTl.kill()
       tl.kill()
+      st.kill()
     }
   }, [])
 
   return (
-    <section
-      className="cine-section"
-      ref={sectionRef}
-      aria-label="Il nostro impegno verso ogni cucciolo"
-    >
-      <div className="cine-img-wrap">
-        <img
-          ref={imgRef}
-          src="/content/images/maatilayla-cuccioli-barboncino-toy-impegno.webp"
-          alt="Cuccioli di barboncino toy dell'allevamento Maatilayla insieme"
-          loading="lazy"
-          decoding="async"
-          className="cine-img"
-        />
-      </div>
-      <div className="cine-content">
-        <span className="cine-badge" ref={badgeRef}>
-          Il nostro impegno
-        </span>
-        <h2 className="cine-title" ref={titleRef}>
-          {words.map((word, i) => (
-            <span
-              key={i}
-              className={`cine-word${ACCENT_WORDS.has(word) ? ' cine-word--accent' : ''}`}
-            >
-              {ACCENT_WORDS.has(word) ? <em>{word}</em> : word}
-            </span>
-          ))}
-        </h2>
-        <p className="cine-body" ref={bodyRef}>
-          Non cerchiamo chi vuole un barboncino. Cerchiamo chi vuole <em>questo</em> barboncino —
-          quello giusto per la tua vita, il tuo ritmo, la tua famiglia.
-        </p>
-        <span className="cine-author" ref={authorRef}>
-          — Layla Zarfati, Addestratrice ENCI
-        </span>
-        <div className="cine-cta" ref={ctaRef}>
-          <Link to="/contatti" className="cine-cta-btn">
-            Contattaci
-          </Link>
+    <div className="cine-wrap">
+      <section
+        className="cine-section"
+        ref={sectionRef}
+        aria-label="Il nostro impegno verso ogni cucciolo"
+      >
+        <div className="cine-img-wrap">
+          <img
+            ref={imgRef}
+            src="/content/images/maatilayla-cuccioli-barboncino-toy-impegno.webp"
+            alt="Cuccioli di barboncino toy dell'allevamento Maatilayla insieme"
+            loading="lazy"
+            decoding="async"
+            className="cine-img"
+          />
         </div>
-      </div>
-    </section>
+        <div className="cine-content">
+          <span className="cine-badge" ref={badgeRef}>
+            Il nostro impegno
+          </span>
+          <h2 className="cine-title" ref={titleRef}>
+            {words.map((word, i) => (
+              <Fragment key={i}>
+                <span className={`cine-word${ACCENT_WORDS.has(word) ? ' cine-word--accent' : ''}`}>
+                  {ACCENT_WORDS.has(word) ? <em>{word}</em> : word}
+                </span>{' '}
+              </Fragment>
+            ))}
+          </h2>
+          <p className="cine-body" ref={bodyRef}>
+            Non cerchiamo chi vuole un barboncino. Cerchiamo chi vuole <em>questo</em> barboncino —
+            quello giusto per la tua vita, il tuo ritmo, la tua famiglia.
+          </p>
+          <span className="cine-author" ref={authorRef}>
+            — Layla Zarfati, Addestratrice ENCI
+          </span>
+          <div className="cine-cta" ref={ctaRef}>
+            <Link to="/contatti" className="cine-cta-btn">
+              Contattaci
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }

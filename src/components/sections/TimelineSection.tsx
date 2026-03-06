@@ -1,23 +1,27 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const milestones = [
   {
     year: 'Prima del 2018',
     milestone: 'La Fondazione.',
     description:
-      "Tutto nasce da Jolie — una barboncina fulva che ha stregato Layla per sempre. Da quel momento, l'idea di creare un allevamento serio e appassionato prende forma.",
+      "Tutto nasce da Jolie — una barboncina fulva che mi ha stregata per sempre. Da quel momento, l'idea di creare un allevamento serio e appassionato prende forma.",
   },
   {
     year: 'Ottobre 2018',
     milestone: 'Il Trasferimento.',
     description:
-      'La passione per i barboncini toy spinge a lasciare la casa di città. Un nuovo spazio, più grande e naturale, aspetta i nostri cani.',
+      "Lasciare la città non è stato un sacrificio — è stato il passo più naturale del mondo. Un nuovo spazio, aperto, con l'erba vera sotto le zampe. Esattamente quello che meritavano.",
   },
   {
     year: 'Novembre 2018',
     milestone: 'I Lavori Iniziano.',
     description:
-      'Inizia la ristrutturazione, ma i cani sono già felici: spazi sconfinati da esplorare, insetti da inseguire, natura vera. Fanno i cani, finalmente.',
+      'Il cantiere era ancora aperto, ma i cani erano già a casa. Giravano tra le macerie come se fosse il posto più bello del mondo — e in un certo senso lo era già.',
   },
   {
     year: 'Ottobre 2019',
@@ -36,47 +40,57 @@ const milestones = [
 export default function TimelineSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const trackRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  // IntersectionObserver entrance (bidirezionale)
   useEffect(() => {
+    const section = sectionRef.current
+    const container = containerRef.current
+    if (!section || !container) return
+
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
     if (prefersReduced) {
-      containerRef.current?.classList.add('tl-entered')
+      container.classList.add('tl-entered')
       return
     }
-    const observer = new IntersectionObserver(
+
+    // Header entrance
+    const headerObserver = new IntersectionObserver(
       ([entry]) => {
         requestAnimationFrame(() => {
-          if (entry.isIntersecting) {
-            containerRef.current?.classList.add('tl-entered')
-          } else {
-            containerRef.current?.classList.remove('tl-entered')
-          }
+          container.classList.toggle('tl-entered', entry.isIntersecting)
         })
       },
-      { threshold: 0, rootMargin: '-10% 0px' },
+      { threshold: 0, rootMargin: '-8% 0px' },
     )
-    if (containerRef.current) observer.observe(containerRef.current)
-    return () => observer.disconnect()
-  }, [])
+    headerObserver.observe(container)
 
-  // Dot indicatori: sincronizzati con scroll
-  const handleScroll = useCallback(() => {
-    const track = trackRef.current
-    if (!track) return
-    const itemWidth = track.scrollWidth / milestones.length
-    const index = Math.round(track.scrollLeft / itemWidth)
-    setActiveIndex(Math.min(index, milestones.length - 1))
-  }, [])
+    // Dot items: GSAP ScrollTrigger scrub
+    // Ogni item appare progressivamente con lo scroll della pagina
+    const items = itemRefs.current.filter(Boolean) as HTMLDivElement[]
+    gsap.set(items, { opacity: 0, y: 8 })
 
-  useEffect(() => {
-    const track = trackRef.current
-    if (!track) return
-    track.addEventListener('scroll', handleScroll, { passive: true })
-    return () => track.removeEventListener('scroll', handleScroll)
-  }, [handleScroll])
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 65%',
+        end: 'bottom 55%',
+        scrub: 0.6,
+      },
+    })
+
+    items.forEach((el) => {
+      tl.to(el, { opacity: 1, y: 0, duration: 0.4 }, '<0.25')
+    })
+
+    return () => {
+      headerObserver.disconnect()
+      ScrollTrigger.getAll()
+        .filter((st) => st.vars.trigger === section)
+        .forEach((st) => st.kill())
+      gsap.set(items, { clearProps: 'all' })
+    }
+  }, [])
 
   return (
     <section className="tl-section" ref={sectionRef} aria-label="La storia di Maatilayla">
@@ -88,24 +102,23 @@ export default function TimelineSection() {
           </h2>
         </div>
 
-        <div className="tl-track" ref={trackRef} role="list">
-          {milestones.map((m) => (
-            <div key={m.year} className="tl-item" role="listitem">
+        <div className="tl-track" role="list">
+          {milestones.map((m, i) => (
+            <div
+              key={m.year}
+              className={`tl-item tl-item--${i % 2 === 0 ? 'above' : 'below'}`}
+              role="listitem"
+              ref={(el) => {
+                itemRefs.current[i] = el
+              }}
+            >
+              <div className="tl-card">
+                <span className="tl-year">{m.year}</span>
+                <h3 className="tl-milestone">{m.milestone}</h3>
+                <p className="tl-desc">{m.description}</p>
+              </div>
               <div className="tl-dot" aria-hidden="true" />
-              <span className="tl-year">{m.year}</span>
-              <h3 className="tl-milestone">{m.milestone}</h3>
-              <p className="tl-desc">{m.description}</p>
             </div>
-          ))}
-        </div>
-
-        {/* Dot indicatori — visibili solo su mobile */}
-        <div className="tl-dots" aria-hidden="true">
-          {milestones.map((_, i) => (
-            <span
-              key={i}
-              className={`tl-dot-indicator${i === activeIndex ? ' tl-dot-indicator--active' : ''}`}
-            />
           ))}
         </div>
       </div>

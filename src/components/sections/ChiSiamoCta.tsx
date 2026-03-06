@@ -1,12 +1,12 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo, Fragment } from 'react'
 import { Link } from 'react-router'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const TITLE_TEXT = 'Inizia la tua storia con noi.'
-const ACCENT_WORDS = new Set(['storia'])
+const TITLE_TEXT = 'Ogni scatto racconta qualcosa.'
+const ACCENT_WORDS = new Set(['qualcosa.'])
 
 export default function ChiSiamoCta() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -20,21 +20,16 @@ export default function ChiSiamoCta() {
 
   useEffect(() => {
     const section = sectionRef.current
-    const img = imgRef.current
-    if (!section || !img) return
+    if (!section) return
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    // Parallax foto
-    const parallaxTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.6,
-      },
-    })
-    parallaxTl.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none' })
+    // Parallax disabilitato — foto panoramica bassa, il movimento mostra i bordi
+
+    // Desktop: evita conflitto CSS opacity (cs-section:not(.cs-entered) impone opacity:0 al content)
+    if (window.matchMedia('(min-width: 768px)').matches && !prefersReduced) {
+      section.classList.add('cs-entered')
+    }
 
     if (prefersReduced || !window.matchMedia('(min-width: 768px)').matches) {
       // Mobile: IntersectionObserver CSS
@@ -49,7 +44,6 @@ export default function ChiSiamoCta() {
       )
       observer.observe(section)
       return () => {
-        parallaxTl.kill()
         observer.disconnect()
       }
     }
@@ -82,43 +76,47 @@ export default function ChiSiamoCta() {
     })
 
     return () => {
-      parallaxTl.kill()
       tl.kill()
       st.kill()
     }
   }, [])
 
   return (
-    <section className="cs-section" ref={sectionRef} aria-label="Contattaci">
-      <img
-        ref={imgRef}
-        src="/content/images/maatilayla-cuccioli-barboncino-toy-cta.webp"
-        alt="Cuccioli di barboncino toy dell'allevamento Maatilayla pronti per la nuova famiglia"
-        loading="lazy"
-        decoding="async"
-        className="cs-bg"
-      />
-      <div className="cs-content">
-        <span className="cs-badge" ref={badgeRef}>
-          Contattaci
-        </span>
-        <h2 className="cs-title" ref={titleRef}>
-          {words.map((word, i) => (
-            <span key={i} className={`cs-word${ACCENT_WORDS.has(word) ? ' cs-word--accent' : ''}`}>
-              {ACCENT_WORDS.has(word) ? <em>{word}</em> : word}
-            </span>
-          ))}
-        </h2>
-        <p className="cs-body" ref={bodyRef}>
-          Ogni cucciolo Maatilayla trova la famiglia giusta. Scrivici: ti raccontiamo chi siamo,
-          come lavoriamo e come puoi prenotare il tuo barboncino toy.
-        </p>
-        <div className="cs-cta" ref={ctaRef}>
-          <Link to="/contatti" className="cs-cta-btn">
-            Scrivici
-          </Link>
+    <div className="cs-wrap">
+      <section className="cs-section" ref={sectionRef} aria-label="Sfoglia la galleria">
+        <div className="cs-content">
+          <span className="cs-badge" ref={badgeRef}>
+            La Galleria
+          </span>
+          <h2 className="cs-title" ref={titleRef}>
+            {words.map((word, i) => (
+              <Fragment key={i}>
+                <span className={`cs-word${ACCENT_WORDS.has(word) ? ' cs-word--accent' : ''}`}>
+                  {ACCENT_WORDS.has(word) ? <em>{word}</em> : word}
+                </span>{' '}
+              </Fragment>
+            ))}
+          </h2>
+          <p className="cs-body" ref={bodyRef}>
+            I nostri barboncini, le madri, i cuccioli nel prato.
+            <br />
+            Momenti veri, senza filtri.
+          </p>
+          <div className="cs-cta" ref={ctaRef}>
+            <Link to="/galleria" className="cs-cta-btn">
+              Sfoglia la galleria
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+        <img
+          ref={imgRef}
+          src="/content/images/maatilayla-cta-chi-siamo-background.webp"
+          alt="Barboncini toy Maatilayla — scopri la galleria fotografica"
+          loading="lazy"
+          decoding="async"
+          className="cs-bg"
+        />
+      </section>
+    </div>
   )
 }

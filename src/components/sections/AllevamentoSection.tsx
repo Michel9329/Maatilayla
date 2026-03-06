@@ -44,7 +44,8 @@ export default function AllevamentoSection() {
             requestAnimationFrame(() => {
               entry.target.classList.add('allev-entered')
             })
-            observer.unobserve(entry.target)
+          } else {
+            entry.target.classList.remove('allev-entered')
           }
         })
       },

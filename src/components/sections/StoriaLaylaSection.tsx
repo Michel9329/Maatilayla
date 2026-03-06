@@ -1,80 +1,96 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, Fragment } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const REGULAR_WORDS = 'Una barbona fulva'.split(' ')
+
 export default function StoriaLaylaSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const blockRef = useRef<HTMLDivElement>(null)
   const imgRef = useRef<HTMLDivElement>(null)
+  const badgeRef = useRef<HTMLSpanElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const body1Ref = useRef<HTMLParagraphElement>(null)
+  const body2Ref = useRef<HTMLParagraphElement>(null)
+  const body3Ref = useRef<HTMLParagraphElement>(null)
+  const calloutRef = useRef<HTMLQuoteElement>(null)
 
-  // ── Entrata CSS via IntersectionObserver bidirezionale ──
   useEffect(() => {
+    const block = blockRef.current
+    const section = sectionRef.current
+    if (!block || !section) return
+
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
-      blockRef.current?.classList.add('ls-entered')
+      block.classList.add('ls-entered')
       return
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            requestAnimationFrame(() => {
-              entry.target.classList.add('ls-entered')
-            })
-          } else {
-            entry.target.classList.remove('ls-entered')
-          }
-        })
-      },
-      { threshold: 0, rootMargin: '-12% 0px' },
-    )
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
 
-    if (blockRef.current) observer.observe(blockRef.current)
+    if (!isDesktop) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              requestAnimationFrame(() => entry.target.classList.add('ls-entered'))
+            } else {
+              entry.target.classList.remove('ls-entered')
+            }
+          })
+        },
+        { threshold: 0, rootMargin: '-12% 0px' },
+      )
+      observer.observe(block)
+      return () => observer.disconnect()
+    }
 
-    return () => observer.disconnect()
-  }, [])
+    // Desktop: GSAP
+    block.style.opacity = '1'
+    block.style.translate = 'none'
 
-  // ── Parallax foto (GSAP scrub — solo sull'immagine) ──
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
+    const wordEls = titleRef.current?.querySelectorAll<HTMLElement>('.ls-word') ?? []
 
-    const ctx = gsap.context(() => {
-      const img = imgRef.current?.querySelector('img')
-      if (img && blockRef.current) {
-        gsap.fromTo(
-          img,
-          { yPercent: -8 },
-          {
-            yPercent: 8,
-            ease: 'none',
-            force3d: true,
-            scrollTrigger: {
-              trigger: blockRef.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.6,
-            },
-          },
-        )
-      }
-    }, sectionRef)
+    gsap.set(imgRef.current, { opacity: 0 })
+    gsap.set(badgeRef.current, { opacity: 0, y: 20 })
+    gsap.set(wordEls, { opacity: 0, y: 18 })
+    gsap.set([body1Ref.current, body2Ref.current, body3Ref.current], { opacity: 0, y: 14 })
+    gsap.set(calloutRef.current, { opacity: 0, y: 10 })
 
-    return () => ctx.revert()
+    const tl = gsap.timeline({ paused: true })
+    tl.to(imgRef.current, { opacity: 1, duration: 0.9, ease: 'power2.out' })
+      .to(badgeRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.6')
+      .to(wordEls, { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power2.out' }, '-=0.3')
+      .to(
+        [body1Ref.current, body2Ref.current, body3Ref.current],
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out' },
+        '-=0.2',
+      )
+      .to(calloutRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.15')
+
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      onEnter: () => tl.restart(),
+      onEnterBack: () => tl.restart(),
+      onLeave: () => tl.pause(0),
+      onLeaveBack: () => tl.pause(0),
+    })
+
+    return () => {
+      tl.kill()
+      st.kill()
+      block.style.opacity = ''
+      block.style.translate = ''
+    }
   }, [])
 
   return (
-    <section
-      id="storia"
-      className="ls-section"
-      ref={sectionRef}
-      aria-label="La storia di Maatilayla"
-    >
+    <section className="ls-section" ref={sectionRef} aria-label="La storia di Maatilayla">
       <div className="ls-block" ref={blockRef}>
-        {/* Foto Layla — se non esiste, il div mostra background cream (fallback graceful) */}
         <div className="ls-img" ref={imgRef}>
           <img
             src="/content/images/maatilayla-layla-zarfati-portrait.webp"
@@ -87,41 +103,52 @@ export default function StoriaLaylaSection() {
           />
         </div>
 
-        {/* Testo narrativo */}
         <div className="ls-content">
-          <span className="ls-badge">La Nostra Storia</span>
+          <span className="ls-badge" ref={badgeRef}>
+            Come tutto è iniziato
+          </span>
 
-          <h2 className="ls-title">
-            Tutto è iniziato con <em className="ls-accent">una barbona fulva.</em>
+          <h2 className="ls-title" ref={titleRef}>
+            {REGULAR_WORDS.map((word, i) => (
+              <Fragment key={i}>
+                <span className="ls-word">{word}</span>{' '}
+              </Fragment>
+            ))}
+            <em className="ls-accent ls-word">ha cambiato tutto.</em>
           </h2>
 
-          <p className="ls-body">
-            Tutto è cominciato con Jolie — una barboncina fulva ancora cucciolona, affidata da cari
-            amici per un paio di settimane. Quella mattina me la ritrovai accanto al letto,
-            raggomitolata sul pavimento freddo, pur di non stare sola nella cuccetta morbida in
-            salone. Un cane diverso. Difficile da spiegare: un cane che non devi parlare, perché già
-            sa quello che stai per dire.
+          <p className="ls-body" ref={body1Ref}>
+            Jolie — una barboncina fulva ancora cucciolona — ci fu affidata da cari amici per un
+            paio di settimane. La mattina seguente me la ritrovai accanto al letto, raggomitolata
+            sul pavimento freddo e duro, pur di non stare sola nella cuccetta morbida che le avevo
+            sistemato in salone. E poi, rientrando dal lavoro, i miei cani che mi salutavano senza
+            troppo entusiasmo — e lei invece che iniziava a saltare facendo piroette, come fossi io
+            la sua padroncina.
           </p>
 
-          <p className="ls-body">
-            Quando i nostri amici tornarono a riprendersi Jolie, capii che quella barboncina aveva
-            lasciato un segno impossibile da ignorare. Iniziai una ricerca durata oltre due anni,
-            con il dubbio che forse non ne avrei mai trovata un'altra come lei. Invece non solo la
-            trovai, ma ebbi la conferma che il barboncino toy è un concentrato di tutto il meglio,
-            il bello e il buono che un cane possa offrire.
+          <p className="ls-body" ref={body2Ref}>
+            Un cane diverso. Difficile spiegarlo: non devi parlarle perché già sa quello che stai
+            per dire. Ti guarda e <em>lo senti</em> — è lì con te, sempre. Il giorno che i nostri
+            amici tornarono a riprendersi Jolie, la lasciai a casa con mio marito ad aspettarli. Io
+            vagabondai sola in macchina fino a quando non se ne andarono, con la speranza — o forse
+            la presunzione — che lei non fosse voluta tornare. Ovviamente non andò così: Jolie fu
+            felicissima di rivederli e se ne andò via scodinzolando.
           </p>
 
-          <p className="ls-body">
-            Nel tempo ho conservato quella passione, approfondendo la cultura cinofila e investendo
-            in una formazione professionale seria: ho conseguito il titolo di Addestratrice ENCI,
-            quello di Educatrice cinofila, e sto completando il Master Allevatore ENCI — il percorso
-            più avanzato riconosciuto in Italia per chi alleva con coscienza.
+          <p className="ls-body" ref={body3Ref}>
+            Fu così che, stregata da quella barbona, mi misi alla ricerca di una simil-Jolie. Una
+            ricerca durata oltre due anni, con il dubbio che forse non ne avrei trovata un'altra
+            come lei. Invece non solo la trovai: ebbi la conferma che il barboncino toy è un
+            concentrato di tutto il meglio, il bello e il buono che un cane possa offrire a chi gli
+            apre il proprio cuore.
           </p>
 
-          <blockquote className="ls-callout">
-            Allevare barboncini toy non è solo una passione: è una missione. Ogni cucciolo che nasce
-            a Maatilayla porta con sé anni di studio, selezione attenta e un impegno etico che va
-            ben oltre il semplice affetto.
+          <blockquote className="ls-callout" ref={calloutRef}>
+            Jolie non è tornata con me — ma in un certo senso non è mai andata via. È lei la ragione
+            per cui Maatilayla esiste.
+            <a href="#cani-vita" className="ls-callout-link">
+              Tutti i cani della mia vita <span aria-hidden="true">&#8594;</span>
+            </a>
           </blockquote>
         </div>
       </div>

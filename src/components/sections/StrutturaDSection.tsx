@@ -1,16 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
-const VIDEO_ID = '_jQ2oFcZIhY'
+import { useEffect, useRef } from 'react'
 
 export default function StrutturaDSection() {
-  const [videoActive, setVideoActive] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const blockRef = useRef<HTMLDivElement>(null)
-  const imgRef = useRef<HTMLDivElement>(null)
 
   // IntersectionObserver bidirezionale per l'animazione entrance
   useEffect(() => {
@@ -29,37 +21,10 @@ export default function StrutturaDSection() {
           }
         })
       },
-      { threshold: 0, rootMargin: '-12% 0px' },
+      { threshold: 0.15, rootMargin: '-20% 0px' },
     )
     if (blockRef.current) observer.observe(blockRef.current)
     return () => observer.disconnect()
-  }, [])
-
-  // GSAP parallax sull'immagine (scrub leggero)
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
-    const ctx = gsap.context(() => {
-      const img = imgRef.current?.querySelector('img')
-      if (img && blockRef.current) {
-        gsap.fromTo(
-          img,
-          { yPercent: -8 },
-          {
-            yPercent: 8,
-            ease: 'none',
-            force3d: true,
-            scrollTrigger: {
-              trigger: blockRef.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.6,
-            },
-          },
-        )
-      }
-    }, sectionRef)
-    return () => ctx.revert()
   }, [])
 
   return (
@@ -70,73 +35,49 @@ export default function StrutturaDSection() {
       aria-label="La struttura di Maatilayla"
     >
       <div className="st-block" ref={blockRef}>
-        {/* Colonna sinistra: testo */}
-        <div className="st-content">
-          <span className="st-badge">La Struttura</span>
-          <h2 className="st-title">
-            Uno spazio pensato <em className="st-accent">per loro.</em>
-          </h2>
-          <p className="st-body">
-            Una proprieta immersa nel verde, dove i nostri barboncini toy vivono in piena liberta.
-            Ampi spazi aperti per correre, un area interna confortevole e una casetta dedicata dove
-            mangiano, vengono curati e riposano con vista sui boschi circostanti.
-          </p>
-          <p className="st-body">
-            Nel 2020 abbiamo completato il campo di agility — un area attrezzata con ostacoli,
-            bascule, cerchi, slalom e tunnel. Non solo un campo sportivo: un modo per stimolare la
-            mente dei nostri barboni e mantenerli felici ogni giorno.
-          </p>
-          <p className="st-body st-body--em">
-            Tutto e stato costruito con un solo obiettivo: offrire ai nostri cani la vita che
-            meritano — naturale, serena e ricca di stimoli.
-          </p>
-        </div>
-
-        {/* Colonna destra: foto + video YouTube facade */}
-        <div className="st-media">
-          <div className="st-img" ref={imgRef}>
+        {/* Colonna sx: testo + foto orizzontale */}
+        <div className="st-left">
+          <div className="st-content">
+            <span className="st-badge">La Struttura</span>
+            <h2 className="st-title">
+              Uno spazio pensato <em className="st-accent">per loro.</em>
+            </h2>
+            <p className="st-body">
+              Quando ho immaginato questo posto, avevo in testa una cosa sola: che i miei cani non
+              dovessero mai sentirsi in gabbia. Una propriet&#224; immersa nel verde, ampi spazi
+              aperti per correre, una casetta dedicata dove mangiano, vengono curati e riposano con
+              vista sui boschi.
+            </p>
+            <p className="st-body">
+              I cuccioli che nascono qui non conoscono la gabbia n&#233; il box. Crescono a contatto
+              con gli altri animali della struttura, con i ritmi della famiglia, con gli spazi
+              aperti. &#200; in questo contesto, non in un protocollo,
+              <br />
+              che si costruisce l&#8217;equilibrio che poi portano con s&#233;.
+            </p>
+            <p className="st-body st-body--em">
+              Ogni angolo di questa struttura &#232; stato costruito con un solo obiettivo: offrire
+              ai nostri cani la vita che meritano &#8212; naturale, serena e ricca di stimoli.
+            </p>
+          </div>
+          <div className="st-secondary">
             <img
-              src="/content/images/maatilayla-barboncino-toy-relax-sole.webp"
-              alt="Barboncino toy dell'allevamento Maatilayla che si gode il sole nel campo"
+              src="/content/images/maatilayla-struttura-panoramica-alba.webp"
+              alt="Vista panoramica dell'allevamento Maatilayla immerso nel verde della campagna"
               loading="lazy"
               decoding="async"
             />
           </div>
+        </div>
 
-          {/* YouTube facade click-to-load: nessuna risorsa YouTube caricata fino al click */}
-          {!videoActive ? (
-            <button
-              className="yt-facade"
-              onClick={() => setVideoActive(true)}
-              aria-label="Guarda il video del campo agility Maatilayla"
-            >
-              <img
-                src={`https://img.youtube.com/vi/${VIDEO_ID}/sddefault.jpg`}
-                alt="Anteprima video campo agility barboncini Maatilayla"
-                loading="lazy"
-                decoding="async"
-              />
-              <span className="yt-play-btn" aria-hidden="true">
-                <svg viewBox="0 0 68 48" width="68" height="48">
-                  <path
-                    d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
-                    fill="#f00"
-                  />
-                  <path d="M45 24 27 14v20" fill="#fff" />
-                </svg>
-              </span>
-            </button>
-          ) : (
-            <div className="yt-wrapper">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&rel=0`}
-                title="Video campo agility allevamento Maatilayla barboncini toy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-          )}
+        {/* Colonna dx: foto verticale */}
+        <div className="st-panorama">
+          <img
+            src="/content/images/maatilayla-header-cucciolo-allevamento-03.webp"
+            alt="Cuccioli di barboncino toy all'allevamento Maatilayla"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </section>

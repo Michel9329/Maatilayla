@@ -58,7 +58,8 @@ export default function InstagramFeedSection() {
           requestAnimationFrame(() => {
             section.classList.add('ig-entered')
           })
-          observer.disconnect()
+        } else {
+          section.classList.remove('ig-entered')
         }
       },
       { threshold: 0, rootMargin: '-12% 0px' },
@@ -81,6 +82,12 @@ export default function InstagramFeedSection() {
         <p className="ig-subtitle">
           Momenti dal nostro allevamento. Seguici per restare aggiornato.
         </p>
+        <div className="ig-cta">
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="ig-cta-link">
+            <Instagram size={18} strokeWidth={1.8} />
+            Seguici su Instagram
+          </a>
+        </div>
       </div>
 
       <div className="ig-marquee">
@@ -92,27 +99,15 @@ export default function InstagramFeedSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="ig-card"
+              aria-label={`${photo.alt} — apri su Instagram`}
             >
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                loading="lazy"
-                decoding="async"
-                className="ig-img"
-              />
-              <div className="ig-overlay">
+              <img src={photo.src} alt="" loading="lazy" decoding="async" className="ig-img" />
+              <div className="ig-overlay" aria-hidden="true">
                 <Instagram size={24} strokeWidth={1.6} />
               </div>
             </a>
           ))}
         </div>
-      </div>
-
-      <div className="ig-cta">
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="ig-cta-link">
-          <Instagram size={18} strokeWidth={1.8} />
-          Seguici su Instagram
-        </a>
       </div>
     </section>
   )

@@ -133,87 +133,89 @@ export default function NewsletterSection() {
   }
 
   return (
-    <section className="nl-section" ref={sectionRef} aria-label="Newsletter">
-      <div className="nl-content">
-        <div className="nl-text">
-          <span className="nl-badge">Newsletter</span>
-          <h2 className="nl-title">
-            Resta <em className="nl-title-accent">aggiornato</em>
-            <span className="nl-title-accent">*</span>
-          </h2>
-          <p className="nl-subtitle">
-            Novità dall&apos;allevamento, cuccioli disponibili e consigli direttamente nella tua
-            casella di posta.
-          </p>
-        </div>
+    <div className="nl-wrap">
+      <section className="nl-section" ref={sectionRef} aria-label="Newsletter">
+        <div className="nl-content">
+          <div className="nl-text">
+            <span className="nl-badge">Newsletter</span>
+            <h2 className="nl-title">
+              Resta <em className="nl-title-accent">aggiornato</em>
+              <span className="nl-title-accent">*</span>
+            </h2>
+            <p className="nl-subtitle">
+              Novità dall&apos;allevamento, cuccioli disponibili e consigli direttamente nella tua
+              casella di posta.
+            </p>
+          </div>
 
-        <div className="nl-form-wrap">
-          {status === 'success' ? (
-            <div className="nl-success" role="status">
-              <CheckCircle2 size={24} strokeWidth={1.8} />
-              <p>Iscrizione completata! Controlla la tua email per confermare.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)} noValidate className="nl-form">
-              {/* Honeypot anti-bot */}
-              <input
-                type="text"
-                name="company"
-                autoComplete="off"
-                tabIndex={-1}
-                aria-hidden="true"
-                value={honeypot}
-                onChange={(e) => setHoneypot(e.target.value)}
-                style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
-              />
-              <div className="nl-input-row">
-                <div className="nl-field">
-                  <input
-                    type="email"
-                    placeholder="La tua email"
-                    autoComplete="email"
-                    aria-label="Indirizzo email"
-                    aria-invalid={!!errors.email}
-                    className={`nl-input${errors.email ? ' nl-input--error' : ''}`}
-                    {...register('email')}
-                  />
-                </div>
-                <button type="submit" disabled={status === 'loading'} className="nl-btn">
-                  {status === 'loading' ? (
-                    <Loader2 size={18} className="nl-spinner" aria-hidden="true" />
-                  ) : null}
-                  {status === 'loading' ? 'Iscrizione...' : 'Iscriviti'}
-                </button>
+          <div className="nl-form-wrap">
+            {status === 'success' ? (
+              <div className="nl-success" role="status">
+                <CheckCircle2 size={24} strokeWidth={1.8} />
+                <p>Iscrizione completata! Controlla la tua email per confermare.</p>
               </div>
-              {errors.email && (
-                <span className="nl-error" role="alert">
-                  {errors.email.message}
-                </span>
-              )}
-
-              <label className="nl-consent">
-                <input type="checkbox" {...register('consent')} className="nl-checkbox" />
-                <span className="nl-consent-text">
-                  Acconsento al trattamento dei dati personali
-                </span>
-              </label>
-              {errors.consent && (
-                <span className="nl-error" role="alert">
-                  {errors.consent.message}
-                </span>
-              )}
-
-              {status === 'error' && (
-                <div className="nl-error-msg" role="alert">
-                  <AlertCircle size={16} strokeWidth={2} />
-                  <span>{errorMsg}</span>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} noValidate className="nl-form">
+                {/* Honeypot anti-bot */}
+                <input
+                  type="text"
+                  name="company"
+                  autoComplete="off"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0 }}
+                />
+                <div className="nl-input-row">
+                  <div className="nl-field">
+                    <input
+                      type="email"
+                      placeholder="La tua email"
+                      autoComplete="email"
+                      aria-label="Indirizzo email"
+                      aria-invalid={!!errors.email}
+                      className={`nl-input${errors.email ? ' nl-input--error' : ''}`}
+                      {...register('email')}
+                    />
+                  </div>
+                  <button type="submit" disabled={status === 'loading'} className="nl-btn">
+                    {status === 'loading' ? (
+                      <Loader2 size={18} className="nl-spinner" aria-hidden="true" />
+                    ) : null}
+                    {status === 'loading' ? 'Iscrizione...' : 'Iscriviti'}
+                  </button>
                 </div>
-              )}
-            </form>
-          )}
+                {errors.email && (
+                  <span className="nl-error" role="alert">
+                    {errors.email.message}
+                  </span>
+                )}
+
+                <label className="nl-consent">
+                  <input type="checkbox" {...register('consent')} className="nl-checkbox" />
+                  <span className="nl-consent-text">
+                    Acconsento al trattamento dei dati personali
+                  </span>
+                </label>
+                {errors.consent && (
+                  <span className="nl-error" role="alert">
+                    {errors.consent.message}
+                  </span>
+                )}
+
+                {status === 'error' && (
+                  <div className="nl-error-msg" role="alert">
+                    <AlertCircle size={16} strokeWidth={2} />
+                    <span>{errorMsg}</span>
+                  </div>
+                )}
+              </form>
+            )}
+          </div>
         </div>
-      </div>
-      <p className="nl-privacy">*Nessuno spam. Puoi disiscriverti in qualsiasi momento.</p>
-    </section>
+        <p className="nl-privacy">*Nessuno spam. Puoi disiscriverti in qualsiasi momento.</p>
+      </section>
+    </div>
   )
 }

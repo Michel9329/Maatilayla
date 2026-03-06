@@ -76,7 +76,8 @@ export default function FuturiPadroniSection() {
           requestAnimationFrame(() => {
             section.classList.add('fp-entered')
           })
-          observer.disconnect()
+        } else {
+          section.classList.remove('fp-entered')
         }
       },
       { threshold: 0.1, rootMargin: '-20% 0px' },

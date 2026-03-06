@@ -6,19 +6,19 @@ const credentials = [
     icon: GraduationCap,
     title: 'Addestratrice ENCI',
     description:
-      "Titolo ufficiale riconosciuto dall'Ente Nazionale della Cinofilia Italiana per l'addestramento professionale dei cani.",
+      "Un riconoscimento che nasce dall'ascolto: ogni cane comunica, bisogna imparare a leggerlo.",
   },
   {
     icon: Award,
     title: 'Educatrice Cinofila',
     description:
-      "Specializzazione nella gestione comportamentale e nell'educazione del cane nelle fasi di crescita.",
+      'Lavorare sul comportamento significa lavorare sulla relazione — tra il cane e la famiglia che lo accoglie.',
   },
   {
     icon: BadgeCheck,
     title: 'Master Allevatore ENCI',
     description:
-      "Il percorso formativo più avanzato dell'ENCI per allevatori che operano con i più alti standard etici e sanitari.",
+      "Il percorso più avanzato proposto dall'ENCI. Una scelta fatta per i cuccioli, non per il titolo.",
   },
 ]
 
@@ -38,15 +38,15 @@ export default function CredenzialiSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (entry.isIntersecting) {
             container.classList.add('cr-entered')
-          })
-        } else {
-          container.classList.remove('cr-entered')
-        }
+          } else {
+            container.classList.remove('cr-entered')
+          }
+        })
       },
-      { threshold: 0, rootMargin: '-10% 0px' },
+      { threshold: 0.25, rootMargin: '0px' },
     )
 
     observer.observe(container)
@@ -57,16 +57,12 @@ export default function CredenzialiSection() {
     <section className="cr-section" ref={sectionRef} aria-label="Credenziali di Layla Zarfati">
       <div className="cr-container" ref={containerRef}>
         <div className="cr-header">
-          <span className="cr-badge">Le Credenziali</span>
+          <span className="cr-badge">Formazione</span>
           <h2 className="cr-title">
-            <span className="cr-name">Layla Zarfati</span>
-            <br />
-            <em className="cr-subtitle-em">La professionista dietro la passione.</em>
+            Un percorso fatto di <em className="cr-title-em">studio e osservazione.</em>
           </h2>
           <p className="cr-intro">
-            Anni di studio e formazione continua presso l&apos;ENCI — l&apos;Ente Nazionale della
-            Cinofilia Italiana — a garanzia di un allevamento che rispetta i più alti standard etici
-            e sanitari.
+            Studiare è stato un modo per stare più vicina ai cani — capirli, non solo amarli.
           </p>
         </div>
 

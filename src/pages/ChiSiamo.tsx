@@ -1,12 +1,15 @@
 import { Helmet } from 'react-helmet-async'
 import HeroSection from '@/components/sections/HeroSection'
 import StoriaLaylaSection from '@/components/sections/StoriaLaylaSection'
+import CaniVitaSection from '@/components/sections/CaniVitaSection'
 import CredenzialiSection from '@/components/sections/CredenzialiSection'
 import ValoriSection from '@/components/sections/ValoriSection'
 import StrutturaDSection from '@/components/sections/StrutturaDSection'
+import ChiSiamoCta from '@/components/sections/ChiSiamoCta'
 import TimelineSection from '@/components/sections/TimelineSection'
 import WorldMapSection from '@/components/sections/WorldMapSection'
-import ChiSiamoCta from '@/components/sections/ChiSiamoCta'
+import ContactSection from '@/components/sections/ContactSection'
+import InstagramFeedSection from '@/components/sections/InstagramFeedSection'
 
 export default function ChiSiamo() {
   return (
@@ -47,21 +50,24 @@ export default function ChiSiamo() {
         description={{
           short:
             'Una struttura immersa nel verde, dove ogni barboncino cresce in libertà. Tre obiettivi guidano ogni scelta: cuccioli sani, belli ed equilibrati.',
-          full: 'Una struttura immersa nel verde della natura, in piena sintonia con lo spirito libero dei nostri barboni. Ogni scelta è guidata da tre obiettivi: cuccioli sani grazie a controlli sanitari rigorosi, belli attraverso una selezione attenta, ed equilibrati con il programma Biosensor e tre mesi di socializzazione in famiglia.',
+          full: "Una struttura immersa nel verde della natura, in piena sintonia con l'aspetto wild dei nostri barboni. Salute, selezione ed equilibrio caratteriale: ogni decisione segue un criterio preciso, dalla scelta dei riproduttori ai primi tre mesi di vita del cucciolo.",
         }}
         cta={[
-          { label: 'Struttura', to: '/chi-siamo#struttura', variant: 'primary' },
-          { label: 'Storia', to: '/chi-siamo#storia', variant: 'outline' },
+          { label: 'Struttura', to: '#struttura', variant: 'primary' },
+          { label: 'Filosofia', to: '#filosofia', variant: 'outline' },
         ]}
       />
 
       <StoriaLaylaSection />
-      <CredenzialiSection />
       <ValoriSection />
+      <CredenzialiSection />
+      <CaniVitaSection />
       <StrutturaDSection />
       <TimelineSection />
       <WorldMapSection />
       <ChiSiamoCta />
+      <ContactSection />
+      <InstagramFeedSection />
     </>
   )
 }

@@ -85,7 +85,8 @@ export default function ContactSection() {
           requestAnimationFrame(() => {
             section.classList.add('ct-entered')
           })
-          observer.disconnect()
+        } else {
+          section.classList.remove('ct-entered')
         }
       },
       { threshold: 0.1, rootMargin: '-20% 0px' },
@@ -165,6 +166,13 @@ export default function ContactSection() {
             <div className="ct-success" role="status">
               <CheckCircle2 size={28} strokeWidth={1.8} />
               <p>Messaggio inviato! Ti risponderemo il prima possibile.</p>
+              <button
+                type="button"
+                className="ct-btn ct-btn--outline"
+                onClick={() => setStatus('idle')}
+              >
+                Invia un altro messaggio
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="ct-form">

@@ -83,7 +83,8 @@ export default function PedigreeSection() {
           requestAnimationFrame(() => {
             section.classList.add('ped-entered')
           })
-          observer.disconnect()
+        } else {
+          section.classList.remove('ped-entered')
         }
       },
       { threshold: 0.1, rootMargin: '-20% 0px' },

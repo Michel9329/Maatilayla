@@ -95,7 +95,8 @@ export default function BlogPreviewSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           section.classList.add('bp-entered')
-          observer.disconnect()
+        } else {
+          section.classList.remove('bp-entered')
         }
       },
       { threshold: 0.1, rootMargin: '-20% 0px' },

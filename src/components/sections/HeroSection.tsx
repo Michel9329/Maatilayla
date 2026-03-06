@@ -134,15 +134,25 @@ export default function HeroSection({
         {/* CTA */}
         {cta && cta.length > 0 && (
           <div className="hero-cta">
-            {cta.map((btn) => (
-              <Link
-                key={btn.to}
-                to={btn.to}
-                className={btn.variant === 'primary' ? 'btn-hero-primary' : 'btn-hero-outline'}
-              >
-                {btn.label}
-              </Link>
-            ))}
+            {cta.map((btn) =>
+              btn.to.startsWith('#') ? (
+                <a
+                  key={btn.to}
+                  href={btn.to}
+                  className={btn.variant === 'primary' ? 'btn-hero-primary' : 'btn-hero-outline'}
+                >
+                  {btn.label}
+                </a>
+              ) : (
+                <Link
+                  key={btn.to}
+                  to={btn.to}
+                  className={btn.variant === 'primary' ? 'btn-hero-primary' : 'btn-hero-outline'}
+                >
+                  {btn.label}
+                </Link>
+              ),
+            )}
           </div>
         )}
       </div>
